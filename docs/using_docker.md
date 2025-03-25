@@ -3,12 +3,12 @@
 ## Docker for development environment
 
 - Install [Docker](https://docs.docker.com/get-docker/).
-- Clone this repo by running `git clone https://github.com/bigbinary/wheel.git`.
-- `cd wheel`
+- Clone this repo by running `git clone https://github.com/bigbinary/QuizIt.git`.
+- `cd QuizIt`
 - If using it for the first time, run `docker-compose build` to build the images.
 - Run `docker-compose run --rm web bin/setup` to create and seed the database.
 - Run `docker-compose up` to start the application and get things up and running.
-- From now onwards, we can just run `docker-compose up` from within the root of the `wheel` directory to bring up the application.
+- From now onwards, we can just run `docker-compose up` from within the root of the `QuizIt` directory to bring up the application.
 
 #### Build images without using cache
 
@@ -19,13 +19,13 @@ While re-building images, docker tries to find it's layers in the cache, which m
 docker-compose build --no-cache
 ```
 
-### Steps to remove docker data related to wheel
+### Steps to remove docker data related to QuizIt
 
-Run `docker ps -a | grep wheel` to get containers related to wheel. Then run `docker rm -f $(docker ps -a | grep wheel | awk '{print $1}')` to delete them.
+Run `docker ps -a | grep QuizIt` to get containers related to QuizIt. Then run `docker rm -f $(docker ps -a | grep QuizIt | awk '{print $1}')` to delete them.
 
-Run `docker images | grep wheel` to get images related to wheel. Then run `docker rmi -f $(docker images | grep wheel | awk '{print $3}')` to delete them.
+Run `docker images | grep QuizIt` to get images related to QuizIt. Then run `docker rmi -f $(docker images | grep QuizIt | awk '{print $3}')` to delete them.
 
-Run `docker volume ls | grep wheel` to get volumes related to wheel. Then run `docker volume rm -f $(docker volume ls | grep wheel | awk '{print $2}')` to delete them.
+Run `docker volume ls | grep QuizIt` to get volumes related to QuizIt. Then run `docker volume rm -f $(docker volume ls | grep QuizIt | awk '{print $2}')` to delete them.
 
 ### Steps to nuke all data and start fresh
 

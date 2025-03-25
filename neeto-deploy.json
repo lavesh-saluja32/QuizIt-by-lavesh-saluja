@@ -1,5 +1,5 @@
 {
-  "name": "wheel",
+  "name": "QuizIt",
   "scripts": {
     "postdeploy": "bundle exec rake db:migrate"
   },

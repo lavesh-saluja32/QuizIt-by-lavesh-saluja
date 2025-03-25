@@ -22,7 +22,7 @@ const Hero = () => (
     <div className="m-auto flex max-w-3xl flex-col items-center justify-center p-8">
       <h1 className="mb-3 text-4xl font-bold">QuizIt</h1>
       <p className="neeto-ui-text-gray-800 mx-auto mb-6 text-center text-lg">
-        Don&apos;t reinvent the wheel. Use sane defaults to bootstrap your
+        Don&apos;t reinvent the QuizIt. Use sane defaults to bootstrap your
         react-rails project!
       </p>
       <Features features={FEATURE_LIST} />

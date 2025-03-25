@@ -20,7 +20,7 @@ global_job_config:
         - bundle exec rubocop
         - bundle exec erblint --lint-all --format compact
         - 'curl -s -L
-          "https://raw.githubusercontent.com/bigbinary/wheel/main/.semaphore/commands/run_eslint_on_modified_files.sh"
+          "https://raw.githubusercontent.com/bigbinary/QuizIt/main/.semaphore/commands/run_eslint_on_modified_files.sh"
           | bash'
         - bundle exec rake db:create db:schema:load --trace
         - bundle exec rails test

@@ -39,7 +39,7 @@ In BigBinary we follow the above mentioned style of installing dependencies
 using `./bin/setup` and then running the servers manually. If that doesn't work
 in your system for some reason, then you can opt into following the instructions
 mentioned
-[here](https://github.com/bigbinary/wheel/blob/main/docs/using_docker.md) to use
+[here](https://github.com/bigbinary/QuizIt/blob/main/docs/using_docker.md) to use
 docker for development.
 
 ## Replace QuizIt with your project name
@@ -83,6 +83,6 @@ QuizIt is hosted in `neeto-engineering` organization.
 
 ![BigBinary](https://raw.githubusercontent.com/bigbinary/bigbinary-assets/press-assets/PNG/logo-light-solid-small.png?raw=true)
 
-wheel is maintained by [BigBinary](https://www.bigbinary.com). BigBinary is a
+QuizIt is maintained by [BigBinary](https://www.bigbinary.com). BigBinary is a
 software consultancy company. We build web and mobile applications using Ruby on
 Rails, React.js, React Native and Node.js.
