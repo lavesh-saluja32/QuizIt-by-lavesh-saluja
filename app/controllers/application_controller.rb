@@ -2,4 +2,14 @@
 
 class ApplicationController < ActionController::Base
   include Expirable
+  include ApiResponders
+  include Loggable
+  include ApiRescuable
+  include Authenticable
+
+  private
+
+    def current_user
+      @current_user
+    end
 end

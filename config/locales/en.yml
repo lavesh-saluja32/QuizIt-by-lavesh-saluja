@@ -30,6 +30,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  password: "must be at least 6 characters long."
   not_found: "%{entity} not found!"
   invalid_credentials: "Incorrect email or password!"
   successfully_created: "%{entity} was successfully created!"
@@ -41,3 +42,4 @@ en:
   signup_successful: "Signup successful. Please login to continue"
   session:
     expiry: "Your session has expired. Please login again."
+    incorrect_credentials: "Incorrect email or password!"

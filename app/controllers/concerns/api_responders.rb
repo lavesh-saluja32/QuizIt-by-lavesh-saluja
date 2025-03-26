@@ -11,7 +11,7 @@ module ApiResponders
       render status:, json: { error: error_message }.merge(context)
     end
 
-    def render_message(message, status = :ok, context = {})
+    def render_notice(message, status = :ok, context = {})
       render status:, json: { notice: message }.merge(context)
     end
 
