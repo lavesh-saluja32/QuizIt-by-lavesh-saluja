@@ -18,4 +18,32 @@
 #  index_users_on_email  (email) UNIQUE
 #
 class User < ApplicationRecord
+  PASSWORD_REQUIREMENTS = /\A
+   (?=.{6,})
+ /x
+  MAX_NAME_LENGTH = 35
+  MAX_EMAIL_LENGTH = 255
+  VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i.freeze
+  VALID_ROLES = %w[admin_user standard_user].freeze
+
+  has_secure_password
+  has_secure_token :authentication_token
+
+  validates :name, presence: true, length: { maximum: MAX_NAME_LENGTH }
+  validates :email, presence: true,
+    uniqueness: { case_sensitive: false },
+    length: { maximum: MAX_EMAIL_LENGTH },
+    format: { with: VALID_EMAIL_REGEX }
+  validates :password, presence: true,
+    format: { with: PASSWORD_REQUIREMENTS, message: I18n.t("password") }
+  validates :password_confirmation, presence: true, if: -> { password.present? }
+  validates :role, inclusion: { in: VALID_ROLES }
+
+  before_save :to_lowercase
+
+  private
+
+    def to_lowercase
+      email.downcase!
+    end
 end
