@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   include Loggable
   include ApiRescuable
   include Authenticable
+  include Pundit::Authorization
 
   private
 
