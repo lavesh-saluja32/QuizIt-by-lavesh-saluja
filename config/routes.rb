@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: :create
       resource :session, only: %i[create destroy]
+      resources :categories, only: %i[create index]
     end
   end
 
