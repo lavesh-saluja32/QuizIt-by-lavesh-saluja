@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include ApiRescuable
   include Expirable
   include ApiResponders
   include Loggable
-  include ApiRescuable
   include Authenticable
-  include Pundit::Authorization
 
   private
 

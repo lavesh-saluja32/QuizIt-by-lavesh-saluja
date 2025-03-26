@@ -1,5 +1,11 @@
 import React from "react";
 
-const App = () => <div>lakslaks</div>;
+import Sidebar from "components/commons/Sidebar";
+
+const App = () => (
+  <div className="flex">
+    <Sidebar />
+  </div>
+);
 
 export default App;
