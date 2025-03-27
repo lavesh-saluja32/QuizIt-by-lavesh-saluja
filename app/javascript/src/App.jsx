@@ -1,11 +1,15 @@
 import React from "react";
 
-import Sidebar from "components/commons/Sidebar";
+import Main from "components/Main";
+import { BrowserRouter as Router } from "react-router-dom";
+
+import "./app.css";
+import "./common/i18n";
 
 const App = () => (
-  <div className="flex">
-    <Sidebar />
-  </div>
+  <Router>
+    <Main />
+  </Router>
 );
 
 export default App;

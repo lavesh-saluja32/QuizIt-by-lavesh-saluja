@@ -1,0 +1,9 @@
+{
+  "quiz": {
+    "title": "All Quizzes",
+    "search": "Search quizzes"
+  },
+  "button": {
+    "addQuiz": "Add new quiz"
+  }
+}

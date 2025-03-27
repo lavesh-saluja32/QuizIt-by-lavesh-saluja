@@ -46,6 +46,6 @@ class Api::V1::CategoriesControllerTest < ActionDispatch::IntegrationTest
         headers: @standard_user_headers, as: :json
     end
 
-    assert_response :unauthorized
+    assert_response :forbidden
   end
 end

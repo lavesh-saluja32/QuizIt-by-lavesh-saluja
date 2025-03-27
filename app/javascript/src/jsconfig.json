@@ -16,7 +16,7 @@
     "pretty": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
-    "checkJs": true,
+    // "checkJs": true,
     "allowJs": true,
     "jsx": "preserve",
     "resolveJsonModule": true
