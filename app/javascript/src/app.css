@@ -1,0 +1,12 @@
+.active-link {
+  color: blue; /* Change icon color */
+  background-color: rgba(130, 130, 246, 0.4); /* Light blue background */
+  border-radius: 6px;
+}
+
+.table .ant-table-thead > tr > th {
+  --neeto-ui-table-header-text-transform: capitalize;
+  background-color: #bac8e0 !important;
+  color: #333;
+  border-right: none !important;
+}
