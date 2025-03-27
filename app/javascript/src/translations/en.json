@@ -1,9 +1,17 @@
 {
   "quiz": {
     "title": "All Quizzes",
-    "search": "Search quizzes"
+    "search": "Search quizzes",
+    "name": "Name",
+    "submissions": "Submission Count",
+    "createdOn": "Created On",
+    "status": "Status",
+    "category": "Category",
+    "publish": "Publish",
+    "unpublish": "Unpublish"
   },
   "button": {
-    "addQuiz": "Add new quiz"
+    "addQuiz": "Add new quiz",
+    "delete": "Delete"
   }
 }

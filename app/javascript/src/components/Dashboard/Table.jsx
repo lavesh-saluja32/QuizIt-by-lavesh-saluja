@@ -7,9 +7,9 @@ import {
   Dropdown,
   Typography,
 } from "@bigbinary/neetoui";
+import { useTranslation } from "react-i18next";
 
 const Table = ({
-  // selectedColumns = [],
   data,
   handleDelete,
   handlePublish,
@@ -17,18 +17,18 @@ const Table = ({
   selectedRowKeys,
   setSelectedRowKeys,
 }) => {
+  const { t } = useTranslation(); // Initialize translation hook
+
   const handleSelect = (selectedRowKeys, selectedRows) => {
     setSelectedRowKeys(selectedRowKeys);
     setSelectedRows(selectedRows);
   };
-  // const { MenuItem } = Dropdown;
-  // const { Button: MenuButton } = MenuItem;
 
   const columns = [
     {
       dataIndex: "name",
       key: "name",
-      title: "Name",
+      title: t("quiz.name"),
       render: text => (
         <Tooltip content={text} position="top">
           <Typography className="max-w-xs truncate" style="body2">
@@ -41,26 +41,26 @@ const Table = ({
     {
       dataIndex: "submissions",
       key: "submissions",
-      title: "Submission Count",
+      title: t("quiz.submissions"),
       width: 100,
     },
     {
       dataIndex: "createdOn",
       key: "createdOn",
-      title: "Created On",
+      title: t("quiz.createdOn"),
       width: 150,
     },
     {
       dataIndex: "status",
       key: "status",
-      title: "Status",
-      render: status => ({ status }),
+      title: t("quiz.status"),
+      render: status => status,
       width: 100,
     },
     {
       dataIndex: "category",
       key: "category",
-      title: "Category",
+      title: t("quiz.category"),
       width: 150,
     },
     {
@@ -85,16 +85,18 @@ const Table = ({
                 )
               }
             >
-              {record.status === "Published" ? "Unpublish" : "Publish"}
+              {record.status === "Published"
+                ? t("quiz.unpublish")
+                : t("quiz.publish")}
             </Dropdown.MenuItem.Button>
             <Dropdown.Divider />
             <Dropdown.MenuItem.Button
-              label="Delete"
+              label={t("button.delete")}
               style="danger"
               type="delete"
               onClick={() => handleDelete(record.id)}
             >
-              Delete
+              {t("button.delete")}
             </Dropdown.MenuItem.Button>
           </Dropdown.Menu>
         </Dropdown>
@@ -104,7 +106,7 @@ const Table = ({
   ];
 
   return (
-    <div className="ant-table-thead">
+    <div>
       <NeetoTable
         enableColumnReorder
         rowSelection
@@ -118,4 +120,5 @@ const Table = ({
     </div>
   );
 };
+
 export default Table;
