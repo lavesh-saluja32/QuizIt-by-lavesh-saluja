@@ -4,10 +4,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users, only: :create
-      resource :session, only: %i[create destroy]
-      resources :categories, only: %i[create index]
-      resources :quizzes, only: %i[index create show update]
+      constraints(lambda { |req| req.format == :json }) do
+        resources :users, only: :create
+        resource :session, only: %i[create destroy]
+        resources :categories, only: %i[create index]
+        resources :quizzes, only: %i[index create show update]
+      end
     end
   end
 

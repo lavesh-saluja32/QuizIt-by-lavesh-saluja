@@ -12,6 +12,35 @@
   },
   "button": {
     "addQuiz": "Add new quiz",
-    "delete": "Delete"
+    "delete": "Delete",
+    "register": "Register",
+    "login": "Login"
+  },
+  "auth": {
+    "signupTitle": "Sign Up",
+    "loginTitle": "Login",
+    "orLogin": "Or Login Now",
+    "orSignup": "Or Register Now",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "passwordConfirmation": "Password Confirmation",
+    "placeholders": {
+      "name": "Enter your name",
+      "email": "Enter your email",
+      "password": "Enter your password",
+      "passwordConfirmation": "Confirm your password"
+    }
+  },
+  "response": {
+    "error": {
+      "default": "Something went wrong!"
+    }
+  },
+  "validation": {
+    "required": "This field is required",
+    "emailInvalid": "Please enter a valid email address",
+    "passwordMin": "Password must be at least 6 characters",
+    "passwordMismatch": "Password does not match"
   }
 }
