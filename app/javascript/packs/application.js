@@ -11,9 +11,15 @@
 import "../stylesheets/application.scss";
 import React from "react";
 import ReactRailsUJS from "react_ujs";
-
+// const { initializeLogger } = require("common/logger");
+// const { registerIntercepts, setAuthHeaders } = require("apis/axios");
+import { initializeLogger } from "../src/common/logger";
+import { registerIntercepts, setAuthHeaders } from "../src/apis/axios";
 import App from "../src/App";
 
+registerIntercepts();
+initializeLogger();
+setAuthHeaders();
 // Support component names relative to this directory:
 const componentsContext = { App };
 ReactRailsUJS.getConstructor = name => {

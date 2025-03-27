@@ -11,7 +11,7 @@ const Dashboard = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="h-screen w-screen p-10">
+    <div className="h-screen w-screen overflow-y-scroll p-10">
       <div className="flex w-full justify-between p-6">
         <Typography style="h1">{t("quiz.title")}</Typography>
         <div className="flex items-center justify-center space-x-3">
