@@ -1,17 +1,24 @@
 import React, { useState } from "react";
 
+import PageLoader from "components/commons/PageLoader";
 import { Typography, Input, Button } from "neetoui/index";
 import { useTranslation } from "react-i18next";
 
-import SidePane from "./AddQuizSidepane";
+import SidePane from "./QuizSidepane";
 import Table from "./Table";
+
+import { useFetchQuizzes } from "../../hooks/useQuizzes";
 
 const Dashboard = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [isSidePaneOpen, setIsSidePaneOpen] = useState(false);
 
+  const { data: { data: { quizzes = [] } = {} } = {}, isLoading } =
+    useFetchQuizzes();
   const { t } = useTranslation();
+
+  if (isLoading) return <PageLoader />;
 
   return (
     <div className="h-screen w-screen overflow-y-scroll p-10">
@@ -30,7 +37,7 @@ const Dashboard = () => {
       <div className="table p-4">
         <Table
           {...{
-            data,
+            data: quizzes,
             selectedRows,
             setSelectedRows,
             selectedRowKeys,
@@ -42,88 +49,5 @@ const Dashboard = () => {
     </div>
   );
 };
-
-const data = [
-  {
-    id: 1,
-    name: "How do you know the solar system?",
-    submissions: 20,
-    createdOn: "10 October 2024",
-    status: "Published",
-    category: "General",
-  },
-  {
-    id: 2,
-    name: "Science and Nature Trivia",
-    submissions: 12,
-    createdOn: "10 October 2024",
-    status: "Draft",
-    category: "Science",
-  },
-  {
-    id: 3,
-    name: "Rails Models",
-    submissions: 55,
-    createdOn: "10 October 2024",
-    status: "Published",
-    category: "Ruby on Rails",
-  },
-  {
-    id: 4,
-    name: "React Hooks",
-    submissions: 34,
-    createdOn: "10 October 2024",
-    status: "Published",
-    category: "React",
-  },
-  {
-    id: 5,
-    name: "World Geography",
-    submissions: 81,
-    createdOn: "10 October 2024",
-    status: "Draft",
-    category: "Science",
-  },
-  {
-    id: 6,
-    name: "Environmental Awareness Quiz",
-    submissions: 13,
-    createdOn: "10 October 2024",
-    status: "Published",
-    category: "General",
-  },
-  {
-    id: 7,
-    name: "History Quiz",
-    submissions: 20,
-    createdOn: "10 October 2024",
-    status: "Published",
-    category: "General",
-  },
-  {
-    id: 8,
-    name: "General Knowledge Challenge",
-    submissions: 10,
-    createdOn: "10 October 2024",
-    status: "Draft",
-    category: "General",
-  },
-  {
-    id: 9,
-    name: "SQL",
-    submissions: 0,
-    createdOn: "10 October 2024",
-    status: "Published",
-    category: "SQL",
-  },
-  {
-    id: 10,
-    name: "ROR General",
-    submissions: 100,
-    createdOn: "10 October 2024",
-    status: "Published",
-    category: "Ruby on Rails",
-  },
-];
 
 export default Dashboard;

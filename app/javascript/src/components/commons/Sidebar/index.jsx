@@ -13,7 +13,7 @@ const Sidebar = () => {
       className={classNames(
         "h-screen w-[5vw] bg-indigo-50 shadow-lg transition-all duration-100",
         {
-          "w-[18vw]": isExpanded,
+          "w-1/4": isExpanded,
         }
       )}
       onMouseOut={() => setIsExpanded(false)}

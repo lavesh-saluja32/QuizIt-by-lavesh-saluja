@@ -4,10 +4,10 @@ import { Pane, Typography } from "@bigbinary/neetoui";
 import { Form, Input, Select, Button } from "@bigbinary/neetoui/formik";
 import { useTranslation } from "react-i18next";
 
-import { QUIZ_VALIDATION_SCHEMA } from "./constants";
+import { QUIZ_VALIDATION_SCHEMA, QUIZ_INITIAL_VALUES } from "./constants";
 
-import useCreateQuiz from "../../../hooks/useCreateQuiz";
 import useCategories from "../../../hooks/useFetchCategories";
+import { useCreateQuiz } from "../../../hooks/useQuizzes";
 
 const QuizForm = ({ isOpen, setIsOpen }) => {
   const { Header, Body, Footer } = Pane;
@@ -15,7 +15,7 @@ const QuizForm = ({ isOpen, setIsOpen }) => {
   const { mutate: createQuiz, isPending } = useCreateQuiz(); // React Query mutation hook
   const handleSubmit = values => {
     createQuiz(
-      { ...values, category_id: values.category.value },
+      { name: values.name, category_id: values.category.value },
       {
         onSuccess: () => setIsOpen(false),
       }
@@ -27,7 +27,7 @@ const QuizForm = ({ isOpen, setIsOpen }) => {
   return (
     <Form
       formikProps={{
-        initialValues: { email: "" },
+        initialValues: QUIZ_INITIAL_VALUES,
         validationSchema: QUIZ_VALIDATION_SCHEMA,
         onSubmit: handleSubmit,
       }}
