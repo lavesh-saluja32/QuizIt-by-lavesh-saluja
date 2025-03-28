@@ -50,7 +50,7 @@ const Login = ({ handleSubmit, loading }) => {
                 type="password"
               />
               <Button
-                disabled={!isValid || !dirty} // Disable if form is invalid or untouched
+                disabled={!isValid || !dirty}
                 label={t("button.login")}
                 loading={loading}
                 type="submit"

@@ -3,11 +3,14 @@ import React, { useState } from "react";
 import { Typography, Input, Button } from "neetoui/index";
 import { useTranslation } from "react-i18next";
 
+import SidePane from "./AddQuizSidepane";
 import Table from "./Table";
 
 const Dashboard = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [isSidePaneOpen, setIsSidePaneOpen] = useState(false);
+
   const { t } = useTranslation();
 
   return (
@@ -20,6 +23,7 @@ const Dashboard = () => {
             className="bg-blue-600"
             label={t("button.addQuiz")}
             style="primary"
+            onClick={() => setIsSidePaneOpen(true)}
           />
         </div>
       </div>
@@ -34,6 +38,7 @@ const Dashboard = () => {
           }}
         />
       </div>
+      <SidePane isOpen={isSidePaneOpen} setIsOpen={setIsSidePaneOpen} />
     </div>
   );
 };

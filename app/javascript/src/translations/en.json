@@ -8,13 +8,16 @@
     "status": "Status",
     "category": "Category",
     "publish": "Publish",
-    "unpublish": "Unpublish"
+    "unpublish": "Unpublish",
+    "placeholder": "Enter quiz name"
   },
   "button": {
     "addQuiz": "Add new quiz",
     "delete": "Delete",
     "register": "Register",
-    "login": "Login"
+    "login": "Login",
+    "save": "Save",
+    "cancel": "Cancel"
   },
   "auth": {
     "signupTitle": "Sign Up",
@@ -42,5 +45,8 @@
     "emailInvalid": "Please enter a valid email address",
     "passwordMin": "Password must be at least 6 characters",
     "passwordMismatch": "Password does not match"
+  },
+  "placeholder": {
+    "selectCategory": "Select Category"
   }
 }
