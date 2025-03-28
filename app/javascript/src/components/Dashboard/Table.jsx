@@ -9,6 +9,9 @@ import {
 } from "@bigbinary/neetoui";
 import { useTranslation } from "react-i18next";
 
+import { formatDate } from "../../utils/formatDate"; // Import the utility function
+import Status from "../commons/Status";
+
 const Table = ({
   data,
   handleDelete,
@@ -39,26 +42,27 @@ const Table = ({
       width: 250,
     },
     {
-      dataIndex: "submissions",
+      dataIndex: "submission_count",
       key: "submissions",
       title: t("quiz.submissions"),
       width: 100,
     },
     {
-      dataIndex: "createdOn",
-      key: "createdOn",
+      dataIndex: "created_at",
+      key: "createdAt",
       title: t("quiz.createdOn"),
+      render: created_at => formatDate(created_at),
       width: 150,
     },
     {
       dataIndex: "status",
       key: "status",
       title: t("quiz.status"),
-      render: status => status,
+      render: status => <Status text={status} />,
       width: 100,
     },
     {
-      dataIndex: "category",
+      dataIndex: "category_name",
       key: "category",
       title: t("quiz.category"),
       width: 150,
@@ -122,3 +126,12 @@ const Table = ({
 };
 
 export default Table;
+
+// author: "Lavesh";
+// category_name: "Science";
+// created_at: "2025-03-28T07:28:50.613Z";
+// id: "bce768fd-667c-45c3-8a5f-ee4a5387f43b";
+// name: "lkas";
+// status: "draft";
+// submission_count: 0;
+// total_questions: 0;

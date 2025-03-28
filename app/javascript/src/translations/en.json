@@ -9,7 +9,9 @@
     "category": "Category",
     "publish": "Publish",
     "unpublish": "Unpublish",
-    "placeholder": "Enter quiz name"
+    "placeholder": "Enter quiz name",
+    "draft": "draft",
+    "published": "published"
   },
   "button": {
     "addQuiz": "Add new quiz",
