@@ -5,7 +5,7 @@ const create = payload =>
     quiz: payload,
   });
 
-const fetch = () => axios.get("/admin/quizzes");
+const fetch = params => axios.get("/admin/quizzes", { params });
 
 const quizzesApi = { create, fetch };
 export default quizzesApi;

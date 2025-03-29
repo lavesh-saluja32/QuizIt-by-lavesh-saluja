@@ -5,3 +5,5 @@ json.quizzes @quizzes do |quiz|
   json.category_name quiz.category.name
   json.author quiz.user.name
 end
+
+json.total_size @quizzes.size

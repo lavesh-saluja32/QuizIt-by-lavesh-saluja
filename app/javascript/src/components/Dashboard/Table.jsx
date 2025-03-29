@@ -110,28 +110,17 @@ const Table = ({
   ];
 
   return (
-    <div>
-      <NeetoTable
-        enableColumnReorder
-        rowSelection
-        bordered={false}
-        columns={columns}
-        dataSource={data}
-        enableColumnResize={false}
-        selectedRowKeys={selectedRowKeys}
-        onRowSelect={handleSelect}
-      />
-    </div>
+    <NeetoTable
+      enableColumnReorder
+      rowSelection
+      bordered={false}
+      columns={columns}
+      dataSource={data}
+      enableColumnResize={false}
+      selectedRowKeys={selectedRowKeys}
+      onRowSelect={handleSelect}
+    />
   );
 };
 
 export default Table;
-
-// author: "Lavesh";
-// category_name: "Science";
-// created_at: "2025-03-28T07:28:50.613Z";
-// id: "bce768fd-667c-45c3-8a5f-ee4a5387f43b";
-// name: "lkas";
-// status: "draft";
-// submission_count: 0;
-// total_questions: 0;
