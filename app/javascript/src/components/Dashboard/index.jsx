@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import useQueryParams from "@bigbinary/neeto-commons-frontend/react-utils/useQueryParams";
 import PageLoader from "components/commons/PageLoader";
 import { Typography, Input, Button } from "neetoui/index";
 import { useTranslation } from "react-i18next";
@@ -14,14 +15,16 @@ const Dashboard = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [isSidePaneOpen, setIsSidePaneOpen] = useState(false);
 
-  const { data: { data: { quizzes = [] } = {} } = {}, isLoading } =
-    useFetchQuizzes();
   const { t } = useTranslation();
 
+  const { status } = useQueryParams();
+
+  const { data: { data: { quizzes = [] } = {} } = {}, isLoading } =
+    useFetchQuizzes({ status });
   if (isLoading) return <PageLoader />;
 
   return (
-    <div className="h-screen w-screen overflow-y-scroll p-10">
+    <div className="h-screen w-full overflow-y-scroll p-10">
       <div className="flex w-full justify-between p-6">
         <Typography style="h1">{t("quiz.title")}</Typography>
         <div className="flex items-center justify-center space-x-3">

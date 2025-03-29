@@ -19,12 +19,11 @@ export const useCreateQuiz = () => {
     },
   });
 
-  return mutation; // ✅ Return the full mutation object including isLoading
+  return mutation;
 };
 
-export const useFetchQuizzes = () =>
+export const useFetchQuizzes = params =>
   useQuery({
-    queryKey: [QUERY_KEY.QUIZZES], // ✅ Unique key for caching
-    queryFn: quizzesApi.fetch, // ✅ API call function
-    staleTime: 5 * 60 * 1000, // ✅ Cache for 5 minutes
+    queryKey: [QUERY_KEY.QUIZZES, params],
+    queryFn: () => quizzesApi.fetch(params),
   });

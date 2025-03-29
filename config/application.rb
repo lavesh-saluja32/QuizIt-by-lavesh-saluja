@@ -14,6 +14,7 @@ module QuizIt
     config.load_defaults 7.0
 
     config.active_job.queue_adapter = :sidekiq
+    config.autoload_paths << Rails.root.join("services")
 
     # Configuration for the application, engines, and railties goes here.
     #

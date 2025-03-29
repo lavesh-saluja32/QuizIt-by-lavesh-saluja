@@ -107,3 +107,5 @@ group :development do
 end
 
 gem "pundit"
+
+gem "will_paginate"

@@ -19,7 +19,12 @@
     "register": "Register",
     "login": "Login",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "filter": {
+      "all": "All",
+      "draft": "draft",
+      "published": "Published"
+    }
   },
   "auth": {
     "signupTitle": "Sign Up",

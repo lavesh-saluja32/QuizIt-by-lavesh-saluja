@@ -11,9 +11,10 @@ const Sidebar = () => {
   return (
     <div
       className={classNames(
-        "h-screen w-[5vw] bg-indigo-50 shadow-lg transition-all duration-100",
+        "h-screen bg-indigo-50 shadow-lg transition-all duration-100",
         {
-          "w-1/4": isExpanded,
+          "w-[20vw]": isExpanded,
+          "w-[5vw]": !isExpanded,
         }
       )}
       onMouseOut={() => setIsExpanded(false)}
