@@ -16,7 +16,7 @@ const Main = () => {
   const isLoggedIn = !either(isNil, isEmpty)(authToken);
 
   return (
-    <div className="flex">
+    <div className="flex h-screen w-full">
       <Sidebar />
       <Switch>
         <Route exact component={Login} path={routes.authentication.login} />

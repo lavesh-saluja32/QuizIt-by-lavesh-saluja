@@ -2,10 +2,12 @@ import React, { useState } from "react";
 
 import useQueryParams from "@bigbinary/neeto-commons-frontend/react-utils/useQueryParams";
 import PageLoader from "components/commons/PageLoader";
-import { Typography, Input, Button } from "neetoui/index";
+import { Typography, Button, Pagination } from "neetoui/index";
 import { useTranslation } from "react-i18next";
 
 import SidePane from "./QuizSidepane";
+import { DEFAULT_PAGE_SIZE } from "./QuizSidepane/constants";
+import SearchInput from "./SearchInput";
 import Table from "./Table";
 
 import { useFetchQuizzes } from "../../hooks/useQuizzes";
@@ -17,18 +19,20 @@ const Dashboard = () => {
 
   const { t } = useTranslation();
 
-  const { status } = useQueryParams();
+  const { status, page = 1, search } = useQueryParams();
 
-  const { data: { data: { quizzes = [] } = {} } = {}, isLoading } =
-    useFetchQuizzes({ status });
+  const {
+    data: { data: { quizzes = [], total_size: totalSize = 0 } = {} } = {},
+    isLoading,
+  } = useFetchQuizzes({ status, page, search });
   if (isLoading) return <PageLoader />;
 
   return (
-    <div className="h-screen w-full overflow-y-scroll p-10">
+    <div className="flex h-screen w-full flex-grow flex-col p-10 transition-all duration-300">
       <div className="flex w-full justify-between p-6">
         <Typography style="h1">{t("quiz.title")}</Typography>
         <div className="flex items-center justify-center space-x-3">
-          <Input className="w-[15vw]" placeholder={t("quiz.search")} />
+          <SearchInput searchKey={search} />
           <Button
             className="bg-blue-600"
             label={t("button.addQuiz")}
@@ -37,7 +41,7 @@ const Dashboard = () => {
           />
         </div>
       </div>
-      <div className="table p-4">
+      <div className="table flex-grow overflow-auto p-4">
         <Table
           {...{
             data: quizzes,
@@ -46,6 +50,13 @@ const Dashboard = () => {
             selectedRowKeys,
             setSelectedRowKeys,
           }}
+        />
+      </div>
+      <div className="mt-4">
+        <Pagination
+          count={totalSize}
+          pageNo={Number(page)}
+          pageSize={DEFAULT_PAGE_SIZE}
         />
       </div>
       <SidePane isOpen={isSidePaneOpen} setIsOpen={setIsSidePaneOpen} />

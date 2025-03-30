@@ -14,18 +14,6 @@
   display: flex;
   justify-content: flex-start !important;
 }
-
-.custom-pagination .neeto-ui-pagination__item--navigate {
-  display: flex;
-  align-items: center;
-  gap: 4px; /* Add spacing between icon and text */
-}
-
-.custom-pagination .neeto-ui-pagination__item--navigate a::after {
-  content: "Previous" !important;
-  font-size: 14px;
-}
-
-.custom-pagination .neeto-ui-pagination__item--navigate:last-child a::after {
-  content: "Next"  !important;
+.active{
+    background-color: theme('colors.blue.500') !important;
 }

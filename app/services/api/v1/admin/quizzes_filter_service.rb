@@ -4,7 +4,7 @@ class Api::V1::Admin::QuizzesFilterService
   DEFAULT_PAGE = 1
   DEFAULT_PAGE_SIZE = 8
 
-  attr_reader :params
+  attr_reader :params, :filtered_size, :quizzes
 
   def initialize(quizzes, params)
     @quizzes = quizzes
@@ -13,8 +13,10 @@ class Api::V1::Admin::QuizzesFilterService
 
   def process!
     filter_by_status
+    # filter_by_search_term
+    @filtered_size = @quizzes.count
     filter_by_pagination
-    @quizzes
+    self
   end
 
   private
@@ -23,7 +25,7 @@ class Api::V1::Admin::QuizzesFilterService
       return unless params[:status].present?
       return if params[:status] == "all"
 
-      @quizzes = @quizzes.where(status: params[:status]) # ✅ Correctly modifies instance variable
+      @quizzes = @quizzes.where(status: params[:status])
     end
 
     def filter_by_pagination

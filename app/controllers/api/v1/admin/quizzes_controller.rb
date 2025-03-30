@@ -5,10 +5,10 @@ class Api::V1::Admin::QuizzesController < ApplicationController
   before_action :load_quiz!, only: %i[update]
 
   def index
-    @quizzes = Quiz.includes(:category, :user)
-    @quizzes = policy_scope([:admin, @quizzes])
-    @quizzes = Api::V1::Admin::QuizzesFilterService.new(@quizzes, params).process!
-    puts @quizzes
+    @quizzes = policy_scope([:admin, Quiz.includes(:category, :user)])
+    @quizzes_filter = Api::V1::Admin::QuizzesFilterService.new(@quizzes, params).process!
+    @quizzes = @quizzes_filter.quizzes
+    @total_size = @quizzes_filter.filtered_size
     render "api/v1/quizzes/index"
   end
 

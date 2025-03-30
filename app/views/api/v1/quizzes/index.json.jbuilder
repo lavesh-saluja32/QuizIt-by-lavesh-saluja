@@ -6,4 +6,4 @@ json.quizzes @quizzes do |quiz|
   json.author quiz.user.name
 end
 
-json.total_size @quizzes.size
+json.total_size @total_size
