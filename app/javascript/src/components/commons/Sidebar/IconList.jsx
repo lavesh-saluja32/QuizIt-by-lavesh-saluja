@@ -12,7 +12,7 @@ const IconList = ({ isExpanded }) => (
     className={classNames(
       "flex  h-full w-full flex-col items-center space-y-2  p-2 pt-3 transition-all",
       {
-        " h-0 w-0 opacity-0": isExpanded,
+        " hidden": isExpanded,
       }
     )}
   >

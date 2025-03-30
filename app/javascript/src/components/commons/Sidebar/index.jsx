@@ -20,11 +20,8 @@ const Sidebar = () => {
       onMouseOut={() => setIsExpanded(false)}
       onMouseOver={() => setIsExpanded(true)}
     >
-      {!isExpanded ? (
-        <SidebarMenu {...{ isExpanded }} />
-      ) : (
-        <ExpandedSidebar {...{ isExpanded }} />
-      )}
+      <SidebarMenu {...{ isExpanded }} />
+      <ExpandedSidebar {...{ isExpanded }} />
     </div>
   );
 };

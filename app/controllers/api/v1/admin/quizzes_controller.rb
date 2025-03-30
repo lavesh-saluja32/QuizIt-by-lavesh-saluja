@@ -22,7 +22,6 @@ class Api::V1::Admin::QuizzesController < ApplicationController
     quiz = @current_user.quizzes.new(quiz_params)
     puts quiz_params
     authorize [:admin, quiz]
-    puts "hello LL"
     quiz.save!
     render_json
   end

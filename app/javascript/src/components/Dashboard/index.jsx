@@ -16,10 +16,9 @@ const Dashboard = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [isSidePaneOpen, setIsSidePaneOpen] = useState(false);
-
   const { t } = useTranslation();
 
-  const { status, page = 1, search } = useQueryParams();
+  const { status, page, search } = useQueryParams();
 
   const {
     data: { data: { quizzes = [], total_size: totalSize = 0 } = {} } = {},
@@ -55,7 +54,7 @@ const Dashboard = () => {
       <div className="mt-4">
         <Pagination
           count={totalSize}
-          pageNo={Number(page)}
+          pageNo={Number(page) || 1}
           pageSize={DEFAULT_PAGE_SIZE}
         />
       </div>

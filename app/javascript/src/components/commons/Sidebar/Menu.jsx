@@ -1,30 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import useQueryParams from "@bigbinary/neeto-commons-frontend/react-utils/useQueryParams";
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { Typography, Button } from "@bigbinary/neetoui";
 import classNames from "classnames";
 import { List, Settings, Globe } from "neetoicons";
+import { mergeLeft, omit } from "ramda";
 import { useTranslation } from "react-i18next";
 import { NavLink, useHistory } from "react-router-dom";
 
-import { routes } from "../../../routes";
-
 const Menu = ({ isExpanded }) => {
   const history = useHistory();
-
-  const { status: filterStatus } = useQueryParams();
+  const queryParams = useQueryParams();
+  const [filterStatus, setFilterStatus] = useState(queryParams.status || "");
 
   const { t } = useTranslation();
-  const handleFilterNavigation = status => {
-    const url = status ? buildUrl(routes.root, { status }) : routes.root;
-    history.replace(url);
+  const handleFilterNavigation = () => {
+    const pathname = window.location.pathname;
+    const updatedParams = filterStatus
+      ? mergeLeft({ status: filterStatus }, queryParams)
+      : omit(["status"], queryParams);
+    history.push(buildUrl(pathname, updatedParams));
   };
+
+  useEffect(() => {
+    handleFilterNavigation();
+  }, [filterStatus]);
 
   return (
     <div
       className={classNames(
-        "flex h-full w-full flex-col bg-white p-4 shadow-lg transition-all",
+        "z-50 flex h-full w-full flex-col bg-white p-4 shadow-lg transition-all",
         {
           "h-0 w-0 opacity-0": !isExpanded,
         }
@@ -44,7 +50,7 @@ const Menu = ({ isExpanded }) => {
                 "bg-gray-100": !filterStatus,
               }
             )}
-            onClick={() => handleFilterNavigation("")}
+            onClick={() => setFilterStatus("")}
           >
             <Typography>{t("button.filter.all")}</Typography>
             {/* <span className="rounded bg-gray-200 px-2 py-1 text-xs text-gray-700">
@@ -59,7 +65,7 @@ const Menu = ({ isExpanded }) => {
                 "bg-gray-100": filterStatus === "published",
               }
             )}
-            onClick={() => handleFilterNavigation("published")}
+            onClick={() => setFilterStatus("published")}
           >
             <Typography>{t("button.filter.published")}</Typography>
             {/* <span className="rounded bg-gray-200 px-2 py-1 text-xs text-gray-700">
@@ -75,7 +81,7 @@ const Menu = ({ isExpanded }) => {
                 "bg-gray-100": filterStatus === "draft",
               }
             )}
-            onClick={() => handleFilterNavigation("draft")}
+            onClick={() => setFilterStatus("draft")}
           >
             <Typography>{t("button.filter.draft")}</Typography>
             {/* <span className="rounded bg-gray-200 px-2 py-1 text-xs text-gray-700">

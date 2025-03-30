@@ -13,7 +13,7 @@ class Api::V1::Admin::QuizzesFilterService
 
   def process!
     filter_by_status
-    # filter_by_search_term
+    filter_by_search_term
     @filtered_size = @quizzes.count
     filter_by_pagination
     self
@@ -26,6 +26,12 @@ class Api::V1::Admin::QuizzesFilterService
       return if params[:status] == "all"
 
       @quizzes = @quizzes.where(status: params[:status])
+    end
+
+    def filter_by_search_term
+      return unless params[:search].present?
+
+      @quizzes = @quizzes.where("name ILIKE ?", "%#{params[:search]}%")
     end
 
     def filter_by_pagination
