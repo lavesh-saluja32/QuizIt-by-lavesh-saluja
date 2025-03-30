@@ -6,3 +6,5 @@ export const QUIZ_VALIDATION_SCHEMA = yup.object().shape({
 });
 
 export const QUIZ_INITIAL_VALUES = { name: "", category_id: "" };
+
+export const DEFAULT_PAGE_SIZE = 8;
