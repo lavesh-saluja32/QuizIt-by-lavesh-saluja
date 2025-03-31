@@ -10,7 +10,9 @@ Rails.application.routes.draw do
         resources :categories, only: %i[create index]
         resources :quizzes, only: %i[index create show update]
         namespace :admin do
-          resources :quizzes, only: %i[index create update]
+          resources :quizzes, only: %i[index create update] do
+            resources :questions, only: %i[index create update destroy]
+          end
         end
       end
     end

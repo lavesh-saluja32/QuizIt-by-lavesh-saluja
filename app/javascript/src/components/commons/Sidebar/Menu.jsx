@@ -37,10 +37,12 @@ const Menu = ({ isExpanded }) => {
       )}
     >
       <div className="mb-4">
-        <div className="flex items-center space-x-2 rounded-lg bg-blue-500 p-2 text-white">
-          <List />
-          <span className="font-semibold">Quizzes</span>
-        </div>
+        <NavLink exact activeClassName="active-link" to="/">
+          <div className="flex items-center space-x-2 rounded-lg bg-blue-500 p-2 text-white">
+            <List />
+            <span className="font-semibold">{t("quiz.heading")}</span>
+          </div>
+        </NavLink>
         <div className="mt-2 flex flex-col space-y-2 space-y-3">
           <Button
             style="link"
