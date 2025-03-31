@@ -29,7 +29,25 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
+
 en:
+  option:
+    validations:
+      correct_option: "Only one option can be marked as correct per question"
+      blank_text: "can't be blank"
+      max_length: "is too long (maximum is %{count} characters)"
+      question_required: "must exist"
+      boolean_required: "is not included in the list"
+  question:
+    validations:
+      blank_text: "can't be blank"
+      short_text: "is too short (minimum is %{count} characters)"
+      quiz_required: "A question must belong to a quiz"
+      max_options: "A question cannot have more than %{count} options."
+      only_one_correct_option: "A question must have exactly one correct option."
+      no_options: "No options provided"
+    max_options: "A question can have a maximum of %{count} options."
+    only_one_correct_option: "A question must have exactly one correct option."
   password: "must be at least 6 characters long."
   not_found: "%{entity} not found!"
   invalid_credentials: "Incorrect email or password!"

@@ -1,28 +1,31 @@
 import React, { useEffect, useState } from "react";
 
 import { useFuncDebounce } from "@bigbinary/neeto-commons-frontend/react-utils";
+import useQueryParams from "@bigbinary/neeto-commons-frontend/react-utils/useQueryParams";
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { Input } from "neetoui/index";
+import { mergeLeft, omit } from "ramda";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
-import { routes } from "../../routes";
-
-const QuizSearchInput = ({ searchKey }) => {
+const QuizSearchInput = () => {
   const { t } = useTranslation();
   const history = useHistory();
-  const [searchTerm, setSearchTerm] = useState(searchKey);
+  const queryParams = useQueryParams();
+  const [searchTerm, setSearchTerm] = useState(queryParams.search || "");
 
   const handleSearchNavigation = useFuncDebounce(() => {
-    const url = searchTerm
-      ? buildUrl(routes.root, { search: searchTerm })
-      : routes.root;
-    history.replace(url);
+    const pathname = window.location.pathname;
+
+    // Remove `search` from URL if empty, otherwise update it
+    const updatedParams = searchTerm
+      ? mergeLeft({ search: searchTerm }, queryParams)
+      : omit(["search"], queryParams);
+    history.push(buildUrl(pathname, updatedParams));
   }, 300);
 
   const handleChange = event => {
-    const query = event.target.value.trim();
-    setSearchTerm(query);
+    setSearchTerm(event.target.value);
   };
 
   useEffect(() => {
@@ -31,10 +34,12 @@ const QuizSearchInput = ({ searchKey }) => {
 
   return (
     <Input
+      clearable
       className="w-[15vw]"
       placeholder={t("quiz.search")}
       value={searchTerm}
       onChange={handleChange}
+      onClear={() => setSearchTerm("")} // Clears input on clicking "X"
     />
   );
 };

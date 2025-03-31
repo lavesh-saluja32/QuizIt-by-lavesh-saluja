@@ -28,6 +28,7 @@ class Quiz < ApplicationRecord
   MAX_QUIZ_NAME_LENGTH = 30
   MIN_VALUE = 0
   enum status: { draft: "draft", published: "published" }
+  has_many :questions
   belongs_to :category
   belongs_to :user
 

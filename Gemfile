@@ -109,3 +109,5 @@ end
 gem "pundit"
 
 gem "will_paginate"
+
+gem "pg_search"
