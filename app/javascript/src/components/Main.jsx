@@ -8,6 +8,8 @@ import { Login, Signup } from "./Authentication";
 import PrivateRoute from "./commons/PrivateRoute";
 import Sidebar from "./commons/Sidebar";
 import Dashboard from "./Dashboard";
+import QuestionBuilder from "./Question/Create";
+import Create from "./Quiz/Create";
 
 import { routes } from "../routes";
 
@@ -16,11 +18,17 @@ const Main = () => {
   const isLoggedIn = !either(isNil, isEmpty)(authToken);
 
   return (
-    <div className="flex h-screen w-full">
-      <Sidebar />
+    <div className="flex h-screen w-screen">
+      {isLoggedIn && <Sidebar />}
       <Switch>
         <Route exact component={Login} path={routes.authentication.login} />
         <Route exact component={Signup} path={routes.authentication.signup} />
+        <Route exact component={Create} path={routes.quiz.create} />
+        <Route
+          exact
+          component={QuestionBuilder}
+          path={routes.question.create}
+        />
         <PrivateRoute
           component={Dashboard}
           condition={isLoggedIn}

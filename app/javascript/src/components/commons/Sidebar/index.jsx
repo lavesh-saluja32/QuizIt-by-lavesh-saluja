@@ -11,7 +11,7 @@ const Sidebar = () => {
   return (
     <div
       className={classNames(
-        "h-screen bg-indigo-50 shadow-lg transition-all duration-100",
+        "h-full bg-indigo-50 shadow-lg transition-all duration-100",
         {
           "w-[20vw]": isExpanded,
           "w-[5vw]": !isExpanded,
