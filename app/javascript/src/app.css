@@ -1,3 +1,6 @@
+*{
+  box-sizing: border-box;
+}
 .active-link {
   color: blue; /* Change icon color */
   background-color: rgba(130, 130, 246, 0.4); /* Light blue background */
@@ -16,4 +19,11 @@
 }
 .active{
     background-color: theme('colors.blue.500') !important;
+}
+.active-quiz-link{
+  font-weight: bold;
+}
+.custom-input {
+  --neeto-ui-input-bg-color: transparent;
+  --neeto-ui-input-font-size:1.5rem;
 }

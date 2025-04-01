@@ -30,9 +30,9 @@ const Menu = ({ isExpanded }) => {
   return (
     <div
       className={classNames(
-        "z-50 flex h-full w-full flex-col bg-white p-4 shadow-lg transition-all",
+        "flex h-full w-full flex-col bg-white p-4 shadow-lg transition-all ",
         {
-          "h-0 w-0 opacity-0": !isExpanded,
+          " hidden": !isExpanded,
         }
       )}
     >
@@ -78,7 +78,7 @@ const Menu = ({ isExpanded }) => {
           <Button
             style="link"
             className={classNames(
-              "flex items-center justify-between rounded p-2 hover:bg-gray-100",
+              "flex items-center justify-between rounded p-2 hover:bg-gray-100 ",
               {
                 "bg-gray-100": filterStatus === "draft",
               }

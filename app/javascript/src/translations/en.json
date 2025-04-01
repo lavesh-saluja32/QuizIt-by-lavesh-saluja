@@ -16,10 +16,13 @@
   },
   "button": {
     "addQuiz": "Add new quiz",
+    "addQuestion": "Add new question",
+    "option": "Add new option",
     "delete": "Delete",
     "register": "Register",
     "login": "Login",
     "save": "Save",
+    "saveNext": "Save & add new question",
     "cancel": "Cancel",
     "filter": {
       "all": "All",
@@ -52,9 +55,27 @@
     "required": "This field is required",
     "emailInvalid": "Please enter a valid email address",
     "passwordMin": "Password must be at least 6 characters",
-    "passwordMismatch": "Password does not match"
+    "passwordMismatch": "Password does not match",
+    "questionRequired": "Question is required",
+    "optionRequired": "Option is required",
+    "optionMin": "Option cannot be empty",
+    "minOptions": "At least two options are required",
+    "maxOptions": "You can have a maximum of {{max}} options"
   },
   "placeholder": {
-    "selectCategory": "Select Category"
+    "selectCategory": "Select Category",
+    "noQuestions": "There are no questions to show",
+    "question": "Type your question here...",
+    "option": "Type option {{number}}"
+  },
+  "link": {
+    "quiz": {
+      "questions": "Questions",
+      "submissions": "Submissions"
+    },
+    "question": {
+      "question": "Question {{number}}",
+      "allQuestion": "All Questions"
+    }
   }
 }

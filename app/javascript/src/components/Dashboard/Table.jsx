@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@bigbinary/neetoui";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import { formatDate } from "../../utils/formatDate"; // Import the utility function
 import Status from "../commons/Status";
@@ -19,6 +20,7 @@ const Table = ({
   setSelectedRows,
   selectedRowKeys,
   setSelectedRowKeys,
+  handleQuizNavigate,
 }) => {
   const { t } = useTranslation(); // Initialize translation hook
 
@@ -32,10 +34,10 @@ const Table = ({
       dataIndex: "name",
       key: "name",
       title: t("quiz.name"),
-      render: text => (
+      render: (text, record) => (
         <Tooltip content={text} position="top">
           <Typography className="max-w-xs truncate" style="body2">
-            {text}
+            <Link onClick={() => handleQuizNavigate(record.id)}>{text}</Link>
           </Typography>
         </Tooltip>
       ),
@@ -109,6 +111,10 @@ const Table = ({
     },
   ];
 
+  const handleRowClick = (_, record) => {
+    handleQuizNavigate(record.id);
+  };
+
   return (
     <NeetoTable
       enableColumnReorder
@@ -118,6 +124,7 @@ const Table = ({
       dataSource={data}
       enableColumnResize={false}
       selectedRowKeys={selectedRowKeys}
+      onRowClick={handleRowClick}
       onRowSelect={handleSelect}
     />
   );

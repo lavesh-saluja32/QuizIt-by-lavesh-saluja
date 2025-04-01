@@ -10,7 +10,7 @@ import { routes } from "../../../routes";
 const IconList = ({ isExpanded }) => (
   <div
     className={classNames(
-      "flex  h-full w-full flex-col items-center space-y-2  p-2 pt-3 transition-all",
+      "flex  h-full w-full grid-rows-1 flex-col items-center  space-y-2 p-2 pt-3 transition-all",
       {
         " hidden": isExpanded,
       }

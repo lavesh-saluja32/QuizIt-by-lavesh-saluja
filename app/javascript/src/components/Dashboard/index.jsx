@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
 import useQueryParams from "@bigbinary/neeto-commons-frontend/react-utils/useQueryParams";
+import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import PageLoader from "components/commons/PageLoader";
 import { Typography, Button, Pagination } from "neetoui/index";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 
 import SidePane from "./QuizSidepane";
 import { DEFAULT_PAGE_SIZE } from "./QuizSidepane/constants";
@@ -11,12 +13,16 @@ import SearchInput from "./SearchInput";
 import Table from "./Table";
 
 import { useFetchQuizzes } from "../../hooks/useQuizzes";
+import { routes } from "../../routes";
 
 const Dashboard = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [isSidePaneOpen, setIsSidePaneOpen] = useState(false);
+
   const { t } = useTranslation();
+
+  const history = useHistory();
 
   const { status, page, search } = useQueryParams();
 
@@ -25,6 +31,11 @@ const Dashboard = () => {
     isLoading,
   } = useFetchQuizzes({ status, page, search });
   if (isLoading) return <PageLoader />;
+
+  const handleQuizNavigate = quizId => {
+    const url = buildUrl(routes.quiz.create, { quizId });
+    history.push(url);
+  };
 
   return (
     <div className="flex h-screen w-full flex-grow flex-col p-10 transition-all duration-300">
@@ -48,6 +59,7 @@ const Dashboard = () => {
             setSelectedRows,
             selectedRowKeys,
             setSelectedRowKeys,
+            handleQuizNavigate,
           }}
         />
       </div>
