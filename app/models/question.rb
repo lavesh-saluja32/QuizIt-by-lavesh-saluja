@@ -21,6 +21,7 @@
 class Question < ApplicationRecord
   MINIMUM_QUESTION_LENGTH = 5
   MAX_OPTIONS_PER_QUESTION = 6
+  MIN_OPTIONS_PER_QUESTION = 2
 
   belongs_to :quiz
   has_many :options
@@ -28,16 +29,17 @@ class Question < ApplicationRecord
   validates :question_text, presence: true, length: { minimum: MINIMUM_QUESTION_LENGTH }
   validates :quiz_id, presence: true
 
-  validate :validate_max_options_per_question
+  validate :validate_options_count
   validate :validate_only_one_correct_option
 
   accepts_nested_attributes_for :options, allow_destroy: true
 
   private
 
-    def validate_max_options_per_question
-      if options.length > MAX_OPTIONS_PER_QUESTION
-        puts "hello 2"
+    def validate_options_count
+      if options.length < MIN_OPTIONS_PER_QUESTION
+        errors.add(:base, I18n.t("question.validations.min_options", count: MIN_OPTIONS_PER_QUESTION))
+      elsif options.length > MAX_OPTIONS_PER_QUESTION
         errors.add(:base, I18n.t("question.validations.max_options", count: MAX_OPTIONS_PER_QUESTION))
       end
     end
@@ -45,8 +47,8 @@ class Question < ApplicationRecord
     def validate_only_one_correct_option
       correct_options = options.select(&:is_correct)
 
-      if correct_options.size > 1
-        raise ActiveRecord::RecordInvalid.new(self), I18n.t("question.validations.only_one_correct_option")
+      if correct_options.size != 1
+        errors.add(:base, I18n.t("question.validations.only_one_correct_option"))
       end
     end
 end

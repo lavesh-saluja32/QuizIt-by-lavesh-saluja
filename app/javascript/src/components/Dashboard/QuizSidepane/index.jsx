@@ -6,8 +6,8 @@ import { useTranslation } from "react-i18next";
 
 import { QUIZ_VALIDATION_SCHEMA, QUIZ_INITIAL_VALUES } from "./constants";
 
-import useCategories from "../../../hooks/useFetchCategories";
-import { useCreateQuiz } from "../../../hooks/useQuizzes";
+import useCategories from "../../../hooks/reactQuery/useFetchCategories";
+import { useCreateQuiz } from "../../../hooks/reactQuery/useQuizzes";
 
 const QuizForm = ({ isOpen, setIsOpen }) => {
   const { Header, Body, Footer } = Pane;

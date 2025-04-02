@@ -1,13 +1,22 @@
 import React from "react";
 
+import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { LeftArrow } from "@bigbinary/neeto-icons";
+import classNames from "classnames";
 import { Button, Typography } from "neetoui/index";
 import { useTranslation } from "react-i18next";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory, useRouteMatch } from "react-router-dom";
 
-const PageHeader = () => {
+import { routes } from "../../routes";
+
+const PageHeader = ({ quizId }) => {
   const { t } = useTranslation();
   const history = useHistory();
+
+  const quizMatch = useRouteMatch("/quiz/:quizId/create");
+  const questionMatch = useRouteMatch(
+    "/question/:quizId/create/:questionNumber"
+  );
 
   return (
     <div className="flex h-20 w-full items-center border-b border-gray-400 bg-slate-100 outline-slate-400">
@@ -23,14 +32,16 @@ const PageHeader = () => {
         <div className="space-x-6">
           <NavLink
             activeClassName="active-quiz-link"
-            className="text-lg"
-            to="#"
+            to={buildUrl(routes.quiz.create, { quizId })}
+            className={classNames("text-lg", {
+              "font-bold": quizMatch || questionMatch,
+            })}
           >
             {t("link.quiz.questions")}
           </NavLink>
           <NavLink
             activeClassName="active-quiz-link"
-            className="text-lg"
+            className="text-lg text-gray-400"
             to="#"
           >
             {t("link.quiz.submissions")}

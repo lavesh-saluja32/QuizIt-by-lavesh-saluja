@@ -66,7 +66,8 @@
     "selectCategory": "Select Category",
     "noQuestions": "There are no questions to show",
     "question": "Type your question here...",
-    "option": "Type option {{number}}"
+    "option": "Type option {{number}}",
+    "totalQuestions": "{{number}} questions"
   },
   "link": {
     "quiz": {

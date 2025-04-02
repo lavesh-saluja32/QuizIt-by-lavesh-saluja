@@ -7,13 +7,13 @@ import QuestionForm from "./Form";
 
 import PageHeader from "../Quiz/PageHeader";
 
-const Create = ({ questionNumber }) => {
-  const { quizId } = useParams();
+const Create = () => {
+  const { quizId, questionNumber } = useParams();
   const { t } = useTranslation();
 
   return (
     <div className="w-screen bg-slate-100">
-      <PageHeader />
+      <PageHeader {...{ quizId }} />
       <div className="flex h-[80vh] w-full items-center justify-center">
         <QuestionForm {...{ questionNumber, quizId, t }} />
       </div>
