@@ -25,8 +25,11 @@ require "test_helper"
 class OptionTest < ActiveSupport::TestCase
   def setup
     @quiz = create(:quiz)
-    @question = create(:question, quiz: @quiz)
+    @question = build(:question, quiz: @quiz)
     @option = build(:option, question: @question)
+    @option2 = build(:option, question: @question, is_correct: true)
+    @question.options << [@option, @option2]
+    @question.save!
   end
 
   def test_valid_option

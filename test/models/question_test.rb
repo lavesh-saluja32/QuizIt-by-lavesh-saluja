@@ -1,33 +1,18 @@
 # frozen_string_literal: true
 
-# == Schema Information
-#
-# Table name: questions
-#
-#  id            :uuid             not null, primary key
-#  question_text :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  quiz_id       :uuid             not null
-#
-# Indexes
-#
-#  index_questions_on_quiz_id  (quiz_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (quiz_id => quizzes.id)
-#
-
 require "test_helper"
 
 class QuestionTest < ActiveSupport::TestCase
   def setup
-    @quiz = create(:quiz) # Assumes you have a factory for Quiz
-    @question = create(:question, quiz: @quiz)
+    @quiz = create(:quiz)
+    @question = build(:question, quiz: @quiz)
   end
 
   def test_valid_question
+    @question.options = [
+      build(:option, is_correct: true),
+      build(:option, is_correct: false)
+    ]
     assert @question.valid?
   end
 
@@ -49,25 +34,49 @@ class QuestionTest < ActiveSupport::TestCase
     assert_includes @question.errors[:quiz_id], I18n.t("question.validations.blank_text")
   end
 
+  def test_question_must_have_at_least_two_options
+    @question.options = [build(:option)]
+    assert_not @question.valid?
+    assert_includes @question.errors[:base], I18n.t("question.validations.min_options", count: 2)
+  end
+
   def test_question_cannot_have_more_than_six_options
-    6.times { create(:option, question: @question) }
-    @question.reload
-    extra_option = build(:option, question: @question)
-
-    @question.options << extra_option
-
+    @question.options = build_list(:option, 7, question: @question)
     assert_not @question.valid?
     assert_includes @question.errors[:base], I18n.t("question.validations.max_options", count: 6)
   end
 
-  def test_question_must_have_only_one_correct_option
-    op1 = build(:option, question: @question, is_correct: true)
-    op2 = build(:option, question: @question, is_correct: true)
-    @question.options << [op1, op2]
-    error_message = I18n.t("question.validations.only_one_correct_option")
+  def test_question_must_have_exactly_one_correct_option
+    @question.options = [
+      build(:option, is_correct: true),
+      build(:option, is_correct: true)
+    ]
+    assert_not @question.valid?
+    assert_includes @question.errors[:base], I18n.t("question.validations.only_one_correct_option")
+  end
 
-    assert_raises(ActiveRecord::RecordInvalid, error_message) do
-      puts @question.save!
-    end
+  def test_question_is_valid_with_exactly_one_correct_option
+    @question.options = [
+      build(:option, is_correct: true),
+      build(:option, is_correct: false)
+    ]
+    assert @question.valid?
+  end
+
+  def test_question_is_invalid_without_any_correct_option
+    @question.options = [
+      build(:option, is_correct: false),
+      build(:option, is_correct: false)
+    ]
+    assert_not @question.valid?
+    assert_includes @question.errors[:base], I18n.t("question.validations.only_one_correct_option")
+  end
+
+  def test_question_with_mixed_correct_and_incorrect_options_is_valid
+    @question.options = [
+      build(:option, is_correct: true, option_text: "Correct Answer"),
+      build(:option, is_correct: false, option_text: "Wrong Answer")
+    ]
+    assert @question.valid?
   end
 end

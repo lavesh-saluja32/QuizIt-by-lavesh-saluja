@@ -1,5 +1,6 @@
 import { BASE_URL } from "constants";
 
+import { keysToCamelCase } from "@bigbinary/neeto-cist";
 import axios from "axios";
 import { t } from "i18next";
 import { Toastr } from "neetoui";
@@ -24,6 +25,7 @@ const setAuthHeaders = () => {
 };
 
 const handleSuccessResponse = response => {
+  response.data = keysToCamelCase(response.data);
   if (response) {
     response.success = response.status === 200;
     if (response.data.notice) {

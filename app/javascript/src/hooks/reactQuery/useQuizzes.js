@@ -2,8 +2,8 @@ import { Toastr } from "@bigbinary/neetoui";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 // import { useHistory } from "react-router-dom";
-import quizzesApi from "../apis/quizzes";
-import { QUERY_KEY } from "../constants/query";
+import quizzesApi from "../../apis/quizzes";
+import { QUERY_KEY } from "../../constants/query";
 
 export const useCreateQuiz = () => {
   // const history = useHistory();

@@ -44,13 +44,13 @@ const Table = ({
       width: 250,
     },
     {
-      dataIndex: "submission_count",
+      dataIndex: "submissionCount",
       key: "submissions",
       title: t("quiz.submissions"),
       width: 100,
     },
     {
-      dataIndex: "created_at",
+      dataIndex: "createdAt",
       key: "createdAt",
       title: t("quiz.createdOn"),
       render: created_at => formatDate(created_at),
@@ -64,7 +64,7 @@ const Table = ({
       width: 100,
     },
     {
-      dataIndex: "category_name",
+      dataIndex: "categoryName",
       key: "category",
       title: t("quiz.category"),
       width: 150,

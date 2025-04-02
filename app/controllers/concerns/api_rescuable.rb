@@ -20,6 +20,8 @@ module ApiRescuable
   private
 
     def handle_validation_error(exception)
+      puts exception.message
+      puts "HI"
       log_exception(exception)
       render_error(exception.record.errors.full_messages.to_sentence, :unprocessable_entity)
     end

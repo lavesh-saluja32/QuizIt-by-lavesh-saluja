@@ -8,7 +8,7 @@ export const routes = {
     create: "/quiz/:quizId/create",
   },
   question: {
-    create: "/question/:quizId/create",
+    create: "/question/:quizId/create/:questionNumber",
     edit: "/question/:questionId/edit",
   },
 };

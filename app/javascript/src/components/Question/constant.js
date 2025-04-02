@@ -24,4 +24,4 @@ export const QUESTION_VALIDATION_SCHEMA = Yup.object({
     .max(MAX_OPTIONS, t("validation.maxOptions", { max: MAX_OPTIONS })),
 });
 
-export const DEFAULT_CORRECT_OPTION = 0;
+export const DEFAULT_CORRECT_OPTION = -1;

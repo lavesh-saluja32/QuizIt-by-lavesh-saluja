@@ -12,7 +12,7 @@ import { DEFAULT_PAGE_SIZE } from "./QuizSidepane/constants";
 import SearchInput from "./SearchInput";
 import Table from "./Table";
 
-import { useFetchQuizzes } from "../../hooks/useQuizzes";
+import { useFetchQuizzes } from "../../hooks/reactQuery/useQuizzes";
 import { routes } from "../../routes";
 
 const Dashboard = () => {
@@ -27,9 +27,10 @@ const Dashboard = () => {
   const { status, page, search } = useQueryParams();
 
   const {
-    data: { data: { quizzes = [], total_size: totalSize = 0 } = {} } = {},
+    data: { data: { quizzes = [], totalSize = 0 } = {} } = {},
     isLoading,
   } = useFetchQuizzes({ status, page, search });
+
   if (isLoading) return <PageLoader />;
 
   const handleQuizNavigate = quizId => {

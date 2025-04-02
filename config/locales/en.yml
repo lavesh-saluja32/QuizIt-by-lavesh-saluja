@@ -44,6 +44,7 @@ en:
       short_text: "is too short (minimum is %{count} characters)"
       quiz_required: "A question must belong to a quiz"
       max_options: "A question cannot have more than %{count} options."
+      min_options: "A question cannot have less than %{count} options."
       only_one_correct_option: "A question must have exactly one correct option."
       no_options: "No options provided"
     max_options: "A question can have a maximum of %{count} options."

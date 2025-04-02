@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 
+import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { Formik, Form, FieldArray } from "formik";
 import { Button } from "neetoui";
+import { useHistory } from "react-router-dom";
 
 import Breadcrumbs from "./Breadcrumbs";
 import {
@@ -13,19 +15,51 @@ import {
 } from "./constant";
 import QuestionInput from "./Input";
 import Option from "./Option";
+import { formatPayload } from "./utlis";
+
+import { useCreateQuestion } from "../../hooks/reactQuery/useQuestions";
+import { routes } from "../../routes";
 
 const QuestionForm = ({ questionNumber, quizId, t }) => {
   const [correctOption, setCorrectOption] = useState(DEFAULT_CORRECT_OPTION);
+  const [isSaveLoading, setIsSaveLoading] = useState(false);
+  const [isSaveNextLoading, setIsSaveNextLoading] = useState(false);
+  const history = useHistory();
 
-  const handleSubmit = () => {
-    // console.log(values);
+  const { mutate: createQuestion } = useCreateQuestion();
+
+  const handleSubmit = (values, actionType) => {
+    const payload = formatPayload(values, correctOption);
+
+    if (actionType === "save") {
+      setIsSaveLoading(true);
+    } else if (actionType === "saveNext") {
+      setIsSaveNextLoading(true);
+    }
+
+    createQuestion(
+      { quizId, payload },
+      {
+        onSuccess: () => {
+          if (actionType === "save") {
+            history.push(buildUrl(routes.quiz.create, { quizId }));
+          } else {
+            history.push(buildUrl(routes.question.create, { quizId }));
+          }
+        },
+        onSettled: () => {
+          setIsSaveLoading(false);
+          setIsSaveNextLoading(false);
+        },
+      }
+    );
   };
 
   return (
     <Formik
       initialValues={QUESTION_INITIAL_VALUES}
       validationSchema={QUESTION_VALIDATION_SCHEMA}
-      onSubmit={handleSubmit}
+      onSubmit={values => handleSubmit(values, "save")}
     >
       {({ values }) => (
         <Form className="flex flex-col space-y-8">
@@ -62,9 +96,17 @@ const QuestionForm = ({ questionNumber, quizId, t }) => {
             <Button
               className="bg-blue-600"
               label={t("button.save")}
-              type="submit"
+              loading={isSaveLoading}
+              type="button"
+              onClick={() => handleSubmit(values, "save")}
             />
-            <Button label={t("button.saveNext")} style="secondary" />
+            <Button
+              label={t("button.saveNext")}
+              loading={isSaveNextLoading}
+              style="secondary"
+              type="button"
+              onClick={() => handleSubmit(values, "saveNext")}
+            />
           </div>
         </Form>
       )}
