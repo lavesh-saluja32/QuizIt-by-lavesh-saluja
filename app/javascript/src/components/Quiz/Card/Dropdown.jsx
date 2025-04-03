@@ -4,7 +4,12 @@ import { MenuHorizontal } from "@bigbinary/neeto-icons";
 import { t } from "i18next";
 import { Dropdown } from "neetoui/index";
 
-const CardDropdown = ({ questionId, handleDelete, handleEditNavigation }) => {
+const CardDropdown = ({
+  questionId,
+  handleDelete,
+  handleEditNavigation,
+  handleClone,
+}) => {
   const { Menu, MenuItem, Divider } = Dropdown;
   const { Button: MenuButton } = MenuItem;
 
@@ -26,7 +31,11 @@ const CardDropdown = ({ questionId, handleDelete, handleEditNavigation }) => {
           </MenuButton>
         </MenuItem>
         <MenuItem>
-          <MenuButton className="text-black" style="link">
+          <MenuButton
+            className="text-black"
+            style="link"
+            onClick={() => handleClone(questionId)}
+          >
             {t("button.clone")}
           </MenuButton>
         </MenuItem>

@@ -3,7 +3,7 @@
 class Api::V1::Admin::QuestionsController < ApplicationController
   after_action :verify_authorized, except: %i[index]
   before_action :load_quiz!, only: %i[index create]
-  before_action :load_question!, only: %i[update destroy show]
+  before_action :load_question!, only: %i[update destroy show clone]
 
   def index
     @questions = policy_scope([:admin, Question]).includes(:options)
@@ -30,7 +30,6 @@ class Api::V1::Admin::QuestionsController < ApplicationController
   end
 
   def show
-    puts "HI"
     authorize([:admin, @question])
     puts @question.inspect
   end
@@ -39,6 +38,15 @@ class Api::V1::Admin::QuestionsController < ApplicationController
     authorize([:admin, @question])
     @question.destroy!
     render_json
+  end
+
+  def clone
+    puts "CLone 1"
+    authorize([:admin, @question])
+    puts "CLone 2"
+
+    @question.clone_question!
+    puts "CLone 3"
   end
 
   private

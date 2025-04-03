@@ -57,7 +57,8 @@
       "quizDeleted": "Quiz deleted successfully!",
       "questionCreated": "Question created successfully!",
       "questionDeleted": "Question deleted successfully!",
-      "questionUpdated": "Question updated successfully!"
+      "questionUpdated": "Question updated successfully!",
+      "questionCloned": "Question cloned successfully"
     }
   },
   "validation": {

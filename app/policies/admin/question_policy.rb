@@ -23,6 +23,10 @@ class Admin::QuestionPolicy
     create?
   end
 
+  def clone?
+    create?
+  end
+
   class Scope
     attr_reader :user, :scope
     def initialize(user, scope)

@@ -8,11 +8,14 @@ const Card = ({
   question: { questionText, id: questionId, options = [] },
   handleDelete,
   handleEditNavigation,
+  handleClone,
 }) => (
   <div className="flex w-[50vw] flex-col space-y-3 bg-white p-3">
     <div className="flex items-center justify-between">
       <Typography weight="bold">{questionText}</Typography>
-      <Dropdown {...{ questionId, handleDelete, handleEditNavigation }} />
+      <Dropdown
+        {...{ questionId, handleDelete, handleEditNavigation, handleClone }}
+      />
     </div>
     <Radio stacked>
       {options.map(({ id, optionText, isCorrect }) => (

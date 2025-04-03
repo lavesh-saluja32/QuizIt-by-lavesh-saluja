@@ -18,6 +18,7 @@
 #
 #  fk_rails_...  (quiz_id => quizzes.id)
 #
+
 class Question < ApplicationRecord
   MINIMUM_QUESTION_LENGTH = 5
   MAX_OPTIONS_PER_QUESTION = 6
@@ -33,6 +34,13 @@ class Question < ApplicationRecord
   validate :validate_only_one_correct_option
 
   accepts_nested_attributes_for :options, allow_destroy: true
+
+  def clone_question!
+    cloned_question = deep_clone include: :options
+    cloned_question.id = nil
+    cloned_question.save!
+    cloned_question
+  end
 
   private
 

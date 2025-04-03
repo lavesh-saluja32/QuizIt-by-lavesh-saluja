@@ -12,6 +12,7 @@ import PageHeader from "./PageHeader";
 import {
   useFetchQuestions,
   useDeleteQuestion,
+  useCloneQuestion,
 } from "../../hooks/reactQuery/useQuestions";
 import { routes } from "../../routes";
 
@@ -28,6 +29,8 @@ const Create = () => {
   const { mutate: deleteQuiz, isPending: isDeleteLoading } =
     useDeleteQuestion();
 
+  const { mutate: cloneQuestion } = useCloneQuestion();
+
   if (isQuestionLoading || isDeleteLoading) return <PageLoader />;
 
   const handleQuestionNavigation = () => {
@@ -37,6 +40,10 @@ const Create = () => {
 
   const handleDelete = questionId => {
     deleteQuiz(questionId);
+  };
+
+  const handleClone = questionId => {
+    cloneQuestion(questionId);
   };
 
   const handleEditNavigation = questionId => {
@@ -63,7 +70,12 @@ const Create = () => {
             {questions.map(question => (
               <QuestionCard
                 key={question.id}
-                {...{ question, handleDelete, handleEditNavigation }}
+                {...{
+                  question,
+                  handleDelete,
+                  handleEditNavigation,
+                  handleClone,
+                }}
               />
             ))}
           </div>

@@ -111,3 +111,5 @@ gem "pundit"
 gem "will_paginate"
 
 gem "pg_search"
+
+gem "deep_cloneable"
