@@ -7,7 +7,7 @@
   border-radius: 6px;
 }
 
-.table .ant-table-thead > tr > th {
+ .ant-table-thead > tr > th {
   --neeto-ui-table-header-text-transform: capitalize;
   background-color: #bac8e0 !important;
   color: #333;

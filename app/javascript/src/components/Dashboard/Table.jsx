@@ -46,6 +46,7 @@ const Table = ({
       dataIndex: "submissionCount",
       key: "submissions",
       title: t("quiz.submissions"),
+      width: 250,
     },
     {
       dataIndex: "createdAt",
@@ -114,8 +115,9 @@ const Table = ({
       enableColumnResize
       rowSelection
       bordered={false}
-      columns={columns}
+      columnData={columns}
       dataSource={data}
+      scroll={{ x: true }}
       selectedRowKeys={selectedRowKeys}
       onRowClick={handleRowClick}
       onRowSelect={handleSelect}
