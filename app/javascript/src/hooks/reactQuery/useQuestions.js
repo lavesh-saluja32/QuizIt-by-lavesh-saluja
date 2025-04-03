@@ -58,3 +58,16 @@ export const useShowQuestion = questionId =>
     queryKey: [QUERY_KEY.QUESTION, questionId],
     queryFn: () => questionsApi.show(questionId),
   });
+
+export const useCloneQuestion = () => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: questionId => questionsApi.clone(questionId),
+    onSuccess: () => {
+      Toastr.success(t("response.success.questionCloned"));
+      queryClient.invalidateQueries(QUERY_KEY.QUESTIONS);
+    },
+  });
+
+  return mutation;
+};

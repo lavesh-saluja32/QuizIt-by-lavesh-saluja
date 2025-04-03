@@ -160,4 +160,29 @@ class Api::V1::Admin::QuestionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :forbidden
   end
+
+  def test_admin_can_clone_question
+    assert_difference("Question.count", 1) do
+      assert_difference("Option.count", 2) do
+        post clone_api_v1_admin_question_url(@question), headers: @admin_headers, as: :json
+      end
+    end
+
+    assert_response :success
+
+    cloned_question = Question.last
+    puts cloned_question.id == @question.id
+    assert_not_equal @question.id, cloned_question.id
+    assert_equal @question.quiz_id, cloned_question.quiz_id
+    assert_equal @question.question_text, cloned_question.question_text
+    assert_equal @question.options.count, cloned_question.options.count
+  end
+
+  def test_standard_user_cannot_clone_question
+    assert_no_difference(["Question.count", "Option.count"]) do
+      post clone_api_v1_admin_question_url(@question), headers: @standard_user_headers, as: :json
+    end
+
+    assert_response :forbidden
+  end
 end
