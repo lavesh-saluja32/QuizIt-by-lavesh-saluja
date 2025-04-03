@@ -14,9 +14,6 @@ export const useCreateQuiz = () => {
       Toastr.success("Quiz created successfully!");
       queryClient.invalidateQueries(QUERY_KEY.QUIZZES);
     },
-    onError: error => {
-      Toastr.error(error?.response?.data?.error || "Failed to create quiz.");
-    },
   });
 
   return mutation;

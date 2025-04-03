@@ -27,8 +27,7 @@ class OptionTest < ActiveSupport::TestCase
     @quiz = create(:quiz)
     @question = build(:question, quiz: @quiz)
     @option = build(:option, question: @question)
-    @option2 = build(:option, question: @question, is_correct: true)
-    @question.options << [@option, @option2]
+    @question.options << [@option]
     @question.save!
   end
 

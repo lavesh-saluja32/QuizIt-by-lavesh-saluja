@@ -28,7 +28,9 @@
       "all": "All",
       "draft": "draft",
       "published": "Published"
-    }
+    },
+    "edit": "Edit",
+    "clone": "Clone"
   },
   "auth": {
     "signupTitle": "Sign Up",
@@ -49,6 +51,13 @@
   "response": {
     "error": {
       "default": "Something went wrong!"
+    },
+    "success": {
+      "quizCreated": "Quiz created successfully!",
+      "quizDeleted": "Quiz deleted successfully!",
+      "questionCreated": "Question created successfully!",
+      "questionDeleted": "Question deleted successfully!",
+      "questionUpdated": "Question updated successfully!"
     }
   },
   "validation": {

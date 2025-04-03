@@ -8,6 +8,7 @@ import { Login, Signup } from "./Authentication";
 import PrivateRoute from "./commons/PrivateRoute";
 import Sidebar from "./commons/Sidebar";
 import Dashboard from "./Dashboard";
+import Edit from "./Edit";
 import QuestionBuilder from "./Question/Create";
 import Create from "./Quiz/Create";
 
@@ -29,6 +30,7 @@ const Main = () => {
           component={QuestionBuilder}
           path={routes.question.create}
         />
+        <Route exact component={Edit} path={routes.question.edit} />
         <PrivateRoute
           component={Dashboard}
           condition={isLoggedIn}
