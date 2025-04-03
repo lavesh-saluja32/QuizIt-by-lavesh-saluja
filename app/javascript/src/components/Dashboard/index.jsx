@@ -39,8 +39,8 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="h-screen flex-1 p-10 transition-all duration-300">
-      <div className="flex flex-1 justify-between p-6">
+    <div className="flex h-full w-full flex-1 flex-col overflow-auto p-10 transition-all duration-300">
+      <div className="flex justify-between p-6">
         <Typography style="h1">{t("quiz.title")}</Typography>
         <div className="flex items-center justify-center space-x-3">
           <SearchInput searchKey={search} />
@@ -52,7 +52,7 @@ const Dashboard = () => {
           />
         </div>
       </div>
-      <div className="table p-4">
+      <div className=" ant-table-thead h-full w-full overflow-auto p-4">
         <Table
           {...{
             data: quizzes,
