@@ -60,7 +60,7 @@ class Api::V1::Admin::QuestionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_admin_can_update_question
-    patch api_v1_admin_quiz_question_url(@question.quiz, @question),
+    patch api_v1_admin_question_url(@question),
       params: { question: { question_text: "Updated Question" } },
       headers: @admin_headers,
       as: :json
@@ -70,7 +70,7 @@ class Api::V1::Admin::QuestionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_standard_user_cannot_update_question
-    patch api_v1_admin_quiz_question_url(@question.quiz, @question),
+    patch api_v1_admin_question_url(@question),
       params: { question: { question_text: "Hacked Question" } },
       headers: @standard_user_headers,
       as: :json
@@ -80,14 +80,14 @@ class Api::V1::Admin::QuestionsControllerTest < ActionDispatch::IntegrationTest
 
   def test_admin_can_delete_question
     assert_difference("Question.count", -1) do
-      delete api_v1_admin_quiz_question_path(@question.quiz, @question), headers: @admin_headers, as: :json
+      delete api_v1_admin_question_url(@question), headers: @admin_headers, as: :json
     end
     assert_response :success
   end
 
   def test_standard_user_cannot_delete_question
     assert_no_difference("Question.count") do
-      delete api_v1_admin_quiz_question_path(@question.quiz, @question), headers: @standard_user_headers, as: :json
+      delete api_v1_admin_question_url(@question), headers: @standard_user_headers, as: :json
     end
     assert_response :forbidden
   end
@@ -141,5 +141,23 @@ class Api::V1::Admin::QuestionsControllerTest < ActionDispatch::IntegrationTest
         as: :json
     end
     assert_response :unprocessable_entity
+  end
+
+  def test_admin_can_view_question
+    get api_v1_admin_question_url(@question), headers: @admin_headers, as: :json
+
+    assert_response :success
+    response_json = response.parsed_body
+
+    assert_equal @question.id, response_json["question"]["id"]
+    assert_equal @question.question_text, response_json["question"]["question_text"]
+    assert_equal @question.quiz_id, response_json["question"]["quiz_id"]
+    assert_equal @question.options.count, response_json["question"]["options"].length
+  end
+
+  def test_standard_user_cannot_view_question
+    get api_v1_admin_question_url(@question), headers: @standard_user_headers, as: :json
+
+    assert_response :forbidden
   end
 end

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
+import PageLoader from "components/commons/PageLoader";
 import { Formik, Form, FieldArray } from "formik";
 import { Button } from "neetoui";
-import { useHistory } from "react-router-dom";
 
 import Breadcrumbs from "./Breadcrumbs";
 import {
@@ -11,59 +10,50 @@ import {
   MAX_OPTIONS,
   OPTION_VALUE,
   QUESTION_VALIDATION_SCHEMA,
-  DEFAULT_CORRECT_OPTION,
 } from "./constant";
 import QuestionInput from "./Input";
 import Option from "./Option";
-import { formatPayload } from "./utlis";
 
-import { useCreateQuestion } from "../../hooks/reactQuery/useQuestions";
-import { routes } from "../../routes";
+const QuestionForm = ({
+  questionNumber,
+  quizId,
+  t,
+  handleSubmit,
+  isSaveLoading,
+  isSaveNextLoading,
+  isSaveNextbutton,
+  correctOption,
+  setCorrectOption,
+  showBreadcrumbs = true,
+  initialQuestion = QUESTION_INITIAL_VALUES,
+}) => {
+  const [formValues, setFormValues] = useState(QUESTION_INITIAL_VALUES);
 
-const QuestionForm = ({ questionNumber, quizId, t }) => {
-  const [correctOption, setCorrectOption] = useState(DEFAULT_CORRECT_OPTION);
-  const [isSaveLoading, setIsSaveLoading] = useState(false);
-  const [isSaveNextLoading, setIsSaveNextLoading] = useState(false);
-  const history = useHistory();
-
-  const { mutate: createQuestion } = useCreateQuestion();
-
-  const handleSubmit = (values, actionType) => {
-    const payload = formatPayload(values, correctOption);
-
-    if (actionType === "save") {
-      setIsSaveLoading(true);
-    } else if (actionType === "saveNext") {
-      setIsSaveNextLoading(true);
+  useEffect(() => {
+    if (initialQuestion) {
+      setFormValues({
+        ...initialQuestion,
+        options: initialQuestion.options ?? [],
+      });
     }
+  }, [initialQuestion]);
 
-    createQuestion(
-      { quizId, payload },
-      {
-        onSuccess: () => {
-          if (actionType === "save") {
-            history.push(buildUrl(routes.quiz.create, { quizId }));
-          } else {
-            history.push(buildUrl(routes.question.create, { quizId }));
-          }
-        },
-        onSettled: () => {
-          setIsSaveLoading(false);
-          setIsSaveNextLoading(false);
-        },
-      }
-    );
-  };
+  if (!initialQuestion) {
+    return <PageLoader />;
+  }
 
   return (
     <Formik
-      initialValues={QUESTION_INITIAL_VALUES}
+      enableReinitialize
+      initialValues={formValues}
       validationSchema={QUESTION_VALIDATION_SCHEMA}
       onSubmit={values => handleSubmit(values, "save")}
     >
-      {({ values }) => (
+      {({ values, isValid, dirty, setFieldValue, setTouched }) => (
         <Form className="flex flex-col space-y-8">
-          <Breadcrumbs {...{ quizId, questionNumber, t }} />
+          {showBreadcrumbs && (
+            <Breadcrumbs {...{ quizId, questionNumber, t }} />
+          )}
           <QuestionInput />
           <FieldArray name="options">
             {({ push, remove }) => (
@@ -77,7 +67,14 @@ const QuestionForm = ({ questionNumber, quizId, t }) => {
                         remove,
                         optionLength: values.options.length,
                         correctOption,
-                        setCorrectOption,
+                        setCorrectOption: newIndex => {
+                          setCorrectOption(newIndex);
+                          setFieldValue(
+                            `options[${newIndex}].is_correct`,
+                            true
+                          );
+                          setTouched(`options[${newIndex}].is_correct`, true);
+                        },
                       }}
                     />
                   ))}
@@ -95,18 +92,22 @@ const QuestionForm = ({ questionNumber, quizId, t }) => {
           <div className="flex space-x-4">
             <Button
               className="bg-blue-600"
+              disabled={!isValid || !dirty}
               label={t("button.save")}
               loading={isSaveLoading}
               type="button"
               onClick={() => handleSubmit(values, "save")}
             />
-            <Button
-              label={t("button.saveNext")}
-              loading={isSaveNextLoading}
-              style="secondary"
-              type="button"
-              onClick={() => handleSubmit(values, "saveNext")}
-            />
+            {isSaveNextbutton && (
+              <Button
+                disabled={!isValid || !dirty}
+                label={t("button.saveNext")}
+                loading={isSaveNextLoading}
+                style="secondary"
+                type="button"
+                onClick={() => handleSubmit(values, "saveNext")}
+              />
+            )}
           </div>
         </Form>
       )}

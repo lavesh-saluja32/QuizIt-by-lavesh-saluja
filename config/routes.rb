@@ -11,7 +11,7 @@ Rails.application.routes.draw do
         resources :quizzes, only: %i[index create show update]
         namespace :admin do
           resources :quizzes, only: %i[index create update] do
-            resources :questions, only: %i[index create update destroy]
+            resources :questions, only: %i[index create update destroy show], shallow: true
           end
         end
       end

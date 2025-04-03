@@ -17,20 +17,28 @@ class Api::V1::Admin::QuestionsController < ApplicationController
   end
 
   def update
-    puts "Update action reached"
-    puts @question.inspect
     authorize([:admin, @question])
-    @question.update!(question_params)
+
+    ActiveRecord::Base.transaction do
+      @question.options.destroy_all
+      @question.update!(question_params)
+    end
+
     render_json
+  rescue ActiveRecord::RecordInvalid => e
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
-  # def show
-  #   authorize([:admin, @question])
-  # end
+  def show
+    puts "HI"
+    authorize([:admin, @question])
+    puts @question.inspect
+  end
 
   def destroy
     authorize([:admin, @question])
     @question.destroy!
+    render_json
   end
 
   private
@@ -41,6 +49,11 @@ class Api::V1::Admin::QuestionsController < ApplicationController
 
     def question_params
       params.require(:question).permit(:question_text, :quiz_id, options_attributes: [:option_text, :is_correct])
+    end
+
+    def update_params
+      puts "1"
+      params.require(:question).permit(:question_text, options_attributes: [:id, :option_text, :is_correct, :_destroy])
     end
 
     def load_question!

@@ -39,7 +39,7 @@ const QuizSearchInput = () => {
       placeholder={t("quiz.search")}
       value={searchTerm}
       onChange={handleChange}
-      onClear={() => setSearchTerm("")} // Clears input on clicking "X"
+      onClear={() => setSearchTerm("")}
     />
   );
 };

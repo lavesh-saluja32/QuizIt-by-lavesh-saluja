@@ -10,7 +10,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { formatDate } from "../../utils/formatDate"; // Import the utility function
+import { formatDate } from "../../utils/formatDate";
 import Status from "../commons/Status";
 
 const Table = ({
@@ -22,7 +22,7 @@ const Table = ({
   setSelectedRowKeys,
   handleQuizNavigate,
 }) => {
-  const { t } = useTranslation(); // Initialize translation hook
+  const { t } = useTranslation();
 
   const handleSelect = (selectedRowKeys, selectedRows) => {
     setSelectedRowKeys(selectedRowKeys);
@@ -41,33 +41,28 @@ const Table = ({
           </Typography>
         </Tooltip>
       ),
-      width: 250,
     },
     {
       dataIndex: "submissionCount",
       key: "submissions",
       title: t("quiz.submissions"),
-      width: 100,
     },
     {
       dataIndex: "createdAt",
       key: "createdAt",
       title: t("quiz.createdOn"),
       render: created_at => formatDate(created_at),
-      width: 150,
     },
     {
       dataIndex: "status",
       key: "status",
       title: t("quiz.status"),
       render: status => <Status text={status} />,
-      width: 100,
     },
     {
       dataIndex: "categoryName",
       key: "category",
       title: t("quiz.category"),
-      width: 150,
     },
     {
       dataIndex: "action",
@@ -107,7 +102,6 @@ const Table = ({
           </Dropdown.Menu>
         </Dropdown>
       ),
-      width: 50,
     },
   ];
 
@@ -117,12 +111,11 @@ const Table = ({
 
   return (
     <NeetoTable
-      enableColumnReorder
+      enableColumnResize
       rowSelection
       bordered={false}
       columns={columns}
       dataSource={data}
-      enableColumnResize={false}
       selectedRowKeys={selectedRowKeys}
       onRowClick={handleRowClick}
       onRowSelect={handleSelect}

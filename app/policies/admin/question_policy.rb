@@ -19,7 +19,7 @@ class Admin::QuestionPolicy
     create?
   end
 
-  def show
+  def show?
     create?
   end
 

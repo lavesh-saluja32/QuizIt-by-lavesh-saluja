@@ -6,10 +6,13 @@ import { Button, Typography } from "neetoui/index";
 import { useTranslation } from "react-i18next";
 import { useParams, useHistory } from "react-router-dom";
 
-import QuestionCard from "./Card";
+import QuestionCard from "./Card/Card";
 import PageHeader from "./PageHeader";
 
-import { useFetchQuestions } from "../../hooks/reactQuery/useQuestions";
+import {
+  useFetchQuestions,
+  useDeleteQuestion,
+} from "../../hooks/reactQuery/useQuestions";
 import { routes } from "../../routes";
 
 const Create = () => {
@@ -17,14 +20,28 @@ const Create = () => {
   const history = useHistory();
   const { t } = useTranslation();
 
-  const { data: { data: { questions = [] } = {} } = {}, isLoading } =
-    useFetchQuestions(quizId);
+  const {
+    data: { data: { questions = [] } = {} } = {},
+    isLoading: isQuestionLoading,
+  } = useFetchQuestions(quizId);
 
-  if (isLoading) return <PageLoader />;
+  const { mutate: deleteQuiz, isPending: isDeleteLoading } =
+    useDeleteQuestion();
+
+  if (isQuestionLoading || isDeleteLoading) return <PageLoader />;
 
   const handleQuestionNavigation = () => {
     const url = buildUrl(routes.question.create, { quizId });
     history.push(url);
+  };
+
+  const handleDelete = questionId => {
+    deleteQuiz(questionId);
+  };
+
+  const handleEditNavigation = questionId => {
+    const url = buildUrl(routes.question.edit, { questionId });
+    history.push({ pathname: url, state: { quizId } });
   };
 
   return (
@@ -44,7 +61,10 @@ const Create = () => {
               {t("placeholder.totalQuestions", { number: questions.length })}
             </Typography>
             {questions.map(question => (
-              <QuestionCard key={question.id} {...{ question }} />
+              <QuestionCard
+                key={question.id}
+                {...{ question, handleDelete, handleEditNavigation }}
+              />
             ))}
           </div>
         ) : (
