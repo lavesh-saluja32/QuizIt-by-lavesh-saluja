@@ -12,7 +12,7 @@ const PublishButton = ({ handlePublish, copyLink, t, quiz }) => (
       <DraftStatus lastSavedAt={quiz.lastSavedAt} t={t} />
     )}
     <div className="flex rounded-md bg-blue-600">
-      <PublishActions handlePublish={handlePublish} quiz={quiz} />
+      <PublishActions {...{ handlePublish, quiz, t }} />
     </div>
     <Button icon={Link} style="text" onClick={copyLink} />
   </div>

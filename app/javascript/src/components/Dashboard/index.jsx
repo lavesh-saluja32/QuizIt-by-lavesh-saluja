@@ -15,6 +15,8 @@ import Table from "./Table/Table";
 import {
   useFetchQuizzes,
   useUpdateQuiz,
+  useCloneQuiz,
+  useDeleteQuiz,
 } from "../../hooks/reactQuery/useQuizzes";
 import { routes } from "../../routes";
 
@@ -33,7 +35,12 @@ const Dashboard = () => {
     data: { data: { quizzes = [], totalSize = 0 } = {} } = {},
     isLoading,
   } = useFetchQuizzes({ status, page, search });
+
   const { mutate: updateQuiz } = useUpdateQuiz();
+
+  const { mutate: cloneQuiz } = useCloneQuiz();
+
+  const { mutate: deleteQuiz, isDeletePending } = useDeleteQuiz();
 
   const handleQuizNavigate = quizId => {
     const url = buildUrl(routes.quiz.create, { quizId });
@@ -42,6 +49,14 @@ const Dashboard = () => {
 
   const handlePublish = ({ quizId, status }) => {
     updateQuiz({ quizId, payload: { status } });
+  };
+
+  const handleDelete = quizId => {
+    deleteQuiz(quizId);
+  };
+
+  const handleClone = quizId => {
+    cloneQuiz(quizId);
   };
 
   if (isLoading) return <PageLoader />;
@@ -70,6 +85,9 @@ const Dashboard = () => {
             setSelectedRowKeys,
             handleQuizNavigate,
             handlePublish,
+            handleDelete,
+            handleClone,
+            isDeletePending,
           }}
         />
       </div>

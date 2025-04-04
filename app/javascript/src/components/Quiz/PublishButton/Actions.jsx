@@ -3,12 +3,12 @@ import React from "react";
 import { Button } from "@bigbinary/neetoui";
 import { ExternalLink } from "neetoicons";
 
-const Actions = ({ quiz, handlePublish }) => {
+const Actions = ({ quiz, handlePublish, t }) => {
   if (quiz.status === "draft") {
     return (
       <Button
         className="bg-blue-600 px-2 text-white"
-        label="Publish"
+        label={t("quiz.publish")}
         style="secondary"
         onClick={() => handlePublish({ quizId: quiz.id, status: "published" })}
       />
@@ -19,7 +19,7 @@ const Actions = ({ quiz, handlePublish }) => {
     <>
       <Button
         className="rounded-none rounded-l-md border-r border-white bg-blue-600 px-2 text-white"
-        label="Unpublish"
+        label={t("quiz.unpublish")}
         style="primary"
         onClick={() => handlePublish({ quizId: quiz.id, status: "draft" })}
       />

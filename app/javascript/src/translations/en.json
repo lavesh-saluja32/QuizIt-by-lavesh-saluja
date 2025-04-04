@@ -57,6 +57,7 @@
       "quizCreated": "Quiz created successfully!",
       "quizDeleted": "Quiz deleted successfully!",
       "quizUpdated": "Quiz updated successfully!",
+      "quizCloned": "Quiz cloned successfully!",
       "questionCreated": "Question created successfully!",
       "questionDeleted": "Question deleted successfully!",
       "questionUpdated": "Question updated successfully!",
@@ -90,5 +91,11 @@
       "question": "Question {{number}}",
       "allQuestion": "All Questions"
     }
+  },
+  "deleteAlert": {
+    "title": "Delete quiz?",
+    "message": "You're about to delete <span>{{name}}?</span> .<br>It'll be permanently deleted and we won't be able to recover it.",
+    "delete": "Yes, delete",
+    "cancel": "No, Cancel"
   }
 }

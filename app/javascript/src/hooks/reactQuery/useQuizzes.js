@@ -42,3 +42,30 @@ export const useShowQuiz = quizId =>
     queryKey: [QUERY_KEY.QUIZ, quizId],
     queryFn: () => quizzesApi.show(quizId),
   });
+
+export const useCloneQuiz = () => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: quizId => quizzesApi.clone(quizId),
+    onSuccess: () => {
+      Toastr.success(t("response.success.quizCloned"));
+      queryClient.invalidateQueries(QUERY_KEY.QUIZZES);
+    },
+  });
+
+  return mutation;
+};
+
+export const useDeleteQuiz = () => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: quizId => quizzesApi.destroy(quizId),
+
+    onSuccess: () => {
+      Toastr.success(t("response.success.quizDeleted"));
+      queryClient.invalidateQueries(QUERY_KEY.QUIZZES);
+    },
+  });
+
+  return mutation;
+};
