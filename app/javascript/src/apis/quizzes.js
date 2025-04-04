@@ -13,5 +13,9 @@ const update = ({ quizId, payload }) =>
 
 const show = quizId => axios.get(`/admin/quizzes/${quizId}`);
 
-const quizzesApi = { create, fetch, update, show };
+const destroy = quizId => axios.delete(`/admin/quizzes/${quizId}`);
+
+const clone = quizId => axios.post(`/admin/quizzes/${quizId}/clone`);
+
+const quizzesApi = { create, fetch, update, show, destroy, clone };
 export default quizzesApi;

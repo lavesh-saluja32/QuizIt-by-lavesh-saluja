@@ -7,7 +7,7 @@ import { Button, Typography } from "neetoui/index";
 import { useTranslation } from "react-i18next";
 import { NavLink, useHistory, useRouteMatch } from "react-router-dom";
 
-import PublishButton from "./Publish/PublishButton";
+import PublishButton from "./PublishButton/PublishButton";
 
 import { routes } from "../../routes";
 

@@ -2,12 +2,12 @@
 
 class Api::V1::Admin::QuizzesController < ApplicationController
   after_action :verify_authorized, except: %i[index]
-  before_action :load_quiz!, only: %i[update show]
+  before_action :load_quiz!, only: %i[update show clone destroy]
 
   def index
     @quizzes = policy_scope([:admin, Quiz.includes(:category, :user)])
     @quizzes_filter = Api::V1::Admin::QuizzesFilterService.new(@quizzes, params).process!
-    @quizzes = @quizzes_filter.quizzes
+    @quizzes = @quizzes_filter.quizzes.order(updated_at: :desc)
     @total_size = @quizzes_filter.filtered_size
     render "api/v1/quizzes/index"
   end
@@ -33,6 +33,17 @@ class Api::V1::Admin::QuizzesController < ApplicationController
     authorize [:admin, @quiz]
   end
 
+  def clone
+    authorize([:admin, @quiz])
+    @quiz.clone_quiz!
+  end
+
+  def destroy
+    authorize([:admin, @quiz])
+    @quiz.destroy
+    render_json
+  end
+
   private
 
     def quiz_params
@@ -44,6 +55,10 @@ class Api::V1::Admin::QuizzesController < ApplicationController
     end
 
     def load_quiz!
-      @quiz = Quiz.find(params[:id])
+      @quiz = if action_name == "destroy"
+        Quiz.includes(questions: :options).find(params[:id])
+              else
+                Quiz.find(params[:id])
+      end
     end
 end

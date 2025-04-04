@@ -23,6 +23,10 @@ class Admin::QuizPolicy
     user.role == "admin_user" && user.id == quiz.user.id
   end
 
+  def clone?
+    update?
+  end
+
   class Scope
     attr_reader :user, :scope
 

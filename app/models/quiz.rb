@@ -29,7 +29,7 @@ class Quiz < ApplicationRecord
   MAX_QUIZ_NAME_LENGTH = 30
   MIN_VALUE = 0
   enum status: { draft: "draft", published: "published" }
-  has_many :questions
+  has_many :questions, dependent: :destroy
   belongs_to :category
   belongs_to :user
 
@@ -39,5 +39,12 @@ class Quiz < ApplicationRecord
 
   def update_last_saved
     update(last_saved_at: Time.current)
+  end
+
+  def clone_quiz!
+    cloned_quiz = deep_clone include: { questions: :options }
+    cloned_quiz.status = "draft"
+    cloned_quiz.save!
+    cloned_quiz
   end
 end

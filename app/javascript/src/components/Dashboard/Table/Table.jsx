@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { Table as NeetoTable } from "@bigbinary/neetoui";
+import { Table as NeetoTable, Tooltip, Typography } from "@bigbinary/neetoui";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-import getColumns from "./tableColumns";
+import TableDropdown from "./ActionDropdown";
+
+import { formatDate } from "../../../utils/formatDate";
+import Status from "../../commons/Status";
+import DeleteAlert from "../DeleteAlert";
 
 const Table = ({
   data,
@@ -13,30 +18,101 @@ const Table = ({
   selectedRowKeys,
   setSelectedRowKeys,
   handleQuizNavigate,
+  handleClone,
+  isDeletePending,
 }) => {
   const { t } = useTranslation();
+  const [quizToDelete, setQuizToDelete] = useState("");
 
   const handleSelect = (selectedRowKeys, selectedRows) => {
     setSelectedRowKeys(selectedRowKeys);
     setSelectedRows(selectedRows);
   };
 
+  const columns = [
+    {
+      dataIndex: "name",
+      key: "name",
+      title: t("quiz.name"),
+      render: (text, record) => (
+        <Tooltip content={text} disabled={text.length <= 20} position="top">
+          <Link
+            className="block text-blue-400"
+            onClick={() => handleQuizNavigate(record.id)}
+          >
+            <Typography className="max-w-xs truncate" style="body2">
+              {text.length > 20 ? `${text.slice(0, 20)}...` : text}
+            </Typography>
+          </Link>
+        </Tooltip>
+      ),
+    },
+    {
+      dataIndex: "submissionCount",
+      key: "submissions",
+      title: t("quiz.submissions"),
+      width: 250,
+    },
+    {
+      dataIndex: "createdAt",
+      key: "createdAt",
+      title: t("quiz.createdOn"),
+      render: created_at => formatDate(created_at),
+    },
+    {
+      dataIndex: "status",
+      key: "status",
+      title: t("quiz.status"),
+      render: status => <Status text={status} />,
+    },
+    {
+      dataIndex: "categoryName",
+      key: "category",
+      title: t("quiz.category"),
+    },
+    {
+      dataIndex: "action",
+      key: "action",
+      title: "",
+      render: (_, record) => (
+        <TableDropdown
+          {...{
+            record,
+            handleDelete,
+            handlePublish,
+            t,
+            handleClone,
+            setQuizToDelete,
+          }}
+        />
+      ),
+    },
+  ];
+
   return (
-    <NeetoTable
-      enableColumnResize
-      rowSelection
-      bordered={false}
-      dataSource={data}
-      scroll={{ x: true }}
-      selectedRowKeys={selectedRowKeys}
-      columnData={getColumns({
-        t,
-        handleDelete,
-        handlePublish,
-        handleQuizNavigate,
-      })}
-      onRowSelect={handleSelect}
-    />
+    <>
+      <NeetoTable
+        enableColumnResize
+        rowSelection
+        bordered={false}
+        columnData={columns}
+        dataSource={data}
+        scroll={{ x: true }}
+        selectedRowKeys={selectedRowKeys}
+        onRowSelect={handleSelect}
+      />
+      <DeleteAlert
+        isDeletePending={isDeletePending}
+        isOpen={!!quizToDelete}
+        quizId={quizToDelete?.id}
+        quizName={quizToDelete?.name}
+        setIsOpen={() => setQuizToDelete(null)}
+        handleDelete={() => {
+          handleDelete(quizToDelete.id);
+          setQuizToDelete("");
+        }}
+      />
+    </>
   );
 };
 
