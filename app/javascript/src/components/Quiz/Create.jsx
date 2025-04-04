@@ -14,6 +14,7 @@ import {
   useDeleteQuestion,
   useCloneQuestion,
 } from "../../hooks/reactQuery/useQuestions";
+import { useShowQuiz, useUpdateQuiz } from "../../hooks/reactQuery/useQuizzes";
 import { routes } from "../../routes";
 
 const Create = () => {
@@ -26,10 +27,14 @@ const Create = () => {
     isLoading: isQuestionLoading,
   } = useFetchQuestions(quizId);
 
+  const { data: { data: { quiz = {} } = {} } = {} } = useShowQuiz(quizId);
+
   const { mutate: deleteQuiz, isPending: isDeleteLoading } =
     useDeleteQuestion();
 
   const { mutate: cloneQuestion } = useCloneQuestion();
+
+  const { mutate: updateQuiz } = useUpdateQuiz();
 
   if (isQuestionLoading || isDeleteLoading) return <PageLoader />;
 
@@ -51,9 +56,13 @@ const Create = () => {
     history.push({ pathname: url, state: { quizId } });
   };
 
+  const handlePublish = ({ quizId, status }) => {
+    updateQuiz({ quizId, payload: { status } });
+  };
+
   return (
     <div className="flex h-screen w-screen flex-col bg-slate-100">
-      <PageHeader {...{ quizId }} />
+      <PageHeader {...{ quizId, quiz, handlePublish }} showPublishButton />
       <div className="m-6 flex justify-end">
         <Button
           className="bg-blue-600"

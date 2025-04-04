@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: quizzes
 #
 #  id               :uuid             not null, primary key
+#  last_saved_at    :datetime
 #  name             :string           not null
 #  status           :string           default("draft"), not null
 #  submission_count :integer          default(0), not null
@@ -22,7 +25,6 @@
 #  fk_rails_...  (category_id => categories.id)
 #  fk_rails_...  (user_id => users.id)
 #
-# frozen_string_literal: true
 
 require "test_helper"
 

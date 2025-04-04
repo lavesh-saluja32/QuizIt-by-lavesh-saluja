@@ -10,9 +10,12 @@ import { useHistory } from "react-router-dom";
 import SidePane from "./QuizSidepane";
 import { DEFAULT_PAGE_SIZE } from "./QuizSidepane/constants";
 import SearchInput from "./SearchInput";
-import Table from "./Table";
+import Table from "./Table/Table";
 
-import { useFetchQuizzes } from "../../hooks/reactQuery/useQuizzes";
+import {
+  useFetchQuizzes,
+  useUpdateQuiz,
+} from "../../hooks/reactQuery/useQuizzes";
 import { routes } from "../../routes";
 
 const Dashboard = () => {
@@ -30,13 +33,18 @@ const Dashboard = () => {
     data: { data: { quizzes = [], totalSize = 0 } = {} } = {},
     isLoading,
   } = useFetchQuizzes({ status, page, search });
-
-  if (isLoading) return <PageLoader />;
+  const { mutate: updateQuiz } = useUpdateQuiz();
 
   const handleQuizNavigate = quizId => {
     const url = buildUrl(routes.quiz.create, { quizId });
     history.push(url);
   };
+
+  const handlePublish = ({ quizId, status }) => {
+    updateQuiz({ quizId, payload: { status } });
+  };
+
+  if (isLoading) return <PageLoader />;
 
   return (
     <div className="flex h-full w-full flex-1 flex-col overflow-auto p-10 transition-all duration-300">
@@ -61,6 +69,7 @@ const Dashboard = () => {
             selectedRowKeys,
             setSelectedRowKeys,
             handleQuizNavigate,
+            handlePublish,
           }}
         />
       </div>

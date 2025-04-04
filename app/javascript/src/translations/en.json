@@ -30,7 +30,8 @@
       "published": "Published"
     },
     "edit": "Edit",
-    "clone": "Clone"
+    "clone": "Clone",
+    "draft": "Draft saved at {{date}}"
   },
   "auth": {
     "signupTitle": "Sign Up",
@@ -55,6 +56,7 @@
     "success": {
       "quizCreated": "Quiz created successfully!",
       "quizDeleted": "Quiz deleted successfully!",
+      "quizUpdated": "Quiz updated successfully!",
       "questionCreated": "Question created successfully!",
       "questionDeleted": "Question deleted successfully!",
       "questionUpdated": "Question updated successfully!",

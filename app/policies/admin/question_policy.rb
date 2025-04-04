@@ -2,6 +2,7 @@
 
 class Admin::QuestionPolicy
   attr_reader :user, :question
+
   def initialize(user, question)
     @user = user
     @question = question
@@ -28,15 +29,17 @@ class Admin::QuestionPolicy
   end
 
   class Scope
-    attr_reader :user, :scope
-    def initialize(user, scope)
+    attr_reader :user, :scope, :quiz_id
+
+    def initialize(user, scope, quiz_id = nil)
       @user = user
       @scope = scope
+      @quiz_id = quiz_id
     end
 
     def resolve
       if user.role == "admin_user"
-        scope.joins(:quiz).where(quizzes: { user_id: user.id }) # Filters at DB level
+        scope.where(quiz_id: quiz_id)
       else
         scope.none
       end

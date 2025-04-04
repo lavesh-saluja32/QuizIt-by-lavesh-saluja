@@ -19,6 +19,10 @@ class Admin::QuizPolicy
     user.role == "admin_user" && user.id == quiz.user.id
   end
 
+  def show?
+    user.role == "admin_user" && user.id == quiz.user.id
+  end
+
   class Scope
     attr_reader :user, :scope
 
