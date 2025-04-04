@@ -39,7 +39,10 @@ const Create = () => {
   if (isQuestionLoading || isDeleteLoading) return <PageLoader />;
 
   const handleQuestionNavigation = () => {
-    const url = buildUrl(routes.question.create, { quizId });
+    const url = buildUrl(routes.question.create, {
+      quizId,
+      questionNumber: questions.length + 1,
+    });
     history.push(url);
   };
 
