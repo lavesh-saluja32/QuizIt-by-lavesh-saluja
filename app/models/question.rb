@@ -28,7 +28,6 @@ class Question < ApplicationRecord
   has_many :options, dependent: :destroy
 
   validates :question_text, presence: true, length: { minimum: MINIMUM_QUESTION_LENGTH }
-  validates :quiz_id, presence: true
 
   validate :validate_options_count
   validate :validate_only_one_correct_option
@@ -45,7 +44,6 @@ class Question < ApplicationRecord
   private
 
     def validate_options_count
-      puts "4"
       if options.length < MIN_OPTIONS_PER_QUESTION
         errors.add(:base, I18n.t("question.validations.min_options", count: MIN_OPTIONS_PER_QUESTION))
       elsif options.length > MAX_OPTIONS_PER_QUESTION
@@ -54,7 +52,6 @@ class Question < ApplicationRecord
     end
 
     def validate_only_one_correct_option
-      puts options.inspect
       correct_options = options.select(&:is_correct)
 
       if correct_options.size != 1

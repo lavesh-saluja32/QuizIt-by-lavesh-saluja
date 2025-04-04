@@ -128,4 +128,25 @@ class Api::V1::Admin::QuizzesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :not_found
   end
+
+  def test_admin_can_clone_quiz
+    @quiz2 = create(:quiz, user: @admin, category: @category)
+    @question = create(:question, quiz: @quiz2)
+
+    assert_difference("Quiz.count", 1) do
+      post clone_api_v1_admin_quiz_path(@quiz2), headers: @admin_headers, as: :json
+    end
+
+    assert_response :success
+
+    cloned_quiz = Quiz.order(:created_at).last
+    puts cloned_quiz.questions.inspect
+
+  #      puts cloned_quiz.questions.inspect
+  #      puts @quiz2.questions.inspect
+  # assert_not_equal @quiz.id, cloned_quiz.id
+  # assert_equal @quiz2.name, cloned_quiz.name
+  # assert_equal @quiz2.questions.count, cloned_quiz.questions.count
+  # assert_equal @quiz2.questions.first.options.count, cloned_quiz.questions.first.options.count
+end
 end

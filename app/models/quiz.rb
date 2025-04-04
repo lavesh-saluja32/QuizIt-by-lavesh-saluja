@@ -40,4 +40,10 @@ class Quiz < ApplicationRecord
   def update_last_saved
     update(last_saved_at: Time.current)
   end
+
+  def clone_quiz!
+    cloned_quiz = deep_clone include: { questions: :options }
+    cloned_quiz.save!
+    cloned_quiz
+  end
 end

@@ -46,12 +46,6 @@ class QuestionTest < ActiveSupport::TestCase
     assert_includes @question.errors[:question_text], I18n.t("question.validations.short_text", count: 5)
   end
 
-  def test_invalid_without_quiz
-    @question.quiz = nil
-    assert_not @question.valid?
-    assert_includes @question.errors[:quiz_id], I18n.t("question.validations.blank_text")
-  end
-
   def test_question_must_have_at_least_two_options
     @question.options = [build(:option)]
     assert_not @question.valid?

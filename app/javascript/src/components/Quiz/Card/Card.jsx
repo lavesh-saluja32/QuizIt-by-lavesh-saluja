@@ -24,7 +24,7 @@ const Card = ({
           checked={isCorrect}
           key={id}
           label={optionText}
-          name={optionText}
+          name={`question-${questionId}`}
           value={id}
         />
       ))}
