@@ -7,9 +7,11 @@ import { Button, Typography } from "neetoui/index";
 import { useTranslation } from "react-i18next";
 import { NavLink, useHistory, useRouteMatch } from "react-router-dom";
 
+import PublishButton from "./Publish/PublishButton";
+
 import { routes } from "../../routes";
 
-const PageHeader = ({ quizId }) => {
+const PageHeader = ({ quizId, showPublishButton, quiz, handlePublish }) => {
   const { t } = useTranslation();
   const history = useHistory();
 
@@ -19,9 +21,14 @@ const PageHeader = ({ quizId }) => {
   );
 
   return (
-    <div className="flex h-20 w-full items-center border-b border-gray-400 bg-slate-100 outline-slate-400">
-      <div className="flex w-1/2 items-center justify-between">
-        <div className="ml-3 flex items-center justify-center space-x-2 p-3">
+    <div className="flex h-20 items-center border-b border-gray-400 bg-slate-100">
+      <div
+        className={classNames("flex w-full items-center", {
+          "justify-between pr-2": showPublishButton,
+          " w-[54vw] justify-between": !showPublishButton,
+        })}
+      >
+        <div className="ml-3 flex items-center justify-center space-x-2 p-3 ">
           <Button
             icon={LeftArrow}
             style="link"
@@ -47,6 +54,7 @@ const PageHeader = ({ quizId }) => {
             {t("link.quiz.submissions")}
           </NavLink>
         </div>
+        {showPublishButton && <PublishButton {...{ t, quiz, handlePublish }} />}
       </div>
     </div>
   );

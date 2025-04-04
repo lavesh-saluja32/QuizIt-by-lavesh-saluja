@@ -18,7 +18,6 @@ class Api::V1::Admin::QuizzesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     response_json = response.parsed_body
-    puts response_json["quizzes"]
     assert_equal @admin.quizzes.count, response_json["quizzes"].length
   end
 
@@ -64,10 +63,69 @@ class Api::V1::Admin::QuizzesControllerTest < ActionDispatch::IntegrationTest
   def test_invalid_params_should_not_create_quiz
     assert_no_difference("Quiz.count") do
       post api_v1_admin_quizzes_path,
-        params: { quiz: { name: "", category_id: "" } }, # Invalid params
+        params: { quiz: { name: "", category_id: "" } },
         headers: @admin_headers,
         as: :json
     end
     assert_response :unprocessable_entity
+  end
+
+  def test_last_saved_at_updates_on_update
+    assert_nil @quiz.last_saved_at
+    patch api_v1_admin_quiz_path(@quiz),
+      params: { quiz: { name: "Updated Quiz Again" } },
+      headers: @admin_headers,
+      as: :json
+
+    assert_response :success
+    assert_not_nil @quiz.reload.last_saved_at
+  end
+
+  def test_admin_can_publish_quiz
+    assert_equal "draft", @quiz.status
+
+    patch api_v1_admin_quiz_path(@quiz),
+      params: { quiz: { status: "published" } },
+      headers: @admin_headers,
+      as: :json
+
+    assert_response :success
+    assert_equal "published", @quiz.reload.status
+  end
+
+  def test_admin_can_unpublish_quiz
+    @quiz.update!(status: "published")
+    assert_equal "published", @quiz.status
+
+    patch api_v1_admin_quiz_path(@quiz),
+      params: { quiz: { status: "draft" } },
+      headers: @admin_headers,
+      as: :json
+
+    assert_response :success
+    assert_equal "draft", @quiz.reload.status
+  end
+
+  def test_admin_can_view_quiz
+    get api_v1_admin_quiz_path(@quiz), headers: @admin_headers, as: :json
+
+    assert_response :success
+
+    response_json = response.parsed_body
+    assert_equal @quiz.id, response_json["quiz"]["id"]
+    assert_equal @quiz.status, response_json["quiz"]["status"]
+    assert_equal @quiz.last_saved_at&.to_s, response_json["quiz"]["last_saved_at"]&.to_s
+  end
+
+  def test_standard_user_cannot_view_quiz
+    get api_v1_admin_quiz_path(@quiz), headers: @standard_user_headers, as: :json
+
+    assert_response :forbidden
+  end
+
+  def test_admin_gets_404_for_nonexistent_quiz
+    get api_v1_admin_quiz_path("non-existent-id"), headers: @admin_headers, as: :json
+
+    assert_response :not_found
   end
 end

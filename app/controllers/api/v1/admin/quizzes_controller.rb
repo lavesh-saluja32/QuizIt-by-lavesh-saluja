@@ -2,7 +2,7 @@
 
 class Api::V1::Admin::QuizzesController < ApplicationController
   after_action :verify_authorized, except: %i[index]
-  before_action :load_quiz!, only: %i[update]
+  before_action :load_quiz!, only: %i[update show]
 
   def index
     @quizzes = policy_scope([:admin, Quiz.includes(:category, :user)])
@@ -15,6 +15,7 @@ class Api::V1::Admin::QuizzesController < ApplicationController
   def update
     authorize [:admin, @quiz]
     @quiz.update!(update_params)
+    @quiz.update_last_saved
     render_json
   end
 
@@ -23,7 +24,13 @@ class Api::V1::Admin::QuizzesController < ApplicationController
     puts quiz_params
     authorize [:admin, quiz]
     quiz.save!
+    puts @quiz.inspect
+    quiz.update_last_saved
     render_json
+  end
+
+  def show
+    authorize [:admin, @quiz]
   end
 
   private
@@ -33,7 +40,7 @@ class Api::V1::Admin::QuizzesController < ApplicationController
     end
 
     def update_params
-      params.require(:quiz).permit(:name)
+      params.require(:quiz).permit(:name, :status)
     end
 
     def load_quiz!

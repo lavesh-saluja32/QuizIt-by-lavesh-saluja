@@ -10,7 +10,6 @@ export const useFetchQuestions = quizId =>
     queryKey: [QUERY_KEY.QUESTIONS, quizId],
     queryFn: () => questionsApi.fetch(quizId),
   });
-
 export const useCreateQuestion = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation({

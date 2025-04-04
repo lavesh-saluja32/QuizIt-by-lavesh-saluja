@@ -5,6 +5,7 @@
 # Table name: quizzes
 #
 #  id               :uuid             not null, primary key
+#  last_saved_at    :datetime
 #  name             :string           not null
 #  status           :string           default("draft"), not null
 #  submission_count :integer          default(0), not null
@@ -35,4 +36,8 @@ class Quiz < ApplicationRecord
   validates :name, presence: true, length: { maximum: MAX_QUIZ_NAME_LENGTH }
   validates :submission_count, numericality: { greater_than_or_equal_to: MIN_VALUE, only_integer: true }
   validates :total_questions, numericality: { greater_than_or_equal_to: MIN_VALUE, only_integer: true }
+
+  def update_last_saved
+    update(last_saved_at: Time.current)
+  end
 end
