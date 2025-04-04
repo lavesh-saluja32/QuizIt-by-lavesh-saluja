@@ -142,11 +142,27 @@ class Api::V1::Admin::QuizzesControllerTest < ActionDispatch::IntegrationTest
     cloned_quiz = Quiz.order(:created_at).last
     puts cloned_quiz.questions.inspect
 
-  #      puts cloned_quiz.questions.inspect
-  #      puts @quiz2.questions.inspect
-  # assert_not_equal @quiz.id, cloned_quiz.id
-  # assert_equal @quiz2.name, cloned_quiz.name
-  # assert_equal @quiz2.questions.count, cloned_quiz.questions.count
-  # assert_equal @quiz2.questions.first.options.count, cloned_quiz.questions.first.options.count
+    puts cloned_quiz.questions.inspect
+    puts @quiz2.questions.inspect
+    assert_not_equal @quiz.id, cloned_quiz.id
+    assert_equal @quiz2.name, cloned_quiz.name
+    assert_equal @quiz2.questions.count, cloned_quiz.questions.count
+    assert_equal @quiz2.questions.first.options.count, cloned_quiz.questions.first.options.count
+  end
+
+  def test_admin_can_destroy_quiz
+    assert_difference("Quiz.count", -1) do
+      delete api_v1_admin_quiz_path(@quiz), headers: @admin_headers, as: :json
+    end
+
+    assert_response :success
 end
+
+  def test_standard_user_cannot_destroy_quiz
+    assert_no_difference("Quiz.count") do
+      delete api_v1_admin_quiz_path(@quiz), headers: @standard_user_headers, as: :json
+    end
+
+    assert_response :forbidden
+  end
 end

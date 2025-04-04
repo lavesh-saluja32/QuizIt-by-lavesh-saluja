@@ -2,7 +2,7 @@
 
 class Api::V1::Admin::QuizzesController < ApplicationController
   after_action :verify_authorized, except: %i[index]
-  before_action :load_quiz!, only: %i[update show clone]
+  before_action :load_quiz!, only: %i[update show clone destroy]
 
   def index
     @quizzes = policy_scope([:admin, Quiz.includes(:category, :user)])
@@ -36,6 +36,11 @@ class Api::V1::Admin::QuizzesController < ApplicationController
   def clone
     authorize([:admin, @quiz])
     @quiz.clone_quiz!
+  end
+
+  def destroy
+    authorize([:admin, @quiz])
+    @quiz.destroy
   end
 
   private
