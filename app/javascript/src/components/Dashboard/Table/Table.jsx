@@ -7,7 +7,10 @@ import { Link } from "react-router-dom";
 
 import TableDropdown from "./ActionDropdown";
 
-import { useBulkDelete } from "../../../hooks/reactQuery/useQuizzes";
+import {
+  useBulkDelete,
+  useBulkUpdate,
+} from "../../../hooks/reactQuery/useQuizzes";
 import useColumnStore from "../../../stores/useColumnStore";
 import { formatDate } from "../../../utils/formatDate";
 import Status from "../../commons/Status";
@@ -48,6 +51,7 @@ const Table = ({
     );
 
   const { mutate: bulkDeleteQuiz } = useBulkDelete();
+  const { mutate: bulkUpdateQuiz } = useBulkUpdate();
 
   const handleBulkDelete = () => {
     bulkDeleteQuiz(
@@ -60,6 +64,11 @@ const Table = ({
         },
       }
     );
+  };
+
+  const handleBulkUpdate = updateParameters => {
+    const ids = selectedRows.map(row => row.id);
+    bulkUpdateQuiz({ ids, ...updateParameters });
   };
 
   const columns = [
@@ -137,6 +146,7 @@ const Table = ({
               t,
               selectedRows,
               setDeleteAllAlert,
+              handleBulkUpdate,
             }}
           />
         }

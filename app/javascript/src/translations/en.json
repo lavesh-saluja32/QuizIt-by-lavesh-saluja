@@ -11,7 +11,7 @@
     "publish": "Publish",
     "unpublish": "Unpublish",
     "placeholder": "Enter quiz name",
-    "draft": "draft",
+    "draft": "Draft",
     "published": "published",
     "filters": "Filters"
   },
@@ -65,7 +65,8 @@
       "questionDeleted": "Question deleted successfully!",
       "questionUpdated": "Question updated successfully!",
       "questionCloned": "Question cloned successfully",
-      "quizBulkDeleted": "Questions deleted successfully "
+      "quizBulkDeleted": "Questions deleted successfully ",
+      "quizBulkUpdated": "Questions updated successfully"
     }
   },
   "validation": {

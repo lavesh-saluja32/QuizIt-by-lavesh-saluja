@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Delete } from "@bigbinary/neeto-icons";
-import { Typography, Button } from "neetoui";
+import { Typography, Button, Dropdown } from "neetoui";
 import { isEmpty } from "ramda";
 import { Trans } from "react-i18next";
 
@@ -16,6 +16,7 @@ const SubHeaderContent = ({
   t,
   selectedRows,
   setDeleteAllAlert,
+  handleBulkUpdate,
 }) => (
   <div className="flex flex-col space-y-1">
     <div>
@@ -36,6 +37,26 @@ const SubHeaderContent = ({
             style="danger"
             onClick={() => setDeleteAllAlert(true)}
           />
+          <Dropdown buttonStyle="secondary" label={t("quiz.status")}>
+            <Dropdown.Menu>
+              <Dropdown.MenuItem>
+                <Dropdown.MenuItem.Button
+                  className="text-black"
+                  onClick={() => handleBulkUpdate({ status: "published" })}
+                >
+                  {t("quiz.publish")}
+                </Dropdown.MenuItem.Button>
+              </Dropdown.MenuItem>
+              <Dropdown.MenuItem>
+                <Dropdown.MenuItem.Button
+                  className="text-black"
+                  onClick={() => handleBulkUpdate({ status: "draft" })}
+                >
+                  {t("quiz.draft")}
+                </Dropdown.MenuItem.Button>
+              </Dropdown.MenuItem>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
       ) : (
         <Trans i18nKey="subheader.filters.totalSize" values={{ totalSize }} />

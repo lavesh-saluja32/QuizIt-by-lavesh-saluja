@@ -83,3 +83,17 @@ export const useBulkDelete = () => {
 
   return mutation;
 };
+
+export const useBulkUpdate = () => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: payload => quizzesApi.bulkUpdate(payload),
+
+    onSuccess: () => {
+      Toastr.success(t("response.success.quizBulkUpdated"));
+      queryClient.invalidateQueries(QUERY_KEY.QUIZZES);
+    },
+  });
+
+  return mutation;
+};
