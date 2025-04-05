@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::Admin::QuizzesController < ApplicationController
-  after_action :verify_authorized, except: %i[index]
+  after_action :verify_authorized, except: %i[index bulk_delete bulk_update]
   before_action :load_quiz!, only: %i[update show clone destroy]
 
   def index
@@ -44,6 +44,18 @@ class Api::V1::Admin::QuizzesController < ApplicationController
     render_json
   end
 
+  def bulk_delete
+    Quiz.where(id: bulk_delete_params[:ids], user_id: current_user.id).destroy_all
+    render_json
+  end
+
+  def bulk_update
+    permitted_params = bulk_update_params
+    updates = permitted_params.slice(:status, :category_id).to_h.compact
+    Quiz.where(id: permitted_params[:ids], user_id: @current_user.id).update_all(updates)
+    render_json
+  end
+
   private
 
     def quiz_params
@@ -60,5 +72,13 @@ class Api::V1::Admin::QuizzesController < ApplicationController
               else
                 Quiz.find(params[:id])
       end
+    end
+
+    def bulk_delete_params
+      params.permit(ids: [])
+    end
+
+    def bulk_update_params
+      params.require(:quizzes).permit(:status, :category_id, ids: [])
     end
 end
