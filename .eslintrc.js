@@ -44,7 +44,7 @@ module.exports = {
       jsx: true,
     },
     babelOptions: {
-      presets: ["@babel/preset-react"],
+      presets: ["@babel/preset-react", "@bigbinary/neeto"],
     },
     ecmaVersion: 2018,
     sourceType: "module",

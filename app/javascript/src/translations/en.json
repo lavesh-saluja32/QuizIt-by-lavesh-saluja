@@ -12,7 +12,8 @@
     "unpublish": "Unpublish",
     "placeholder": "Enter quiz name",
     "draft": "draft",
-    "published": "published"
+    "published": "published",
+    "filters": "Filters"
   },
   "button": {
     "addQuiz": "Add new quiz",
@@ -26,8 +27,10 @@
     "cancel": "Cancel",
     "filter": {
       "all": "All",
-      "draft": "draft",
-      "published": "Published"
+      "draft": "Draft",
+      "published": "Published",
+      "done": "Done",
+      "clear": "Clear filters"
     },
     "edit": "Edit",
     "clone": "Clone",
@@ -80,7 +83,8 @@
     "noQuestions": "There are no questions to show",
     "question": "Type your question here...",
     "option": "Type option {{number}}",
-    "totalQuestions": "{{number}} questions"
+    "totalQuestions": "{{number}} questions",
+    "selectStatus": "Select status"
   },
   "link": {
     "quiz": {
@@ -97,5 +101,13 @@
     "message": "You're about to delete <span>{{name}}?</span> .<br>It'll be permanently deleted and we won't be able to recover it.",
     "delete": "Yes, delete",
     "cancel": "No, Cancel"
+  },
+  "subheader": {
+    "filters": {
+      "totalSize": "{{totalSize}} quizzes",
+      "category": "<strong>Category:</strong> <span>{{categories}}</span>",
+      "name": "<strong>Name:</strong> <span>{{search}}</span>",
+      "status": " <strong>Status:</strong> <span>{{status}}</span>"
+    }
   }
 }

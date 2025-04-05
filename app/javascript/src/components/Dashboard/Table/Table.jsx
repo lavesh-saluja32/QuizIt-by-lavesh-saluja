@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import TableDropdown from "./ActionDropdown";
 
+import useColumnStore from "../../../stores/useColumnStore";
 import { formatDate } from "../../../utils/formatDate";
 import Status from "../../commons/Status";
 import DeleteAlert from "../DeleteAlert";
@@ -28,6 +29,13 @@ const Table = ({
     setSelectedRowKeys(selectedRowKeys);
     setSelectedRows(selectedRows);
   };
+
+  const { visibleColumns } = useColumnStore();
+
+  const getfilteredColumns = () =>
+    columns.filter(
+      column => visibleColumns[column.key] || column.key === "action"
+    );
 
   const columns = [
     {
@@ -95,7 +103,7 @@ const Table = ({
         enableColumnResize
         rowSelection
         bordered={false}
-        columnData={columns}
+        columnData={getfilteredColumns()}
         dataSource={data}
         scroll={{ x: true }}
         selectedRowKeys={selectedRowKeys}
