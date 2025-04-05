@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import useQueryParams from "@bigbinary/neeto-commons-frontend/react-utils/useQueryParams";
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
-import SubHeader from "@bigbinary/neeto-molecules/SubHeader";
 import PageLoader from "components/commons/PageLoader";
 import { Typography, Button, Pagination } from "neetoui/index";
 import { useTranslation } from "react-i18next";
@@ -10,9 +9,7 @@ import { useHistory } from "react-router-dom";
 
 import SidePane from "./QuizSidepane";
 import { DEFAULT_PAGE_SIZE } from "./QuizSidepane/constants";
-import RightBlock from "./RightBlock";
 import SearchInput from "./SearchInput";
-import SubHeaderContent from "./SubHeaderContent";
 import Table from "./Table/Table";
 
 import {
@@ -78,14 +75,6 @@ const Dashboard = () => {
         </div>
       </div>
       <div className=" ant-table-thead h-full w-full overflow-auto p-4">
-        <SubHeader
-          rightActionBlock={<RightBlock />}
-          leftActionBlock={
-            <SubHeaderContent
-              {...{ category, search, status, totalSize, history, t }}
-            />
-          }
-        />
         <Table
           {...{
             data: quizzes,
@@ -98,6 +87,11 @@ const Dashboard = () => {
             handleDelete,
             handleClone,
             isDeletePending,
+            category,
+            search,
+            status,
+            totalSize,
+            history,
           }}
         />
       </div>

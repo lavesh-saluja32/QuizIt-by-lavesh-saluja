@@ -64,7 +64,8 @@
       "questionCreated": "Question created successfully!",
       "questionDeleted": "Question deleted successfully!",
       "questionUpdated": "Question updated successfully!",
-      "questionCloned": "Question cloned successfully"
+      "questionCloned": "Question cloned successfully",
+      "quizBulkDeleted": "Questions deleted successfully "
     }
   },
   "validation": {
@@ -100,14 +101,18 @@
     "title": "Delete quiz?",
     "message": "You're about to delete <span>{{name}}?</span> .<br>It'll be permanently deleted and we won't be able to recover it.",
     "delete": "Yes, delete",
-    "cancel": "No, Cancel"
+    "cancel": "No, Cancel",
+    "bulkMessage": "Are you sure you want to delete <strong>{{count}}</strong> quizzes? This action cannot be undone.",
+    "bulkTitle": "Delete Multiple Quizzes"
   },
   "subheader": {
     "filters": {
-      "totalSize": "{{totalSize}} quizzes",
+      "totalSize": "<strong>{{totalSize}} quizzes</strong>",
       "category": "<strong>Category:</strong> <span>{{categories}}</span>",
       "name": "<strong>Name:</strong> <span>{{search}}</span>",
-      "status": " <strong>Status:</strong> <span>{{status}}</span>"
+      "status": " <strong>Status:</strong> <span>{{status}}</span>",
+      "selectedRow": "<strong>{{selectedRowsSize}} quiz</strong> selected out of {{totalSize}}",
+      "selectedRows": "<strong>{{selectedRowsSize}} quizzes</strong> selected out of {{totalSize}}"
     }
   }
 }

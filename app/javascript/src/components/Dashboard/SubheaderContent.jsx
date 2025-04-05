@@ -1,6 +1,8 @@
 import React from "react";
 
+import { Delete } from "@bigbinary/neeto-icons";
 import { Typography, Button } from "neetoui";
+import { isEmpty } from "ramda";
 import { Trans } from "react-i18next";
 
 import { routes } from "../../routes";
@@ -12,11 +14,33 @@ const SubHeaderContent = ({
   status,
   history,
   t,
+  selectedRows,
+  setDeleteAllAlert,
 }) => (
   <div className="flex flex-col space-y-1">
-    <Typography component="h4" style="h4">
-      <Trans i18nKey="subheader.filters.totalSize" values={{ totalSize }} />
-    </Typography>
+    <div>
+      {!isEmpty(selectedRows) ? (
+        <div className="flex items-center space-x-4">
+          <Trans
+            components={{ strong: <strong className="p-1" /> }}
+            values={{ selectedRowsSize: selectedRows.length, totalSize }}
+            i18nKey={
+              selectedRows.length > 1
+                ? "subheader.filters.selectedRows"
+                : "subheader.filters.selectedRow"
+            }
+          />
+          <Button
+            icon={Delete}
+            label={t("button.delete")}
+            style="danger"
+            onClick={() => setDeleteAllAlert(true)}
+          />
+        </div>
+      ) : (
+        <Trans i18nKey="subheader.filters.totalSize" values={{ totalSize }} />
+      )}
+    </div>
     <div className="flex flex-wrap items-center gap-2 text-sm text-gray-600">
       {search && (
         <Typography>

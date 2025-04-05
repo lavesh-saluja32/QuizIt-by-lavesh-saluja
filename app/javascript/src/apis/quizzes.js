@@ -17,5 +17,10 @@ const destroy = quizId => axios.delete(`/admin/quizzes/${quizId}`);
 
 const clone = quizId => axios.post(`/admin/quizzes/${quizId}/clone`);
 
-const quizzesApi = { create, fetch, update, show, destroy, clone };
+const bulkDelete = ids =>
+  axios.delete("/admin/quizzes/bulk_delete", {
+    data: { ids },
+  });
+
+const quizzesApi = { create, fetch, update, show, destroy, clone, bulkDelete };
 export default quizzesApi;
