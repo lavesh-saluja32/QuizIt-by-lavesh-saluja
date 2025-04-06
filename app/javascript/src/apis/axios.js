@@ -1,6 +1,6 @@
 import { BASE_URL } from "constants";
 
-import { keysToCamelCase } from "@bigbinary/neeto-cist";
+import { keysToCamelCase, keysToSnakeCase } from "@bigbinary/neeto-cist";
 import axios from "axios";
 import { t } from "i18next";
 import { Toastr } from "neetoui";
@@ -53,6 +53,18 @@ const handleErrorResponse = axiosErrorObject => {
 };
 
 const registerIntercepts = () => {
+  axios.interceptors.request.use(request => {
+    if (request.data) {
+      request.data = keysToSnakeCase(request.data);
+    }
+
+    if (request.params) {
+      request.params = keysToSnakeCase(request.params);
+    }
+
+    return request;
+  });
+
   axios.interceptors.response.use(handleSuccessResponse, error =>
     handleErrorResponse(error)
   );

@@ -49,7 +49,7 @@ class QuizzesFilterServiceTest < ActiveSupport::TestCase
   end
 
   def test_should_paginate_results
-    Quiz.delete_all # Ensure a clean slate
+    Quiz.delete_all
     10.times { create(:quiz, user: @admin, category: @category) }
     filtered_quizzes = Api::V1::Admin::QuizzesFilterService.new(Quiz.all, { page: 1 }).process!
     assert_equal 8, filtered_quizzes.quizzes.size # Default page size

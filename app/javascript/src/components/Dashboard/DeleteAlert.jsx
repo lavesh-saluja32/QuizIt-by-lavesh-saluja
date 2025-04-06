@@ -1,32 +1,58 @@
 import React from "react";
 
 import { Alert } from "@bigbinary/neetoui";
-import { Trans } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 const DeleteAlert = ({
-  quizId,
   handleDelete,
   isOpen,
   setIsOpen,
   quizName,
   isDeletePending,
-}) => (
-  <Alert
-    closeButton
-    {...{ isOpen }}
-    cancelButtonLabel={<Trans i18nKey="deleteAlert.cancel" />}
-    isSubmitting={isDeletePending}
-    submitButtonLabel={<Trans i18nKey="deleteAlert.delete" />}
-    title={<Trans i18nKey="deleteAlert.title" />}
-    message={
-      <Trans
-        components={{ span: <span className="font-semibold" />, br: <br /> }}
-        i18nKey="deleteAlert.message"
-        values={{ name: quizName }}
-      />
-    }
-    onClose={() => setIsOpen(false)}
-    onSubmit={() => handleDelete(quizId)}
-  />
-);
+  isDeleteAll,
+  handleBulkDelete,
+  setDeleteAllAlert,
+  selectedRows,
+}) => {
+  const { t } = useTranslation();
+  const title = isDeleteAll
+    ? t("deleteAlert.bulkTitle")
+    : t("deleteAlert.title");
+
+  const message = isDeleteAll ? (
+    <Trans
+      components={{ span: <span className="font-semibold" /> }}
+      i18nKey="deleteAlert.bulkMessage"
+      values={{ count: selectedRows.length }}
+    />
+  ) : (
+    <Trans
+      components={{ span: <span className="font-semibold" /> }}
+      i18nKey="deleteAlert.message"
+      values={{ name: quizName }}
+    />
+  );
+
+  const onSubmit = isDeleteAll
+    ? () => handleBulkDelete()
+    : () => handleDelete();
+
+  return (
+    <Alert
+      closeButton
+      cancelButtonLabel={<Trans i18nKey="deleteAlert.cancel" />}
+      isOpen={isOpen}
+      isSubmitting={isDeletePending}
+      message={message}
+      submitButtonLabel={<Trans i18nKey="deleteAlert.delete" />}
+      title={title}
+      onSubmit={onSubmit}
+      onClose={() => {
+        setDeleteAllAlert(false);
+        setIsOpen(null);
+      }}
+    />
+  );
+};
+
 export default DeleteAlert;

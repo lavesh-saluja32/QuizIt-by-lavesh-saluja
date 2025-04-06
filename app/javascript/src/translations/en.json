@@ -11,7 +11,7 @@
     "publish": "Publish",
     "unpublish": "Unpublish",
     "placeholder": "Enter quiz name",
-    "draft": "draft",
+    "draft": "Draft",
     "published": "published",
     "filters": "Filters"
   },
@@ -32,6 +32,8 @@
       "done": "Done",
       "clear": "Clear filters"
     },
+    "changeStatus": "Change status",
+    "changeCategory": "Change category",
     "edit": "Edit",
     "clone": "Clone",
     "draft": "Draft saved at {{date}}"
@@ -64,7 +66,9 @@
       "questionCreated": "Question created successfully!",
       "questionDeleted": "Question deleted successfully!",
       "questionUpdated": "Question updated successfully!",
-      "questionCloned": "Question cloned successfully"
+      "questionCloned": "Question cloned successfully",
+      "quizBulkDeleted": "Questions deleted successfully ",
+      "quizBulkUpdated": "Questions updated successfully"
     }
   },
   "validation": {
@@ -84,7 +88,8 @@
     "question": "Type your question here...",
     "option": "Type option {{number}}",
     "totalQuestions": "{{number}} questions",
-    "selectStatus": "Select status"
+    "selectStatus": "Select status",
+    "searchCategory": "Search category"
   },
   "link": {
     "quiz": {
@@ -100,14 +105,18 @@
     "title": "Delete quiz?",
     "message": "You're about to delete <span>{{name}}?</span> .<br>It'll be permanently deleted and we won't be able to recover it.",
     "delete": "Yes, delete",
-    "cancel": "No, Cancel"
+    "cancel": "No, Cancel",
+    "bulkMessage": "Are you sure you want to delete <strong>{{count}}</strong> quizzes? This action cannot be undone.",
+    "bulkTitle": "Delete Multiple Quizzes"
   },
   "subheader": {
     "filters": {
-      "totalSize": "{{totalSize}} quizzes",
+      "totalSize": "<strong>{{totalSize}} quizzes</strong>",
       "category": "<strong>Category:</strong> <span>{{categories}}</span>",
       "name": "<strong>Name:</strong> <span>{{search}}</span>",
-      "status": " <strong>Status:</strong> <span>{{status}}</span>"
+      "status": " <strong>Status:</strong> <span>{{status}}</span>",
+      "selectedRow": "<strong>{{selectedRowsSize}} quiz</strong> selected out of {{totalSize}}",
+      "selectedRows": "<strong>{{selectedRowsSize}} quizzes</strong> selected out of {{totalSize}}"
     }
   }
 }

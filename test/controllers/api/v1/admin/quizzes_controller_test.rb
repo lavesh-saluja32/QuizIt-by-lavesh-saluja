@@ -6,7 +6,7 @@ class Api::V1::Admin::QuizzesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @admin = create(:user, role: :admin_user)
     @standard_user = create(:user, role: :standard_user)
-    @category = create(:category)
+    @category = create(:category, name: "category 1")
     @quiz = create(:quiz, user: @admin, category: @category)
     @admin_headers = headers(@admin)
     @standard_user_headers = headers(@standard_user)
@@ -164,5 +164,35 @@ end
     end
 
     assert_response :forbidden
+  end
+
+  def test_admin_can_bulk_delete_quizzes
+    quizzes = create_list(:quiz, 3, user: @admin, category: @category)
+    quiz_ids = quizzes.map(&:id)
+
+    assert_difference("Quiz.count", -3) do
+      delete bulk_delete_api_v1_admin_quizzes_path,
+        params: { ids: quiz_ids },
+        headers: @admin_headers,
+        as: :json
+    end
+
+    assert_response :success
+end
+
+  def test_admin_can_bulk_update_quizzes
+    quizzes = create_list(:quiz, 2, user: @admin, category: @category)
+    category = create(:category, name: "Sample Category")
+    quiz_ids = quizzes.map(&:id)
+    patch bulk_update_api_v1_admin_quizzes_path,
+      params: { quizzes: { status: "published", category_id: category.id, ids: quiz_ids } },
+      headers: @admin_headers,
+      as: :json
+    puts "suc"
+    assert_response :success
+    quizzes.each do |quiz|
+      assert_equal "published", quiz.reload.status
+      assert_equal category.id, quiz.reload.category_id
+    end
   end
 end

@@ -14,6 +14,11 @@ Rails.application.routes.draw do
             member do
               post :clone
             end
+
+            collection do
+              delete :bulk_delete
+              patch :bulk_update
+            end
             resources :questions, only: %i[index create update destroy show], shallow: true do
               member do
                 post :clone

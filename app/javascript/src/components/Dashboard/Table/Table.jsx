@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 
+import SubHeader from "@bigbinary/neeto-molecules/SubHeader";
 import { Table as NeetoTable, Tooltip, Typography } from "@bigbinary/neetoui";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import TableDropdown from "./ActionDropdown";
 
+import useFetchCategories from "../../../hooks/reactQuery/useFetchCategories";
+import {
+  useBulkDelete,
+  useBulkUpdate,
+} from "../../../hooks/reactQuery/useQuizzes";
 import useColumnStore from "../../../stores/useColumnStore";
 import { formatDate } from "../../../utils/formatDate";
 import Status from "../../commons/Status";
 import DeleteAlert from "../DeleteAlert";
+import RightBlock from "../RightBlock";
+import SubHeaderContent from "../SubHeaderContent";
 
 const Table = ({
   data,
@@ -21,9 +29,17 @@ const Table = ({
   handleQuizNavigate,
   handleClone,
   isDeletePending,
+  category,
+  search,
+  status,
+  totalSize,
+  history,
+  selectedRows,
 }) => {
   const { t } = useTranslation();
   const [quizToDelete, setQuizToDelete] = useState("");
+  const [deleteAllAlert, setDeleteAllAlert] = useState(false);
+  const [categorySearchValue, setCategorySearchValue] = useState("");
 
   const handleSelect = (selectedRowKeys, selectedRows) => {
     setSelectedRowKeys(selectedRowKeys);
@@ -32,10 +48,35 @@ const Table = ({
 
   const { visibleColumns } = useColumnStore();
 
+  const { data: { data: { categories = [] } = {} } = {} } = useFetchCategories({
+    search: categorySearchValue,
+  });
+
   const getfilteredColumns = () =>
     columns.filter(
       column => visibleColumns[column.key] || column.key === "action"
     );
+
+  const { mutate: bulkDeleteQuiz } = useBulkDelete();
+  const { mutate: bulkUpdateQuiz } = useBulkUpdate();
+
+  const handleBulkDelete = () => {
+    bulkDeleteQuiz(
+      selectedRows.map(row => row.id),
+      {
+        onSuccess: () => {
+          setDeleteAllAlert(false);
+          setSelectedRowKeys([]);
+          setSelectedRows([]);
+        },
+      }
+    );
+  };
+
+  const handleBulkUpdate = updateParameters => {
+    const ids = selectedRows.map(row => row.id);
+    bulkUpdateQuiz({ ids, ...updateParameters });
+  };
 
   const columns = [
     {
@@ -99,6 +140,26 @@ const Table = ({
 
   return (
     <>
+      <SubHeader
+        rightActionBlock={<RightBlock />}
+        leftActionBlock={
+          <SubHeaderContent
+            {...{
+              category,
+              search,
+              status,
+              totalSize,
+              history,
+              t,
+              selectedRows,
+              setDeleteAllAlert,
+              handleBulkUpdate,
+              setCategorySearchValue,
+              categories,
+            }}
+          />
+        }
+      />
       <NeetoTable
         enableColumnResize
         rowSelection
@@ -110,11 +171,13 @@ const Table = ({
         onRowSelect={handleSelect}
       />
       <DeleteAlert
+        {...{ setDeleteAllAlert, handleBulkDelete, selectedRows }}
+        isDeleteAll={deleteAllAlert}
         isDeletePending={isDeletePending}
-        isOpen={!!quizToDelete}
+        isOpen={!!quizToDelete || deleteAllAlert}
         quizId={quizToDelete?.id}
         quizName={quizToDelete?.name}
-        setIsOpen={() => setQuizToDelete(null)}
+        setIsOpen={setQuizToDelete}
         handleDelete={() => {
           handleDelete(quizToDelete.id);
           setQuizToDelete("");
