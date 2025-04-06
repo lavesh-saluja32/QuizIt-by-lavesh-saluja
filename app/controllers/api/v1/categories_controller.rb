@@ -5,7 +5,7 @@ class Api::V1::CategoriesController < ApplicationController
 
   def index
     puts "Hello"
-    @categories = Category.all
+    @categories = Api::V1::CategoriesFilterService.new(params, Category.all).process!
     puts @categories
     render :index
   end

@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Delete } from "@bigbinary/neeto-icons";
+import Search from "@bigbinary/neeto-molecules/Search";
 import { Typography, Button, Dropdown } from "neetoui";
 import { isEmpty } from "ramda";
 import { Trans } from "react-i18next";
@@ -17,10 +18,12 @@ const SubHeaderContent = ({
   selectedRows,
   setDeleteAllAlert,
   handleBulkUpdate,
+  categories = [],
+  setCategorySearchValue,
 }) => (
-  <div className="flex flex-col space-y-1">
+  <div className="flex flex-col space-y-4">
     <div>
-      {!isEmpty(selectedRows) ? (
+      {!isEmpty(selectedRows) && totalSize !== 0 ? (
         <div className="flex items-center space-x-4">
           <Trans
             components={{ strong: <strong className="p-1" /> }}
@@ -31,13 +34,7 @@ const SubHeaderContent = ({
                 : "subheader.filters.selectedRow"
             }
           />
-          <Button
-            icon={Delete}
-            label={t("button.delete")}
-            style="danger"
-            onClick={() => setDeleteAllAlert(true)}
-          />
-          <Dropdown buttonStyle="secondary" label={t("quiz.status")}>
+          <Dropdown buttonStyle="secondary" label={t("button.changeStatus")}>
             <Dropdown.Menu>
               <Dropdown.MenuItem>
                 <Dropdown.MenuItem.Button
@@ -57,6 +54,36 @@ const SubHeaderContent = ({
               </Dropdown.MenuItem>
             </Dropdown.Menu>
           </Dropdown>
+          <Dropdown
+            buttonStyle="secondary"
+            className="p-4"
+            closeOnSelect={false}
+            label={t("button.changeCategory")}
+          >
+            <Dropdown.Menu className="space-y-2">
+              <Dropdown.MenuItem>
+                <Search
+                  placeholder={t("placeholder.searchCategory")}
+                  onSearch={setCategorySearchValue}
+                />
+              </Dropdown.MenuItem>
+              {categories.map(({ id, name }) => (
+                <Dropdown.MenuItem key={id}>
+                  <Dropdown.MenuItem.Button
+                    onClick={() => handleBulkUpdate({ categoryId: id })}
+                  >
+                    {name}
+                  </Dropdown.MenuItem.Button>
+                </Dropdown.MenuItem>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+          <Button
+            icon={Delete}
+            label={t("button.delete")}
+            style="danger"
+            onClick={() => setDeleteAllAlert(true)}
+          />
         </div>
       ) : (
         <Trans i18nKey="subheader.filters.totalSize" values={{ totalSize }} />

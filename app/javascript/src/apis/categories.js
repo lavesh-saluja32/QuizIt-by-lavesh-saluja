@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const fetch = () => axios.get("/categories");
+const fetch = params => axios.get("/categories", { params });
 
 const categoriesApi = { fetch };
 export default categoriesApi;

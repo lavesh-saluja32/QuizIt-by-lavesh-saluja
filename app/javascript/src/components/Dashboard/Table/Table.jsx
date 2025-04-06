@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 import TableDropdown from "./ActionDropdown";
 
+import useFetchCategories from "../../../hooks/reactQuery/useFetchCategories";
 import {
   useBulkDelete,
   useBulkUpdate,
@@ -38,12 +39,18 @@ const Table = ({
   const { t } = useTranslation();
   const [quizToDelete, setQuizToDelete] = useState("");
   const [deleteAllAlert, setDeleteAllAlert] = useState(false);
+  const [categorySearchValue, setCategorySearchValue] = useState("");
+
   const handleSelect = (selectedRowKeys, selectedRows) => {
     setSelectedRowKeys(selectedRowKeys);
     setSelectedRows(selectedRows);
   };
 
   const { visibleColumns } = useColumnStore();
+
+  const { data: { data: { categories = [] } = {} } = {} } = useFetchCategories({
+    search: categorySearchValue,
+  });
 
   const getfilteredColumns = () =>
     columns.filter(
@@ -147,6 +154,8 @@ const Table = ({
               selectedRows,
               setDeleteAllAlert,
               handleBulkUpdate,
+              setCategorySearchValue,
+              categories,
             }}
           />
         }
