@@ -6,9 +6,13 @@ export const routes = {
   },
   quiz: {
     create: "/quiz/:quizId/create",
+    register: "/quiz/:quizId/register",
+    attempt: "/quiz/:quizId/attempt",
   },
+  submission: "/submission/:submissionId",
   question: {
     create: "/question/:quizId/create/:questionNumber",
     edit: "/question/:questionId/edit",
   },
+  public: "/public",
 };

@@ -6,7 +6,8 @@ class Api::V1::SubmissionsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @admin_user = create(:user, role: "admin_user")
     @standard_user = create(:user, role: "standard_user")
-    @quiz = create(:quiz)
+    @category = create(:category, name: "Sportt")
+    @quiz = create(:quiz, user: @admin_user, category: @category, name: "sample quiz")
     @admin_headers = headers(@admin_user)
     @standard_user_headers = headers(@standard_user)
   end

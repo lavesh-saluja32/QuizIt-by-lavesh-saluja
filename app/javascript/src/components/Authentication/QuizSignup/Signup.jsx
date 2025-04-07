@@ -1,0 +1,99 @@
+import React from "react";
+
+import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
+import { Typography, Button } from "neetoui";
+import { Form, Input } from "neetoui/formik";
+import { useTranslation } from "react-i18next";
+import { useParams, useHistory } from "react-router-dom";
+
+import {
+  QUIZ_SIGNUP_FORM_INITIAL_VALUES,
+  QUIZ_SIGNUP_FORM_VALIDATION_SCHEMA,
+} from "./constants";
+
+import { useShowQuiz } from "../../../hooks/reactQuery/public/useQuizzes";
+import { useCreateSubmission } from "../../../hooks/reactQuery/public/useSubmissions";
+import { routes } from "../../../routes";
+import useSubmissionStore from "../../../stores/useSubmissionStore";
+import PageLoader from "../../commons/PageLoader";
+
+const Signup = () => {
+  const { t } = useTranslation();
+  const { setSubmissionId } = useSubmissionStore();
+
+  const { quizId } = useParams();
+  const { data: { data: quiz = {} } = {} } = useShowQuiz(quizId);
+  const history = useHistory();
+
+  const handleSubmit = values => {
+    createSubmission(
+      {
+        name: `${values.firstName} ${values.lastName}`,
+        quizId,
+        email: values.email,
+      },
+      {
+        onSuccess: response => {
+          const submissionId = response.data.submissionId;
+          setSubmissionId(submissionId);
+          history.push(buildUrl(routes.quiz.attempt, { quizId }));
+        },
+      }
+    );
+  };
+
+  const { mutate: createSubmission, isPending } = useCreateSubmission();
+
+  if (isPending) <PageLoader />;
+
+  return (
+    <div className="flex h-full w-full flex-col items-center justify-center">
+      <div className="w-1/2 space-y-32">
+        <div className="text-left">
+          <Typography style="h1">{quiz.name}</Typography>
+        </div>
+        <div className="w-full">
+          <Form
+            className="space-y-16"
+            formikProps={{
+              initialValues: QUIZ_SIGNUP_FORM_INITIAL_VALUES,
+              validationSchema: QUIZ_SIGNUP_FORM_VALIDATION_SCHEMA,
+              onSubmit: handleSubmit,
+            }}
+          >
+            <div className="flex items-center justify-center space-x-4">
+              <Input
+                required
+                label={t("auth.fullName")}
+                name="firstName"
+                placeholder={t("auth.placeholders.name")}
+                type="name"
+              />
+              <Input
+                required
+                className="mt-5"
+                label=""
+                name="lastName"
+                type="name"
+              />
+            </div>
+            <Input
+              required
+              label={t("auth.emailAddress")}
+              name="email"
+              placeholder={t("auth.placeholders.email")}
+              type="email"
+            />
+            <Button
+              className="bg-blue-600"
+              label={t("button.startQuiz")}
+              type="submit"
+            />
+          </Form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Signup;

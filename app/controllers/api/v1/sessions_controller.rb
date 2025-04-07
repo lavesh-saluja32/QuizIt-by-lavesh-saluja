@@ -6,8 +6,7 @@ class Api::V1::SessionsController < ApplicationController
 
   def create
     @user = User.find_by!(email: login_params[:email].downcase)
-    puts @user.inspect
-    unless @user.authenticate(login_params[:password])
+    unless @user.authenticate(login_params[:password]) && @user.role != "standard_user"
       render_error(t("session.incorrect_credentials"), :unauthorized)
     end
   end

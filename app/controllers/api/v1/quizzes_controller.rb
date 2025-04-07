@@ -2,13 +2,13 @@
 
 class Api::V1::QuizzesController < ApplicationController
   before_action :load_quiz!, only: %i[update show]
-
+  skip_before_action :authenticate_user_using_x_auth_token
   def index
-    @quizzes = Quiz.published
+    @quizzes = Quiz.published.includes(:category, :questions)
   end
 
   def show
-    puts @quiz.inspect
+    render
   end
 
   private

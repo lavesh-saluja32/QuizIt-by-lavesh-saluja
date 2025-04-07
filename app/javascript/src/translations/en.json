@@ -13,7 +13,17 @@
     "placeholder": "Enter quiz name",
     "draft": "Draft",
     "published": "published",
-    "filters": "Filters"
+    "filters": "Filters",
+    "totalQuestions": "{{count}} Questions",
+    "questionNumber": "Question {{questionNumber}} of {{totalQuestions}}",
+    "result": {
+      "title": "Your result",
+      "totalQuestions": "Total questions: {{totalQuestions}}",
+      "correct": "Correct",
+      "wrong": "Incorrect",
+      "unanswered": "Unanswered",
+      "score": "Score"
+    }
   },
   "button": {
     "addQuiz": "Add new quiz",
@@ -36,7 +46,13 @@
     "changeCategory": "Change category",
     "edit": "Edit",
     "clone": "Clone",
-    "draft": "Draft saved at {{date}}"
+    "draft": "Draft saved at {{date}}",
+    "loginAdmin": "Login as admin",
+    "startQuiz": "Start quiz",
+    "next": "Next",
+    "previous": "Previous",
+    "saveAndSubmit": "Save and submit the quiz",
+    "home": "Back to home"
   },
   "auth": {
     "signupTitle": "Sign Up",
@@ -52,7 +68,9 @@
       "email": "Enter your email",
       "password": "Enter your password",
       "passwordConfirmation": "Confirm your password"
-    }
+    },
+    "fullName": "Full name",
+    "emailAddress": "Email address"
   },
   "response": {
     "error": {
@@ -89,7 +107,8 @@
     "option": "Type option {{number}}",
     "totalQuestions": "{{number}} questions",
     "selectStatus": "Select status",
-    "searchCategory": "Search category"
+    "searchCategory": "Search category",
+    "searchQuiz": "Search for a quiz"
   },
   "link": {
     "quiz": {
