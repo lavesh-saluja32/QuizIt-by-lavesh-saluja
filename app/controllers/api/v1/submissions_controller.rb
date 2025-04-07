@@ -19,11 +19,12 @@ class Api::V1::SubmissionsController < ApplicationController
   def update
     authorize @submission
     updated_params = Api::V1::SubmissionService.new(@submission, update_params).process!
-    puts updated_params
-    @submission.update!(updated_params)
+    updated_params[:status] = "completed"
+    Submission.transaction do
+        @submission.update!(updated_params)
+        @submission.quiz.increment!(:submission_count)
+      end
 
-    @submission.status = "completed"
-    @submission.save!
     @user_answers = update_params[:answers].to_h.transform_keys(&:to_s)
   end
 

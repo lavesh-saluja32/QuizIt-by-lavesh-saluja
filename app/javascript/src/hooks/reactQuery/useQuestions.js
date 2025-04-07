@@ -17,7 +17,7 @@ export const useCreateQuestion = () => {
       questionsApi.create({ quizId, payload }),
     onSuccess: () => {
       Toastr.success(t("response.success.questionCreated"));
-      queryClient.invalidateQueries(QUERY_KEY.QUESTIONS);
+      queryClient.invalidateQueries([QUERY_KEY.QUESTIONS, QUERY_KEY.QUIZZES]);
     },
   });
 
@@ -64,7 +64,7 @@ export const useCloneQuestion = () => {
     mutationFn: questionId => questionsApi.clone(questionId),
     onSuccess: () => {
       Toastr.success(t("response.success.questionCloned"));
-      queryClient.invalidateQueries(QUERY_KEY.QUESTIONS);
+      queryClient.invalidateQueries([QUERY_KEY.QUESTIONS, QUERY_KEY.QUIZZES]);
     },
   });
 

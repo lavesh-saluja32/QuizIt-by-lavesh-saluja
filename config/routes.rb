@@ -9,7 +9,10 @@ Rails.application.routes.draw do
         resources :users, only: :create
         resource :session, only: %i[create destroy]
         resources :categories, only: %i[create index]
-        resources :quizzes, only: %i[index create show update]
+        resources :quizzes, only: %i[index create show update] do
+          resources :questions, only: %i[index]
+        end
+
         namespace :admin do
           resources :quizzes, only: %i[index create update show destroy] do
             member do

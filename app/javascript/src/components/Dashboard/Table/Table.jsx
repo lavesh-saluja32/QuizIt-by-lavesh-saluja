@@ -17,7 +17,7 @@ import { formatDate } from "../../../utils/formatDate";
 import Status from "../../commons/Status";
 import DeleteAlert from "../DeleteAlert";
 import RightBlock from "../RightBlock";
-import SubHeaderContent from "../SubHeaderContent";
+import SubHeaderContent from "../SubheaderContent";
 
 const Table = ({
   data,
