@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_04_042451) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_06_103400) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -52,6 +52,20 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_042451) do
     t.index ["user_id"], name: "index_quizzes_on_user_id"
   end
 
+  create_table "submissions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "quiz_id", null: false
+    t.string "status", default: "incomplete", null: false
+    t.datetime "submission_time"
+    t.integer "correct_answers", default: 0, null: false
+    t.integer "wrong_answers", default: 0, null: false
+    t.integer "unanswered", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_submissions_on_quiz_id"
+    t.index ["user_id"], name: "index_submissions_on_user_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "email", null: false
@@ -68,4 +82,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_042451) do
   add_foreign_key "questions", "quizzes"
   add_foreign_key "quizzes", "categories"
   add_foreign_key "quizzes", "users"
+  add_foreign_key "submissions", "quizzes"
+  add_foreign_key "submissions", "users"
 end

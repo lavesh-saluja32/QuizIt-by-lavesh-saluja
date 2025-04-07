@@ -19,13 +19,20 @@ import {
   useDeleteQuiz,
 } from "../../hooks/reactQuery/useQuizzes";
 import { routes } from "../../routes";
+import useQuizSelectionStore from "../../stores/useQuizSelectionStore";
 
 const Dashboard = () => {
-  const [selectedRows, setSelectedRows] = useState([]);
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [isSidePaneOpen, setIsSidePaneOpen] = useState(false);
 
   const { t } = useTranslation();
+
+  const {
+    selectedRows,
+    selectedRowKeys,
+    setSelectedRows,
+    setSelectedRowKeys,
+    clearSelections,
+  } = useQuizSelectionStore();
 
   const history = useHistory();
 
@@ -44,6 +51,7 @@ const Dashboard = () => {
   const handleQuizNavigate = quizId => {
     const url = buildUrl(routes.quiz.create, { quizId });
     history.push(url);
+    clearSelections();
   };
 
   const handlePublish = ({ quizId, status }) => {
@@ -65,7 +73,7 @@ const Dashboard = () => {
       <div className="flex justify-between p-6">
         <Typography style="h1">{t("quiz.title")}</Typography>
         <div className="flex items-center justify-center space-x-3">
-          <SearchInput searchKey={search} />
+          <SearchInput searchKey={search} {...{ clearSelections }} />
           <Button
             className="bg-blue-600"
             label={t("button.addQuiz")}

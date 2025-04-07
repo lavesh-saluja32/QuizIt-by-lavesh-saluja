@@ -9,18 +9,22 @@ import { mergeLeft, omit } from "ramda";
 import { useTranslation } from "react-i18next";
 import { NavLink, useHistory } from "react-router-dom";
 
+import useQuizSelectionStore from "../../../stores/useQuizSelectionStore";
+
 const Menu = ({ isExpanded }) => {
   const history = useHistory();
   const queryParams = useQueryParams();
   const [filterStatus, setFilterStatus] = useState(queryParams.status || "");
 
   const { t } = useTranslation();
+  const { clearSelections } = useQuizSelectionStore();
   const handleFilterNavigation = () => {
     const pathname = window.location.pathname;
     const updatedParams = filterStatus
       ? mergeLeft({ status: filterStatus }, queryParams)
       : omit(["status"], queryParams);
     history.push(buildUrl(pathname, updatedParams));
+    clearSelections();
   };
 
   useEffect(() => {

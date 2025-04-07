@@ -8,7 +8,7 @@ import { mergeLeft, omit } from "ramda";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
-const QuizSearchInput = () => {
+const QuizSearchInput = ({ clearSelections }) => {
   const { t } = useTranslation();
   const history = useHistory();
   const queryParams = useQueryParams();
@@ -22,6 +22,7 @@ const QuizSearchInput = () => {
       ? mergeLeft({ search: searchTerm }, queryParams)
       : omit(["search"], queryParams);
     history.push(buildUrl(pathname, updatedParams));
+    clearSelections();
   }, 300);
 
   const handleChange = event => {

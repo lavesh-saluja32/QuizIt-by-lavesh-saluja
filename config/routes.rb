@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       constraints(lambda { |req| req.format == :json }) do
+        resources :submissions, only: %i[create update index]
         resources :users, only: :create
         resource :session, only: %i[create destroy]
         resources :categories, only: %i[create index]
