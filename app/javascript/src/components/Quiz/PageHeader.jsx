@@ -23,9 +23,9 @@ const PageHeader = ({ quizId, showPublishButton, quiz, handlePublish }) => {
   return (
     <div className="flex h-20 items-center border-b border-gray-400 bg-slate-100">
       <div
-        className={classNames("flex w-full items-center", {
-          "justify-between pr-2": showPublishButton,
-          " w-[54vw] justify-between": !showPublishButton,
+        className={classNames("flex items-center", {
+          "w-full justify-between pr-2": showPublishButton,
+          " w-[53vw] justify-between": !showPublishButton,
         })}
       >
         <div className="ml-3 flex items-center justify-center space-x-2 p-3 ">
@@ -34,13 +34,13 @@ const PageHeader = ({ quizId, showPublishButton, quiz, handlePublish }) => {
             style="link"
             onClick={() => history.goBack()}
           />
-          <Typography style="h2">Sample Quiz</Typography>
+          <Typography style="h2">{quiz?.name}</Typography>
         </div>
         <div className="space-x-6">
           <NavLink
             activeClassName="active-quiz-link"
             to={buildUrl(routes.quiz.create, { quizId })}
-            className={classNames("text-lg", {
+            className={classNames("text-lg text-gray-400", {
               "font-bold": quizMatch || questionMatch,
             })}
           >
@@ -49,7 +49,7 @@ const PageHeader = ({ quizId, showPublishButton, quiz, handlePublish }) => {
           <NavLink
             activeClassName="active-quiz-link"
             className="text-lg text-gray-400"
-            to="#"
+            to={buildUrl(routes.quiz.submissions, { quizId })}
           >
             {t("link.quiz.submissions")}
           </NavLink>

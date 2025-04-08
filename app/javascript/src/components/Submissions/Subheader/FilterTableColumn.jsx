@@ -4,9 +4,9 @@ import { Column } from "@bigbinary/neeto-icons";
 import { Dropdown, Checkbox } from "neetoui/index";
 import { useTranslation } from "react-i18next";
 
-import { columns } from "./constant";
+import { columns } from "./constants";
 
-import useColumnStore from "../../../stores/useQuizColumnStore";
+import useColumnStore from "../../../stores/useSubmissionColumnStore";
 
 const FilterTableColumn = () => {
   const { Menu, MenuItem } = Dropdown;

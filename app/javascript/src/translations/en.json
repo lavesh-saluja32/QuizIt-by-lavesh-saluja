@@ -113,7 +113,8 @@
     "totalQuestions": "{{number}} questions",
     "selectStatus": "Select status",
     "searchCategory": "Search category",
-    "searchQuiz": "Search for a quiz"
+    "searchQuiz": "Search for a quiz",
+    "searchNames": "Search names"
   },
   "link": {
     "quiz": {
@@ -142,5 +143,16 @@
       "selectedRow": "<strong>{{selectedRowsSize}} quiz</strong> selected out of {{totalSize}}",
       "selectedRows": "<strong>{{selectedRowsSize}} quizzes</strong> selected out of {{totalSize}}"
     }
+  },
+  "headers": {
+    "submissions": "All submissions"
+  },
+  "table": {
+    "submissionDate": "Submission date",
+    "correctAnswers": "Correct answers",
+    "wrongAnswers": "Wrong answers",
+    "unanswered": "Unanswered",
+    "questions": "Questions",
+    "status": "Status"
   }
 }

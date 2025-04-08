@@ -12,7 +12,7 @@ import {
   useBulkDelete,
   useBulkUpdate,
 } from "../../../hooks/reactQuery/useQuizzes";
-import useColumnStore from "../../../stores/useColumnStore";
+import useColumnStore from "../../../stores/useQuizColumnStore";
 import { formatDate } from "../../../utils/formatDate";
 import Status from "../../commons/Status";
 import DeleteAlert from "../DeleteAlert";

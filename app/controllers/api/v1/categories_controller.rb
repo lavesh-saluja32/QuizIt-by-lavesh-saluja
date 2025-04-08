@@ -2,7 +2,7 @@
 
 class Api::V1::CategoriesController < ApplicationController
   after_action :verify_authorized, except: :index
-  skip_before_action :authenticate_user_using_x_auth_token
+  skip_before_action :authenticate_user_using_x_auth_token, only: :index
   def index
     puts "Hello"
     @categories = Api::V1::CategoriesFilterService.new(params, Category.all).process!

@@ -22,7 +22,8 @@ require "test_helper"
 
 class QuestionTest < ActiveSupport::TestCase
   def setup
-    @quiz = create(:quiz)
+    @category = create(:category, name: "category 1")
+    @quiz = create(:quiz, category: @category)
     @question = build(:question, quiz: @quiz)
   end
 

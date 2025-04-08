@@ -24,7 +24,8 @@ require "test_helper"
 
 class OptionTest < ActiveSupport::TestCase
   def setup
-    @quiz = create(:quiz)
+    @category = create(:category, name: "category 1")
+    @quiz = create(:quiz, category: @category)
     @question = build(:question, quiz: @quiz)
     @option = build(:option, question: @question)
     @question.options << [@option]

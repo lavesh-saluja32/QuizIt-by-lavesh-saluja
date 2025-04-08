@@ -4,7 +4,8 @@ require "test_helper"
 
 class Api::V1::SubmissionServiceTest < ActiveSupport::TestCase
   def setup
-    @quiz = create(:quiz)
+    @category = create(:category, name: "category 1")
+    @quiz = create(:quiz, category: @category)
     @question1 = create(:question, quiz: @quiz)
     @question2 = create(:question, quiz: @quiz)
     @correct_option_q1 = @question1.options.find(&:is_correct)
