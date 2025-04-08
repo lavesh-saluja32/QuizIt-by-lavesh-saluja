@@ -14,15 +14,21 @@ import {
 import { useShowQuiz } from "../../../hooks/reactQuery/public/useQuizzes";
 import { useCreateSubmission } from "../../../hooks/reactQuery/public/useSubmissions";
 import { routes } from "../../../routes";
+import useQuizStore from "../../../stores/useQuizStore";
 import useSubmissionStore from "../../../stores/useSubmissionStore";
 import PageLoader from "../../commons/PageLoader";
 
 const Signup = () => {
   const { t } = useTranslation();
+
   const { setSubmissionId } = useSubmissionStore();
 
+  const { resetQuiz } = useQuizStore();
+
   const { quizId } = useParams();
+
   const { data: { data: quiz = {} } = {} } = useShowQuiz(quizId);
+
   const history = useHistory();
 
   const handleSubmit = values => {
@@ -36,6 +42,7 @@ const Signup = () => {
         onSuccess: response => {
           const submissionId = response.data.submissionId;
           setSubmissionId(submissionId);
+          resetQuiz();
           history.push(buildUrl(routes.quiz.attempt, { quizId }));
         },
       }

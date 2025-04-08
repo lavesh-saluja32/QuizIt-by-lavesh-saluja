@@ -5,5 +5,10 @@ const create = payload =>
     submission: payload,
   });
 
-const submissionsApi = { create };
+const update = ({ submissionId, payload }) =>
+  axios.patch(`/submissions/${submissionId}`, {
+    submission: payload,
+  });
+
+const submissionsApi = { create, update };
 export default submissionsApi;
