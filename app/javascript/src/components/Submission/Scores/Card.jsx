@@ -10,7 +10,7 @@ const Card = ({ style = STYLE.unanswered, score, totalScore }) => {
   const { t } = useTranslation();
 
   const containerClasses = classNames(
-    "flex flex-col items-center rounded-xl px-6 py-4 shadow-sm w-1/5 h-[23vh]",
+    "flex flex-col items-center rounded-xl px-6 py-4 shadow-sm w-1/5 h-[15vh]",
     {
       "bg-gray-100 text-black": style === STYLE.total,
       "bg-green-100 text-green-700": style === STYLE.correct,

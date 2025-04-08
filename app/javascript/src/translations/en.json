@@ -22,7 +22,12 @@
       "correct": "Correct",
       "wrong": "Incorrect",
       "unanswered": "Unanswered",
-      "score": "Score"
+      "score": "Score",
+      "correctAnswer": "Correct Answer",
+      "correctAnswerSelected": "Your answer is correct",
+      "incorrectAnswerSelected": "Your answer is incorrect",
+      "yourAnswer": "Your answer",
+      "questionNumber": "Question {{number}}"
     }
   },
   "button": {
