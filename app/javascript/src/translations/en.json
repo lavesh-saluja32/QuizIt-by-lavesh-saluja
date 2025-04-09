@@ -28,7 +28,8 @@
       "incorrectAnswerSelected": "Your answer is incorrect",
       "yourAnswer": "Your answer",
       "questionNumber": "Question {{number}}"
-    }
+    },
+    "download": "Download report"
   },
   "button": {
     "addQuiz": "Add new quiz",

@@ -35,6 +35,8 @@ class Quiz < ApplicationRecord
 
   has_many :submissions
 
+  has_one_attached :report
+
   validates :name, presence: true, length: { maximum: MAX_QUIZ_NAME_LENGTH }
   validates :submission_count, numericality: { greater_than_or_equal_to: MIN_VALUE, only_integer: true }
   validates :total_questions, numericality: { greater_than_or_equal_to: MIN_VALUE, only_integer: true }

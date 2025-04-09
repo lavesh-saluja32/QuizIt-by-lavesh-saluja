@@ -31,6 +31,12 @@
 
 
 en:
+  report:
+    render: "Rendering the report"
+    generate: "Generating the PDF report"
+    upload: "Uploading to server"
+    attach: "Attaching the report to the user"
+  not_found: "Couldn't find %{entity}"
   option:
     validations:
       correct_option: "Only one option can be marked as correct per question"

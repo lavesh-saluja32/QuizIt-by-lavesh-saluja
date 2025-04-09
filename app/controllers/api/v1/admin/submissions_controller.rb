@@ -2,6 +2,7 @@
 
 class Api::V1::Admin::SubmissionsController < ApplicationController
   before_action :load_quiz!, only: :index
+  after_action :verify_authorized, except: %i[index]
 
   def index
     @submissions = Admin::SubmissionPolicy::Scope.new(current_user, Submission, @quiz).resolve

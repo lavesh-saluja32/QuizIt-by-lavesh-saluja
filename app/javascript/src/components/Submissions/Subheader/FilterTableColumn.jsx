@@ -15,7 +15,7 @@ const FilterTableColumn = () => {
 
   return (
     <Dropdown
-      buttonStyle="secondary"
+      buttonStyle="link"
       className="space-y-3 p-4"
       closeOnSelect={false}
       icon={Column}

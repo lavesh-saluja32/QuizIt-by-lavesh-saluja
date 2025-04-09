@@ -1,5 +1,6 @@
 import { Toastr } from "@bigbinary/neetoui";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import FileSaver from "file-saver";
 import { t } from "i18next";
 
 import quizzesApi from "../../apis/quizzes";
@@ -92,6 +93,26 @@ export const useBulkUpdate = () => {
     onSuccess: () => {
       Toastr.success(t("response.success.quizBulkUpdated"));
       queryClient.invalidateQueries(QUERY_KEY.QUIZZES);
+    },
+  });
+
+  return mutation;
+};
+
+export const useCreateReport = () => {
+  const mutation = useMutation({
+    mutationFn: quizId => quizzesApi.createReport(quizId),
+  });
+
+  return mutation;
+};
+
+export const useDownloadReport = () => {
+  const mutation = useMutation({
+    mutationFn: quizId => quizzesApi.downloadReport(quizId),
+
+    onSuccess: (response, quizId) => {
+      FileSaver.saveAs(response.data, `submissions-report-${quizId}.pdf`);
     },
   });
 

@@ -25,7 +25,10 @@ const setAuthHeaders = () => {
 };
 
 const handleSuccessResponse = response => {
-  response.data = keysToCamelCase(response.data);
+  if (response.data && !(response.data instanceof Blob)) {
+    response.data = keysToCamelCase(response.data);
+  }
+
   if (response) {
     response.success = response.status === 200;
     if (response.data.notice) {

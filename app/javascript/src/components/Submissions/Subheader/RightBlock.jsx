@@ -1,13 +1,14 @@
 import React from "react";
 
-import { Download, Column } from "@bigbinary/neeto-icons";
+import { Download, Filter } from "@bigbinary/neeto-icons";
+import { Button } from "neetoui/index";
 
 import FilterTableColumn from "./FilterTableColumn";
 
-const RightBlock = () => (
+const RightBlock = ({ generatePdf }) => (
   <div className="flex space-x-3">
-    <Download />
-    <Column />
+    <Button icon={Download} style="link" onClick={generatePdf} />
+    <Filter />
     <FilterTableColumn />
   </div>
 );
