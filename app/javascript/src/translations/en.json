@@ -61,7 +61,9 @@
     "next": "Next",
     "previous": "Previous",
     "saveAndSubmit": "Save and submit the quiz",
-    "home": "Back to home"
+    "home": "Back to home",
+    "settings": "Settings",
+    "public": "Public page"
   },
   "auth": {
     "signupTitle": "Sign Up",

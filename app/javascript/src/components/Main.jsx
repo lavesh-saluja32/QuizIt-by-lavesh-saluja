@@ -15,6 +15,7 @@ import QuestionBuilder from "./Question/Create";
 import Create from "./Quiz/Create";
 import QuizAttempt from "./QuizAttempt";
 import Result from "./Result";
+import Settings from "./Settings";
 import Submissions from "./Submissions";
 
 import { routes } from "../routes";
@@ -33,6 +34,7 @@ const Main = () => {
         <Route exact component={Create} path={routes.quiz.create} />
         <Route exact component={Result} path={routes.submission} />
         <Route exact component={Submissions} path={routes.quiz.submissions} />
+        <Route exact component={Settings} path={routes.settings} />
         <Route
           exact
           component={QuestionBuilder}

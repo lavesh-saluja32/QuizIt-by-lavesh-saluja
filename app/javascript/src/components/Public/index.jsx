@@ -8,13 +8,18 @@ import { Filter } from "@bigbinary/neeto-icons";
 import QuizCard from "./QuizCard";
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { useFetchQuizzes } from "../../hooks/reactQuery/public/useQuizzes";
+import { useShowOrganization } from "../../hooks/reactQuery/useOrganizations";
 
 const Public = () => {
   const history = useHistory();
+
   const { t } = useTranslation();
 
   const { data: { data: { quizzes = [] } = {} } = {} } = useFetchQuizzes();
   console.log(quizzes);
+
+  const { data: { data: { organizationName = "" } = {} } = {} } =
+    useShowOrganization();
 
   const handleAuthNavigation = () => {
     history.push(routes.authentication.login);
@@ -28,7 +33,7 @@ const Public = () => {
     <div className="h-full w-full bg-slate-100">
       <div className="ml-auto mr-auto mt-2 w-5/6">
         <div className="flex h-[10vh] items-center justify-between">
-          <Typography style="h1">Organization Name</Typography>
+          <Typography style="h1">{organizationName}</Typography>
           <Button
             onClick={handleAuthNavigation}
             label={t("button.loginAdmin")}
