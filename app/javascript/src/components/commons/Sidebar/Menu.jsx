@@ -5,10 +5,10 @@ import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { Typography, Button } from "@bigbinary/neetoui";
 import classNames from "classnames";
 import { List, Settings, Globe } from "neetoicons";
-import { mergeLeft, omit } from "ramda";
 import { useTranslation } from "react-i18next";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory, useRouteMatch } from "react-router-dom";
 
+import { routes } from "../../../routes";
 import useQuizSelectionStore from "../../../stores/useQuizSelectionStore";
 
 const Menu = ({ isExpanded }) => {
@@ -16,14 +16,13 @@ const Menu = ({ isExpanded }) => {
   const queryParams = useQueryParams();
   const [filterStatus, setFilterStatus] = useState(queryParams.status || "");
 
+  const homePage = useRouteMatch(routes.root);
+
   const { t } = useTranslation();
   const { clearSelections } = useQuizSelectionStore();
   const handleFilterNavigation = () => {
-    const pathname = window.location.pathname;
-    const updatedParams = filterStatus
-      ? mergeLeft({ status: filterStatus }, queryParams)
-      : omit(["status"], queryParams);
-    history.push(buildUrl(pathname, updatedParams));
+    const query = filterStatus ? { status: filterStatus } : {};
+    history.push(buildUrl(routes.root, query));
     clearSelections();
   };
 
@@ -41,13 +40,24 @@ const Menu = ({ isExpanded }) => {
       )}
     >
       <div className="mb-4">
-        <NavLink exact activeClassName="active-link" to="/">
-          <div className="flex items-center space-x-2 rounded-lg bg-blue-500 p-2 text-white">
-            <List />
-            <span className="font-semibold">{t("quiz.heading")}</span>
-          </div>
+        <NavLink
+          exact
+          activeClassName="active-link"
+          className="flex items-center space-x-2 rounded p-2 hover:bg-blue-600 hover:text-white"
+          to="/"
+        >
+          <List />
+          <Typography className="font-semibold">{t("quiz.heading")}</Typography>
         </NavLink>
-        <div className="mt-2 flex flex-col space-y-2 space-y-3">
+        <div
+          className={classNames(
+            "flex flex-col overflow-hidden transition-all duration-300",
+            {
+              "max-h-0 opacity-0": !homePage?.isExact,
+              "mt-2 max-h-[300px] space-y-3 opacity-100": homePage?.isExact,
+            }
+          )}
+        >
           <Button
             style="link"
             className={classNames(
@@ -59,9 +69,6 @@ const Menu = ({ isExpanded }) => {
             onClick={() => setFilterStatus("")}
           >
             <Typography>{t("button.filter.all")}</Typography>
-            {/* <span className="rounded bg-gray-200 px-2 py-1 text-xs text-gray-700">
-              30
-            </span> */}
           </Button>
           <Button
             style="link"
@@ -74,15 +81,11 @@ const Menu = ({ isExpanded }) => {
             onClick={() => setFilterStatus("published")}
           >
             <Typography>{t("button.filter.published")}</Typography>
-            {/* <span className="rounded bg-gray-200 px-2 py-1 text-xs text-gray-700">
-              22
-
-            </span> */}
           </Button>
           <Button
             style="link"
             className={classNames(
-              "flex items-center justify-between rounded p-2 hover:bg-gray-100 ",
+              "flex items-center justify-between rounded p-2 hover:bg-gray-100",
               {
                 "bg-gray-100": filterStatus === "draft",
               }
@@ -90,26 +93,25 @@ const Menu = ({ isExpanded }) => {
             onClick={() => setFilterStatus("draft")}
           >
             <Typography>{t("button.filter.draft")}</Typography>
-            {/* <span className="rounded bg-gray-200 px-2 py-1 text-xs text-gray-700">
-              8
-            </span> */}
           </Button>
         </div>
       </div>
       <div className="space-y-2">
         <NavLink
-          className="flex items-center space-x-2 rounded p-2 hover:bg-gray-100"
+          activeClassName="active-link"
+          className="flex items-center space-x-2 rounded p-2 hover:bg-blue-600 hover:text-white"
           to="/settings"
         >
           <Settings />
-          <span>Settings</span>
+          <Typography>{t("button.settings")}</Typography>
         </NavLink>
         <NavLink
-          className="flex items-center space-x-2 rounded p-2 hover:bg-gray-100"
-          to="/public"
+          activeClassName="active-link"
+          className="flex items-center space-x-2 rounded p-2 hover:bg-blue-600 hover:text-white"
+          to={routes.public}
         >
           <Globe />
-          <span>Public Page</span>
+          <Typography>{t("button.public")}</Typography>
         </NavLink>
       </div>
       <div className="mt-auto border-t pt-4">

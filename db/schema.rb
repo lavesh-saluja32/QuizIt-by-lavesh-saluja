@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_08_113548) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_09_104619) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -102,6 +102,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_08_113548) do
     t.string "role", default: "standard_user", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "organization_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.check_constraint "role::text = ANY (ARRAY['admin_user'::character varying, 'standard_user'::character varying]::text[])", name: "check_user_role"
   end

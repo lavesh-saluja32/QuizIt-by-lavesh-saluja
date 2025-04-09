@@ -2,8 +2,8 @@
   box-sizing: border-box;
 }
 .active-link {
-  color: blue; /* Change icon color */
-  background-color: rgba(130, 130, 246, 0.4); /* Light blue background */
+  color: white; /* Change icon color */
+  background-color: theme('colors.blue.500') !important;
   border-radius: 6px;
 }
 

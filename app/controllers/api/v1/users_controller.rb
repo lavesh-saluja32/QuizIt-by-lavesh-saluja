@@ -2,6 +2,18 @@
 
 class Api::V1::UsersController < ApplicationController
   skip_before_action :authenticate_user_using_x_auth_token, only: :create
+
+  def show
+    render
+  end
+
+  def update
+    puts "LOP"
+    puts @current_user.inspect
+    @current_user.update!(update_params)
+    render_json
+  end
+
   def create
     user = User.new(user_params)
     if user.save
@@ -14,6 +26,10 @@ class Api::V1::UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :organization_name)
+    end
+
+    def update_params
+      params.require(:user).permit(:organization_name)
     end
 end

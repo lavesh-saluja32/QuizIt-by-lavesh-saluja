@@ -8,6 +8,7 @@
 #  authentication_token :string
 #  email                :string           not null
 #  name                 :string
+#  organization_name    :string
 #  password_digest      :string           not null
 #  role                 :string           default("standard_user"), not null
 #  created_at           :datetime         not null

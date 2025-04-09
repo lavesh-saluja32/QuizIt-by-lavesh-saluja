@@ -8,6 +8,7 @@
 #  authentication_token :string
 #  email                :string           not null
 #  name                 :string
+#  organization_name    :string
 #  password_digest      :string           not null
 #  role                 :string           default("standard_user"), not null
 #  created_at           :datetime         not null
@@ -23,6 +24,7 @@ class User < ApplicationRecord
  /x
   MAX_NAME_LENGTH = 35
   MAX_EMAIL_LENGTH = 255
+  MAX_ORGANIZATION_LENGTH = 50
   VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i.freeze
   VALID_ROLES = %w[admin_user standard_user].freeze
 
@@ -37,9 +39,10 @@ class User < ApplicationRecord
     length: { maximum: MAX_EMAIL_LENGTH },
     format: { with: VALID_EMAIL_REGEX }
   validates :password, presence: true,
-    format: { with: PASSWORD_REQUIREMENTS, message: I18n.t("password") }
+    format: { with: PASSWORD_REQUIREMENTS, message: I18n.t("password") }, on: :create
   validates :password_confirmation, presence: true, if: -> { password.present? }
   validates :role, inclusion: { in: VALID_ROLES }
+  validates :organization_name, length: { maximum: MAX_ORGANIZATION_LENGTH }
 
   before_save :to_lowercase
 

@@ -5,4 +5,5 @@ export const QUERY_KEY = {
   QUESTION: "question",
   QUIZ: "quiz",
   SUBMISSIONS: "submissions",
+  ORGANIZATION: "organization",
 };

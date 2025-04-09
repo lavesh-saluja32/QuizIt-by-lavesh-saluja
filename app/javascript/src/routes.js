@@ -16,4 +16,5 @@ export const routes = {
     edit: "/question/:questionId/edit",
   },
   public: "/public",
+  settings: "/settings",
 };
