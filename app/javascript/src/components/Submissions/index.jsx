@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+import useQueryParams from "@bigbinary/neeto-commons-frontend/react-utils/useQueryParams";
 import { useParams } from "react-router-dom";
 
 import Header from "./Header";
@@ -23,10 +24,10 @@ const Submissions = () => {
 
   const consumer = createConsumer();
   const { quizId } = useParams();
+  const params = useQueryParams();
   const { data: { data: { quiz = {} } = {} } = {} } = useShowQuiz(quizId);
-
   const { data: { data: { submissions = [] } = {} } = {}, isLoading } =
-    useFetchSubmissions({ quizId });
+    useFetchSubmissions({ quizId, params });
 
   const { mutate: generateReport } = useCreateReport();
 

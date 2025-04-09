@@ -14,6 +14,7 @@
     "draft": "Draft",
     "published": "published",
     "filters": "Filters",
+    "email": "Email",
     "totalQuestions": "{{count}} Questions",
     "questionNumber": "Question {{questionNumber}} of {{totalQuestions}}",
     "result": {
@@ -46,7 +47,9 @@
       "draft": "Draft",
       "published": "Published",
       "done": "Done",
-      "clear": "Clear filters"
+      "clear": "Clear filters",
+      "completed": "Completed",
+      "incomplete": "Incomplete"
     },
     "changeStatus": "Change status",
     "changeCategory": "Change category",
@@ -115,7 +118,9 @@
     "selectStatus": "Select status",
     "searchCategory": "Search category",
     "searchQuiz": "Search for a quiz",
-    "searchNames": "Search names"
+    "searchNames": "Search names",
+    "email": "Enter email",
+    "name": "Enter name"
   },
   "link": {
     "quiz": {

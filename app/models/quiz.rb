@@ -48,6 +48,7 @@ class Quiz < ApplicationRecord
   def clone_quiz!
     cloned_quiz = deep_clone include: { questions: :options }
     cloned_quiz.status = "draft"
+    cloned_quiz.submission_count = 0
     cloned_quiz.save!
     cloned_quiz
   end

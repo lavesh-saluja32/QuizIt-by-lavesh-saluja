@@ -11,9 +11,8 @@ const Header = () => {
       className="bg-slate-100"
       title={t("headers.submissions")}
       searchProps={{
-        onChange: () => {},
-        value: "",
         placeholder: t("placeholder.searchNames"),
+        searchParamName: "search",
       }}
     />
   );

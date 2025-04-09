@@ -1,5 +1,6 @@
 import React from "react";
 
+import Status from "components/commons/Status";
 import { Table as NeetoTable, Spinner } from "neetoui/index";
 
 import { getColumns } from "./columns";
@@ -9,13 +10,15 @@ import useColumnStore from "../../../stores/useSubmissionColumnStore";
 const Table = ({ data = [], isLoading }) => {
   const { visibleColumns } = useColumnStore();
 
+  const render = text => <Status {...{ text }} />;
+
   return (
     <div className="custom-table ant-table-thead">
       {!isLoading ? (
         <NeetoTable
           enableColumnResize
           bordered={false}
-          columnData={getColumns(visibleColumns)}
+          columnData={getColumns(visibleColumns, render)}
           dataSource={data}
         />
       ) : (

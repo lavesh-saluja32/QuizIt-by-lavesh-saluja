@@ -2,7 +2,7 @@ import { t } from "i18next";
 
 import { formatDate } from "../../../utils/formatDate";
 
-export const getColumns = visibleColumns => {
+export const getColumns = (visibleColumns, render) => {
   const allColumns = [
     {
       dataIndex: "name",
@@ -50,6 +50,7 @@ export const getColumns = visibleColumns => {
       key: "status",
       title: t("table.status"),
       width: "10vw",
+      render,
     },
   ];
 
