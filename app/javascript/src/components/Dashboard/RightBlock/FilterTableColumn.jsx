@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 import { columns } from "./constant";
 
-import useColumnStore from "../../../stores/useColumnStore";
+import useColumnStore from "../../../stores/useQuizColumnStore";
 
 const FilterTableColumn = () => {
   const { Menu, MenuItem } = Dropdown;

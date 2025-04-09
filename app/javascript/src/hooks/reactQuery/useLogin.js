@@ -10,22 +10,18 @@ const useLogin = () => {
   const history = useHistory();
 
   return useMutation({
-    mutationFn: async values => {
-      const response = await authApi.login(values);
+    mutationFn: values => authApi.login(values),
 
+    onSuccess: (response, values) => {
       setToLocalStorage({
-        authToken: response.data.authentication_token,
+        authToken: response.data.authenticationToken,
         email: values.email.toLowerCase(),
         userId: response.data.id,
         userName: response.data.name,
       });
 
       setAuthHeaders();
-
-      return response.data;
-    },
-    onSuccess: () => {
-      history.push(routes.root);
+      history.replace(routes.root);
     },
   });
 };

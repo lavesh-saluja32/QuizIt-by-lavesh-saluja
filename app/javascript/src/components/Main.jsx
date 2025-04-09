@@ -14,7 +14,8 @@ import Public from "./Public";
 import QuestionBuilder from "./Question/Create";
 import Create from "./Quiz/Create";
 import QuizAttempt from "./QuizAttempt";
-import Submission from "./Submission";
+import Result from "./Result";
+import Submissions from "./Submissions";
 
 import { routes } from "../routes";
 
@@ -30,7 +31,8 @@ const Main = () => {
         <Route exact component={Signup} path={routes.authentication.signup} />
         <Route exact component={QuizSignup} path={routes.quiz.register} />
         <Route exact component={Create} path={routes.quiz.create} />
-        <Route exact component={Submission} path={routes.submission} />
+        <Route exact component={Result} path={routes.submission} />
+        <Route exact component={Submissions} path={routes.quiz.submissions} />
         <Route
           exact
           component={QuestionBuilder}

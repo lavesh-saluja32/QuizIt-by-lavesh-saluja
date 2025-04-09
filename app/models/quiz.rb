@@ -35,6 +35,8 @@ class Quiz < ApplicationRecord
 
   has_many :submissions
 
+  has_one_attached :report
+
   validates :name, presence: true, length: { maximum: MAX_QUIZ_NAME_LENGTH }
   validates :submission_count, numericality: { greater_than_or_equal_to: MIN_VALUE, only_integer: true }
   validates :total_questions, numericality: { greater_than_or_equal_to: MIN_VALUE, only_integer: true }
@@ -46,6 +48,7 @@ class Quiz < ApplicationRecord
   def clone_quiz!
     cloned_quiz = deep_clone include: { questions: :options }
     cloned_quiz.status = "draft"
+    cloned_quiz.submission_count = 0
     cloned_quiz.save!
     cloned_quiz
   end

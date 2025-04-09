@@ -22,8 +22,22 @@
 }
 .active-quiz-link{
   font-weight: bold;
+  color: black !important;
 }
 .custom-input {
   --neeto-ui-input-bg-color: transparent;
   --neeto-ui-input-font-size:1.5rem;
+}
+
+.custom-table .ant-table-thead > tr > th:not(:first-child) {
+  border-left: none !important;
+}
+
+.custom-table .ant-table-cell-fix-left-last::after,
+.custom-table .ant-table-cell-fix-right-first::after,
+.custom-table .ant-table-thead > tr > th:not(:first-child)::before {
+  display: none !important;
+  width: 0 !important;
+  border-left: none !important;
+  background: none !important;
 }

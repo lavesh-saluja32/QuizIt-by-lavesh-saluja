@@ -82,7 +82,7 @@ const Dashboard = () => {
           />
         </div>
       </div>
-      <div className=" ant-table-thead h-full w-full overflow-auto p-4">
+      <div className=" custom-table ant-table-thead h-full w-full overflow-auto p-4">
         <Table
           {...{
             data: quizzes,

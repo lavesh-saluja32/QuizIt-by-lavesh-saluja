@@ -113,3 +113,10 @@ gem "will_paginate"
 gem "pg_search"
 
 gem "deep_cloneable"
+
+# PDF generation gem
+gem "wicked_pdf"
+# wicked_pdf uses the following binary
+gem "wkhtmltopdf-binary"
+
+gem "redis", ">= 4.0.1"

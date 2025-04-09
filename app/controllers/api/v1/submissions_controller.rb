@@ -6,9 +6,6 @@ class Api::V1::SubmissionsController < ApplicationController
   before_action :load_quiz!, only: %i[create]
   before_action :load_submission!, only: %i[update]
 
-  def index
-  end
-
   def create
     user = Api::V1::RegisterService.new(submission_params).process!
     @submission = @quiz.submissions.new(user: user)

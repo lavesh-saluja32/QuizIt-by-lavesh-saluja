@@ -2,7 +2,7 @@
 
 class Api::V1::Admin::QuizzesController < ApplicationController
   after_action :verify_authorized, except: %i[index bulk_delete bulk_update]
-  before_action :load_quiz!, only: %i[update show clone destroy]
+  before_action :load_quiz!, only: %i[update show clone destroy download]
 
   def index
     @quizzes = policy_scope([:admin, Quiz.includes(:category)])

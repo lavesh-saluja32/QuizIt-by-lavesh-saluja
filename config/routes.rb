@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
         namespace :admin do
           resources :quizzes, only: %i[index create update show destroy] do
+            resource :report, only: %i[create show], controller: "reports"
+            resources :submissions, only: %i[index]
             member do
               post :clone
             end

@@ -30,7 +30,8 @@ require "test_helper"
 class SubmissionTest < ActiveSupport::TestCase
   def setup
     @user = create(:user)
-    @quiz = create(:quiz)
+    @category = create(:category, name: "category 1")
+    @quiz = create(:quiz, category: @category)
   end
 
   def test_valid_submission

@@ -27,6 +27,13 @@ const bulkUpdate = payload =>
     quizzes: payload,
   });
 
+const createReport = quizId => axios.post(`/admin/quizzes/${quizId}/report`);
+
+const downloadReport = quizId =>
+  axios.get(`/admin/quizzes/${quizId}/report`, {
+    responseType: "blob",
+  });
+
 const quizzesApi = {
   create,
   fetch,
@@ -36,5 +43,7 @@ const quizzesApi = {
   clone,
   bulkDelete,
   bulkUpdate,
+  createReport,
+  downloadReport,
 };
 export default quizzesApi;

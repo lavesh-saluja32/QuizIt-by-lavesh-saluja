@@ -11,7 +11,7 @@ import ScoreCards from "./Scores";
 import { useUpdateSubmission } from "../../hooks/reactQuery/public/useSubmissions";
 import useQuizStore from "../../stores/useQuizStore";
 
-const Submission = () => {
+const Result = () => {
   const { submissionId } = useParams();
 
   const { selectedAnswers } = useQuizStore();
@@ -59,4 +59,4 @@ const Submission = () => {
   );
 };
 
-export default Submission;
+export default Result;

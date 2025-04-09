@@ -6,7 +6,7 @@ class Api::V1::QuizzesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @admin = create(:user, role: :admin_user)
     @standard_user = create(:user, role: :standard_user)
-    @category = create(:category)
+    @category = create(:category, name: "category 1")
     @quiz = create(:quiz, user: @admin, category: @category)
     @admin_headers = headers(@admin)
     @standard_user_headers = headers(@standard_user)

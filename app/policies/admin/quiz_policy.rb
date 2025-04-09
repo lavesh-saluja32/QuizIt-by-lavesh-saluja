@@ -27,6 +27,10 @@ class Admin::QuizPolicy
     update?
   end
 
+  def download?
+    update?
+  end
+
   class Scope
     attr_reader :user, :scope
 
