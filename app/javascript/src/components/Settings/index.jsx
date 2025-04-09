@@ -24,7 +24,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="flex h-1/2 w-1/4 items-center justify-center">
+    <div className="flex h-1/2 w-1/2 items-center justify-center">
       <div className="m-auto w-1/2 space-y-16">
         <div>
           <Typography style="h1">{t("button.settings")}</Typography>
