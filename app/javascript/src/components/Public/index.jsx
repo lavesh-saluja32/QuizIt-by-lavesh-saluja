@@ -8,18 +8,15 @@ import { Filter } from "@bigbinary/neeto-icons";
 import QuizCard from "./QuizCard";
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { useFetchQuizzes } from "../../hooks/reactQuery/public/useQuizzes";
-import { useShowOrganization } from "../../hooks/reactQuery/useOrganizations";
 
 const Public = () => {
   const history = useHistory();
 
   const { t } = useTranslation();
 
-  const { data: { data: { quizzes = [] } = {} } = {} } = useFetchQuizzes();
+  const { data: { data: { quizzes = [], organizationName = "" } = {} } = {} } =
+    useFetchQuizzes();
   console.log(quizzes);
-
-  const { data: { data: { organizationName = "" } = {} } = {} } =
-    useShowOrganization();
 
   const handleAuthNavigation = () => {
     history.push(routes.authentication.login);

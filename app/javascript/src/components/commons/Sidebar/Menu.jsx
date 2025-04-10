@@ -1,34 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import useQueryParams from "@bigbinary/neeto-commons-frontend/react-utils/useQueryParams";
-import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
-import { Typography, Button } from "@bigbinary/neetoui";
+import {
+  buildUrl,
+  getFromLocalStorage,
+} from "@bigbinary/neeto-commons-frontend/utils";
+import { User } from "@bigbinary/neeto-icons";
+import { Typography } from "@bigbinary/neetoui";
 import classNames from "classnames";
 import { List, Settings, Globe } from "neetoicons";
 import { useTranslation } from "react-i18next";
 import { NavLink, useHistory, useRouteMatch } from "react-router-dom";
 
+import useLogout from "../../../hooks/reactQuery/useLogout";
 import { routes } from "../../../routes";
 import useQuizSelectionStore from "../../../stores/useQuizSelectionStore";
+import useQuizStatsStore from "../../../stores/useQuizStatsStore";
 
 const Menu = ({ isExpanded }) => {
   const history = useHistory();
+
   const queryParams = useQueryParams();
-  const [filterStatus, setFilterStatus] = useState(queryParams.status || "");
+
+  const filterStatus = queryParams.status;
+
+  const { statusCounts } = useQuizStatsStore();
 
   const homePage = useRouteMatch(routes.root);
 
   const { t } = useTranslation();
+
   const { clearSelections } = useQuizSelectionStore();
-  const handleFilterNavigation = () => {
-    const query = filterStatus ? { status: filterStatus } : {};
+
+  const { mutate: logoutUser } = useLogout();
+
+  const handleLogout = () => logoutUser();
+
+  const handleFilterNavigation = status => {
+    const query = !(status === "all") ? { status } : {};
     history.push(buildUrl(routes.root, query));
     clearSelections();
   };
 
-  useEffect(() => {
-    handleFilterNavigation();
-  }, [filterStatus]);
+  const userName = getFromLocalStorage("authUserName") || "Oliver Smith";
+  const userEmail = getFromLocalStorage("authEmail") || "oliver@example.com";
 
   return (
     <div
@@ -44,7 +59,7 @@ const Menu = ({ isExpanded }) => {
           exact
           activeClassName="active-link"
           className="flex items-center space-x-2 rounded p-2 hover:bg-blue-600 hover:text-white"
-          to="/"
+          to={routes.root}
         >
           <List />
           <Typography className="font-semibold">{t("quiz.heading")}</Typography>
@@ -58,77 +73,79 @@ const Menu = ({ isExpanded }) => {
             }
           )}
         >
-          <Button
-            style="link"
+          <div
             className={classNames(
-              "flex items-center justify-between rounded p-2 hover:bg-gray-100",
+              "flex w-full cursor-pointer items-center justify-between rounded p-2 hover:bg-gray-100",
               {
-                "bg-gray-100": !filterStatus,
+                "bg-gray-100": !queryParams.status,
               }
             )}
-            onClick={() => setFilterStatus("")}
+            onClick={() => handleFilterNavigation("all")}
           >
-            <Typography>{t("button.filter.all")}</Typography>
-          </Button>
-          <Button
-            style="link"
+            <Typography className="text-left">
+              {t("button.filter.all")}
+            </Typography>
+            <Typography className="text-right">
+              {statusCounts.draft + statusCounts.published || 0}
+            </Typography>
+          </div>
+          <div
             className={classNames(
-              "flex items-center justify-between rounded p-2 hover:bg-gray-100",
+              "flex cursor-pointer items-center justify-between rounded p-2 hover:bg-gray-100",
               {
                 "bg-gray-100": filterStatus === "published",
               }
             )}
-            onClick={() => setFilterStatus("published")}
+            onClick={() => handleFilterNavigation("published")}
           >
             <Typography>{t("button.filter.published")}</Typography>
-          </Button>
-          <Button
-            style="link"
+            <Typography>{statusCounts.published}</Typography>
+          </div>
+          <div
             className={classNames(
-              "flex items-center justify-between rounded p-2 hover:bg-gray-100",
+              "flex cursor-pointer items-center justify-between rounded p-2 hover:bg-gray-100",
               {
                 "bg-gray-100": filterStatus === "draft",
               }
             )}
-            onClick={() => setFilterStatus("draft")}
+            onClick={() => handleFilterNavigation("draft")}
           >
             <Typography>{t("button.filter.draft")}</Typography>
-          </Button>
+            <Typography>{statusCounts.draft}</Typography>
+          </div>
         </div>
       </div>
       <div className="space-y-2">
         <NavLink
           activeClassName="active-link"
           className="flex items-center space-x-2 rounded p-2 hover:bg-blue-600 hover:text-white"
-          to="/settings"
+          to={routes.settings}
         >
           <Settings />
           <Typography>{t("button.settings")}</Typography>
         </NavLink>
-        <NavLink
-          activeClassName="active-link"
+        <a
           className="flex items-center space-x-2 rounded p-2 hover:bg-blue-600 hover:text-white"
-          to={routes.public}
+          href={routes.public}
+          rel="noopener noreferrer"
+          target="_blank"
         >
           <Globe />
           <Typography>{t("button.public")}</Typography>
-        </NavLink>
+        </a>
       </div>
       <div className="mt-auto border-t pt-4">
         <div className="flex items-center space-x-2 p-2">
-          <img
-            alt="Profile"
-            className="rounded-full"
-            src="https://via.placeholder.com/24"
-          />
+          <User />
           <div>
-            <p className="text-sm font-semibold">Oliver Smith</p>
-            <p className="text-xs text-gray-500">oliver@example.com</p>
+            <p className="text-sm font-semibold">{userName}</p>
+            <p className="text-xs text-gray-500">{userEmail}</p>
           </div>
         </div>
         <NavLink
           className="flex items-center space-x-2 rounded p-2 text-red-500 hover:bg-gray-100"
           to="/logout"
+          onClick={handleLogout}
         >
           <span>←</span>
           <span>Logout</span>

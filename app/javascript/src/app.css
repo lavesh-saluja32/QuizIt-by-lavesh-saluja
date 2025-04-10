@@ -7,6 +7,10 @@
   border-radius: 6px;
 }
 
+.active-link-icon{
+  background-color:theme('colors.blue.200') !important;
+}
+
  .ant-table-thead > tr > th {
   --neeto-ui-table-header-text-transform: capitalize;
   background-color: #bac8e0 !important;
