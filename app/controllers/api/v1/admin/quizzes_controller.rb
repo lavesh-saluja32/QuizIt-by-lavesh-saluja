@@ -54,7 +54,15 @@ class Api::V1::Admin::QuizzesController < ApplicationController
   def bulk_update
     permitted_params = bulk_update_params
     updates = permitted_params.slice(:status, :category_id).to_h.compact
-    Quiz.where(id: permitted_params[:ids], user_id: @current_user.id).update_all(updates)
+
+    quizzes = Quiz.where(id: permitted_params[:ids], user_id: @current_user.id)
+
+    Quiz.transaction do
+      quizzes.each do |quiz|
+        quiz.update!(updates.merge(last_saved_at: Time.current))
+      end
+    end
+
     render_json
   end
 
