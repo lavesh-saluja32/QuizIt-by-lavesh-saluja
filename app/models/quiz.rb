@@ -33,13 +33,14 @@ class Quiz < ApplicationRecord
   belongs_to :category
   belongs_to :user
 
-  has_many :submissions
+  has_many :submissions, dependent: :destroy
 
   has_one_attached :report
 
   validates :name, presence: true, length: { maximum: MAX_QUIZ_NAME_LENGTH }
   validates :submission_count, numericality: { greater_than_or_equal_to: MIN_VALUE, only_integer: true }
   validates :total_questions, numericality: { greater_than_or_equal_to: MIN_VALUE, only_integer: true }
+  validate :publish_verification, on: :update
 
   def update_last_saved
     update(last_saved_at: Time.current)
@@ -52,4 +53,12 @@ class Quiz < ApplicationRecord
     cloned_quiz.save!
     cloned_quiz
   end
+
+  private
+
+    def publish_verification
+      if questions.empty?
+        errors.add(:base, I18n.t("publishError"))
+      end
+    end
 end

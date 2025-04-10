@@ -6,15 +6,34 @@ import { Link } from "neetoicons";
 import PublishActions from "./Actions";
 import DraftStatus from "./DraftStatus";
 
-const PublishButton = ({ handlePublish, copyLink, t, quiz }) => (
+import { formatDate } from "../../../utils/formatDate";
+
+const PublishButton = ({
+  handlePublish,
+  t,
+  quiz,
+  handleQuizPublicNavigation,
+  copyQuizPublicUrl,
+  totalQuestions,
+}) => (
   <div className="flex items-center gap-4 rounded-md bg-gray-100 p-2">
     {quiz.status === "draft" && (
-      <DraftStatus lastSavedAt={quiz.lastSavedAt} t={t} />
+      <DraftStatus lastSavedAt={formatDate(quiz.lastSavedAt, true)} t={t} />
     )}
     <div className="flex rounded-md bg-blue-600">
-      <PublishActions {...{ handlePublish, quiz, t }} />
+      <PublishActions
+        {...{
+          handlePublish,
+          quiz,
+          t,
+          handleQuizPublicNavigation,
+          totalQuestions,
+        }}
+      />
     </div>
-    <Button icon={Link} style="text" onClick={copyLink} />
+    {quiz.status === "published" && (
+      <Button icon={Link} style="text" onClick={copyQuizPublicUrl} />
+    )}
   </div>
 );
 

@@ -40,7 +40,12 @@ const Create = () => {
           if (actionType === "save") {
             history.push(buildUrl(routes.quiz.create, { quizId }));
           } else {
-            history.push(buildUrl(routes.question.create, { quizId }));
+            window.location.replace(
+              buildUrl(routes.question.create, {
+                quizId,
+                questionNumber: Number(questionNumber) + 1,
+              })
+            );
           }
         },
         onSettled: () => {

@@ -64,7 +64,7 @@ const Submissions = () => {
       <PageHeader {...{ quizId, quiz }} />
       <div className="p-10">
         <Header />
-        <Subheader {...{ generatePdf }} />
+        <Subheader {...{ generatePdf, submissionsCount: submissions.length }} />
         <Table data={submissions} {...{ isLoading }} />
       </div>
       <Progress isLoading={isLoadingReport} {...{ progress }} />

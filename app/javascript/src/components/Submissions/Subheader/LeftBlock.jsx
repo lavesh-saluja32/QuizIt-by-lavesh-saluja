@@ -1,7 +1,12 @@
 import React from "react";
 
 import { Typography } from "neetoui/index";
+import { withTranslation } from "react-i18next";
 
-const LeftBlock = () => <Typography style="h3">32 Submissions</Typography>;
+const LeftBlock = ({ submissionsCount, t }) => (
+  <Typography style="h3">
+    {submissionsCount} {t("link.quiz.submissions")}
+  </Typography>
+);
 
-export default LeftBlock;
+export default withTranslation()(LeftBlock);

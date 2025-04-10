@@ -5,7 +5,7 @@ class Api::V1::Admin::QuizzesController < ApplicationController
   before_action :load_quiz!, only: %i[update show clone destroy download]
 
   def index
-    @quizzes = policy_scope([:admin, Quiz.includes(:category, :questions)])
+    @quizzes = policy_scope([:admin, Quiz.includes(:category, :questions, :user)])
     @status_counts = @quizzes.group(:status).count
     @quizzes_filter = Api::V1::Admin::QuizzesFilterService.new(@quizzes, params).process!
     @quizzes = @quizzes_filter.quizzes.order(updated_at: :desc)
