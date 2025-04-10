@@ -9,6 +9,7 @@ import QuestionForm from "./Form";
 import { formatPayload } from "./utlis";
 
 import { useCreateQuestion } from "../../hooks/reactQuery/useQuestions";
+import { useShowQuiz } from "../../hooks/reactQuery/useQuizzes";
 import { routes } from "../../routes";
 import PageHeader from "../Quiz/PageHeader";
 
@@ -18,6 +19,7 @@ const Create = () => {
   const [correctOption, setCorrectOption] = useState(DEFAULT_CORRECT_OPTION);
 
   const { quizId, questionNumber } = useParams();
+  const { data: { data: { quiz = {} } = {} } = {} } = useShowQuiz(quizId);
   const { t } = useTranslation();
 
   const history = useHistory();
@@ -58,7 +60,7 @@ const Create = () => {
 
   return (
     <div className="w-screen bg-slate-100">
-      <PageHeader {...{ quizId }} />
+      <PageHeader {...{ quizId, quiz }} />
       <div className="flex h-[80vh] w-full items-center justify-center">
         <QuestionForm
           isSaveNextbutton
