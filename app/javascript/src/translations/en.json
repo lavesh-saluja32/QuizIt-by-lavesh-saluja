@@ -85,7 +85,8 @@
   },
   "response": {
     "error": {
-      "default": "Something went wrong!"
+      "default": "Something went wrong!",
+      "pageNotFound": "Page not found"
     },
     "success": {
       "quizCreated": "Quiz created successfully!",
