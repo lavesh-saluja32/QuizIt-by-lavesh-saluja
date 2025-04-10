@@ -33,6 +33,7 @@ const Settings = () => {
         <Form
           formikProps={{
             initialValues: { name: organizationName },
+            enableReinitialize: true,
             validationSchema: VALIDATION_SCHEMA,
             onSubmit: handleSubmit,
           }}

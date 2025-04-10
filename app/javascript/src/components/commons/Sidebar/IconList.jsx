@@ -1,7 +1,8 @@
 import React from "react";
 
+import { Settings, Globe, List } from "@bigbinary/neeto-icons";
+import { NeetoQuiz } from "@bigbinary/neeto-icons/logos";
 import classNames from "classnames";
-import { NeetoQuiz, Settings, Globe, List } from "neetoicons";
 import { Button } from "neetoui";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
@@ -16,16 +17,31 @@ const IconList = ({ isExpanded }) => (
       }
     )}
   >
-    <NavLink exact activeClassName="active-link" to={routes.root}>
-      <Button icon={() => <NeetoQuiz />} style="link" />
-    </NavLink>
-    <NavLink activeClassName="active-link" to="/l">
+    <div className="">
+      <NeetoQuiz className="rounded-lg bg-blue-600" color="blue" size={60} />
+    </div>
+    <NavLink
+      exact
+      activeClassName="active-link-icon"
+      className="w-full rounded-lg text-center"
+      to={routes.root}
+    >
       <Button icon={() => <List />} style="link" />
     </NavLink>
-    <NavLink activeClassName="active-link" to="/l">
+    <NavLink
+      exact
+      activeClassName="active-link-icon"
+      className="w-full rounded-lg text-center"
+      to={routes.settings}
+    >
       <Button icon={() => <Settings />} style="link" />
     </NavLink>
-    <NavLink activeClassName="active-link" to="/l">
+    <NavLink
+      exact
+      activeClassName="active-link-icon"
+      className="w-full rounded-lg text-center"
+      to={routes.public}
+    >
       <Button icon={() => <Globe />} style="link" />
     </NavLink>
   </div>

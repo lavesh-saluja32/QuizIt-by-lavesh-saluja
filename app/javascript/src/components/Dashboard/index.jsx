@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 import useQueryParams from "@bigbinary/neeto-commons-frontend/react-utils/useQueryParams";
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
@@ -20,6 +20,7 @@ import {
 } from "../../hooks/reactQuery/useQuizzes";
 import { routes } from "../../routes";
 import useQuizSelectionStore from "../../stores/useQuizSelectionStore";
+import useQuizStatsStore from "../../stores/useQuizStatsStore";
 
 const Dashboard = () => {
   const [isSidePaneOpen, setIsSidePaneOpen] = useState(false);
@@ -34,13 +35,19 @@ const Dashboard = () => {
     clearSelections,
   } = useQuizSelectionStore();
 
+  const setStatusCounts = useQuizStatsStore(state => state.setStatusCounts);
+
   const history = useHistory();
 
   const { status, page, search, category } = useQueryParams();
   const {
-    data: { data: { quizzes = [], totalSize = 0 } = {} } = {},
+    data: {
+      data: { quizzes = [], totalSize = 0, statusCounts = {} } = {},
+    } = {},
     isLoading,
   } = useFetchQuizzes({ status, page, search, category });
+
+  const memoizedStatusCounts = useMemo(() => statusCounts, [statusCounts]);
 
   const { mutate: updateQuiz } = useUpdateQuiz();
 
@@ -65,6 +72,12 @@ const Dashboard = () => {
   const handleClone = quizId => {
     cloneQuiz(quizId);
   };
+
+  useEffect(() => {
+    if (memoizedStatusCounts) {
+      setStatusCounts(memoizedStatusCounts);
+    }
+  }, [memoizedStatusCounts]);
 
   if (isLoading) return <PageLoader />;
 
