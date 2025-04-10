@@ -1,15 +1,13 @@
 import React from "react";
 
+import { PrivateRoute } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { either, isEmpty, isNil } from "ramda";
-import {
-  Route,
-  Switch,
-  PrivateRoute,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import { getFromLocalStorage } from "utils/storage";
 
 import { Login, Signup } from "./Authentication";
 import QuizSignup from "./Authentication/QuizSignup/Signup";
+import PageNotFound from "./commons/PageNotFound";
 import Sidebar from "./commons/Sidebar";
 import Dashboard from "./Dashboard";
 import Edit from "./Edit";
@@ -32,7 +30,6 @@ const Main = () => {
       {isLoggedIn && <Sidebar />}
       <Switch>
         <Route exact component={Public} path="/public" />
-        <Route exact component={Dashboard} path={routes.root} />
         <Route exact component={Login} path={routes.authentication.login} />
         <Route exact component={Signup} path={routes.authentication.signup} />
         <Route exact component={QuizSignup} path={routes.quiz.register} />
@@ -48,12 +45,13 @@ const Main = () => {
         />
         <Route exact component={Edit} path={routes.question.edit} />
         <PrivateRoute
+          exact
           component={Dashboard}
           condition={isLoggedIn}
           path={routes.root}
           redirectRoute={routes.public}
         />
-        )
+        <Route component={PageNotFound} path="*" />
       </Switch>
     </div>
   );
