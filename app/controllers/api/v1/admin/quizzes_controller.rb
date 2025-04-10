@@ -56,11 +56,17 @@ class Api::V1::Admin::QuizzesController < ApplicationController
     updates = permitted_params.slice(:status, :category_id).to_h.compact
 
     quizzes = Quiz.where(id: permitted_params[:ids], user_id: @current_user.id)
-
-    Quiz.transaction do
-      quizzes.each do |quiz|
-        quiz.update!(updates.merge(last_saved_at: Time.current))
+    puts updates.key?(:status)
+    if updates.key?(:status)
+      puts "India"
+      Quiz.transaction do
+        quizzes.each do |quiz|
+          quiz.update!(updates.merge(last_saved_at: Time.current))
+        end
       end
+    elsif updates.key?(:category_id)
+      puts "Hello from india"
+      quizzes.update_all(category_id: updates[:category_id], last_saved_at: Time.current)
     end
 
     render_json

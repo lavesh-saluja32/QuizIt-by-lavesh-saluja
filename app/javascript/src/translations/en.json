@@ -96,8 +96,8 @@
       "questionDeleted": "Question deleted successfully!",
       "questionUpdated": "Question updated successfully!",
       "questionCloned": "Question cloned successfully",
-      "quizBulkDeleted": "Questions deleted successfully ",
-      "quizBulkUpdated": "Questions updated successfully",
+      "quizBulkDeleted": "Quizzes deleted successfully ",
+      "quizBulkUpdated": "Quizzes updated successfully",
       "linkCopied": "Link copied to clipboard!"
     }
   },

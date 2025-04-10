@@ -3,60 +3,63 @@ import { Dropdown, Typography, Select } from "neetoui";
 import { withTranslation } from "react-i18next";
 import { Filter } from "neetoicons";
 import useFetchCategories from "../../hooks/reactQuery/useFetchCategories";
-
+import { useHistory } from "react-router-dom";
+import { useQueryParams } from "@bigbinary/neeto-commons-frontend/react-utils";
+import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
+import { routes } from "../../routes";
 const DropdownFilter = ({ t }) => {
-  const [selectedCategories, setSelectedCategories] = useState([]);
-
   const { data: { data: { categories = [] } = {} } = {} } =
     useFetchCategories();
 
-  console.log(categories);
+  const queryParams = useQueryParams();
+
+  console.log(queryParams);
+
+  const history = useHistory();
 
   const handleParams = selectedOptions => {
-    const categoryParams = selectedOptions.map(option => option.value);
-    console.log("Selected category params:", categoryParams);
-  };
-
-  const handleCategoryChange = selectedOptions => {
-    setSelectedCategories(selectedOptions);
-    handleParams(selectedOptions);
+    history.replace(
+      buildUrl(routes.public, {
+        category: selectedOptions.map(option => option.label),
+      })
+    );
   };
 
   return (
     <div>
-      <Select
-        isMulti
-        isSearchable
-        name="categories"
-        options={categories.map(category => ({
-          label: category.name,
-          value: category.id,
-        }))}
-        strategy="fixed"
-        closeOnSelect={false}
-      />
       <Dropdown
-        buttonStyle="link"
+        className="h-15 ml-2 p-2"
         icon={Filter}
-        className="p-3"
-        closeOnSelect={false}
+        strategy="fixed"
+        buttonStyle="link"
       >
-        <Dropdown.Menu className="space-y-3">
-          <Dropdown.MenuItem>
-            <Typography style="h3">{t("quiz.category")}</Typography>
-          </Dropdown.MenuItem>
+        <div onClick={event => event.stopPropagation()}>
           <Select
             isMulti
             isSearchable
-            name="categories"
+            placeholder="Select categories"
             options={categories.map(category => ({
               label: category.name,
-              value: category.id,
+              value: category.name,
             }))}
-            strategy="fixed"
-            closeOnSelect={false}
+            styles={{
+              menu: base => ({
+                ...base,
+                position: "relative",
+                zIndex: 10,
+              }),
+              menuList: base => ({
+                ...base,
+                maxHeight: "200px",
+              }),
+            }}
+            value={queryParams.categories?.split(",").map(category => ({
+              label: category,
+              value: category,
+            }))}
+            onChange={handleParams}
           />
-        </Dropdown.Menu>
+        </div>
       </Dropdown>
     </div>
   );
