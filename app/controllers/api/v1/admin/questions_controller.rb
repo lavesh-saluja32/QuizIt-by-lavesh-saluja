@@ -13,6 +13,7 @@ class Api::V1::Admin::QuestionsController < ApplicationController
     @question = @quiz.questions.new(question_params)
     authorize([:admin, @question])
     @question.save!
+    @quiz.update!(status: "draft") unless @quiz.draft?
     render_json
   end
 
@@ -41,11 +42,9 @@ class Api::V1::Admin::QuestionsController < ApplicationController
   end
 
   def clone
-    puts "CLone 1"
     authorize([:admin, @question])
-    puts "CLone 2"
-
     @question.clone_question!
+    @question.quiz.update!(status: "draft") unless @question.quiz.draft?
     puts "CLone 3"
   end
 

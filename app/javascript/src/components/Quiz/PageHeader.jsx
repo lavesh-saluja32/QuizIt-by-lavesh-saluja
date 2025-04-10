@@ -11,7 +11,15 @@ import PublishButton from "./PublishButton/PublishButton";
 
 import { routes } from "../../routes";
 
-const PageHeader = ({ quizId, showPublishButton, quiz, handlePublish }) => {
+const PageHeader = ({
+  quizId,
+  showPublishButton,
+  quiz,
+  handlePublish,
+  handleQuizPublicNavigation,
+  copyQuizPublicUrl,
+  totalQuestions,
+}) => {
   const { t } = useTranslation();
   const history = useHistory();
 
@@ -54,7 +62,18 @@ const PageHeader = ({ quizId, showPublishButton, quiz, handlePublish }) => {
             {t("link.quiz.submissions")}
           </NavLink>
         </div>
-        {showPublishButton && <PublishButton {...{ t, quiz, handlePublish }} />}
+        {showPublishButton && (
+          <PublishButton
+            {...{
+              t,
+              quiz,
+              handlePublish,
+              handleQuizPublicNavigation,
+              copyQuizPublicUrl,
+              totalQuestions,
+            }}
+          />
+        )}
       </div>
     </div>
   );

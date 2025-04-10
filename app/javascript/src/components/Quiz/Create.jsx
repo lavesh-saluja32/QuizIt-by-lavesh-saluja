@@ -2,7 +2,7 @@ import React from "react";
 
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import PageLoader from "components/commons/PageLoader";
-import { Button, Typography } from "neetoui/index";
+import { Button, Typography, Toastr } from "neetoui/index";
 import { useTranslation } from "react-i18next";
 import { useParams, useHistory } from "react-router-dom";
 
@@ -63,9 +63,29 @@ const Create = () => {
     updateQuiz({ quizId, payload: { status } });
   };
 
+  const buildQuizPublicUrl = () =>
+    `${window.location.origin}${buildUrl(routes.quiz.register, { quizId })}`;
+
+  const handleQuizPublicNavigation = () => history.push(buildQuizPublicUrl());
+
+  const copyQuizPublicUrl = () => {
+    navigator.clipboard.writeText(buildQuizPublicUrl());
+    Toastr.success(t("response.success.linkCopied"));
+  };
+
   return (
     <div className="flex h-screen w-screen flex-col bg-slate-100">
-      <PageHeader {...{ quizId, quiz, handlePublish }} showPublishButton />
+      <PageHeader
+        {...{
+          quizId,
+          quiz,
+          handlePublish,
+          handleQuizPublicNavigation,
+          copyQuizPublicUrl,
+          totalQuestions: questions.length,
+        }}
+        showPublishButton
+      />
       <div className="m-6 flex justify-end">
         <Button
           className="bg-blue-600"
