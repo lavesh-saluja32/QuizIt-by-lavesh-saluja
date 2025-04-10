@@ -27,6 +27,7 @@ const Actions = ({
       <Button
         className="rounded-none rounded-l-md border-r border-white bg-blue-600 px-2 text-white"
         disabled={totalQuestions <= 0}
+        label={t("quiz.unpublish")}
         style="primary"
         onClick={() => handlePublish({ quizId: quiz.id, status: "draft" })}
       />

@@ -31,6 +31,15 @@
 
 
 en:
+  errors:
+    messages:
+      record_exists: "Record already exists."
+      invalid_query: "Invalid database query."
+      invalid_json: "Invalid JSON format."
+      not_authorized: "You are not authorized to perform this action."
+      invalid_token: "Invalid or expired token."
+      timeout: "Request timed out. Please try again later."
+      generic: "Something went wrong. Please try again later."
   publishError: "No questions exist!"
   report:
     render: "Rendering the report"

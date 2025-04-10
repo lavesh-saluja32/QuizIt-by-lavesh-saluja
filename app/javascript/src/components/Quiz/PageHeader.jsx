@@ -2,13 +2,15 @@ import React from "react";
 
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { LeftArrow } from "@bigbinary/neeto-icons";
+import Rename from "@bigbinary/neeto-molecules/Rename";
 import classNames from "classnames";
-import { Button, Typography } from "neetoui/index";
+import { Button } from "neetoui/index";
 import { useTranslation } from "react-i18next";
 import { NavLink, useHistory, useRouteMatch } from "react-router-dom";
 
 import PublishButton from "./PublishButton/PublishButton";
 
+import { useUpdateQuiz } from "../../hooks/reactQuery/useQuizzes";
 import { routes } from "../../routes";
 
 const PageHeader = ({
@@ -21,7 +23,14 @@ const PageHeader = ({
   totalQuestions,
 }) => {
   const { t } = useTranslation();
+
   const history = useHistory();
+
+  const { mutate: updateQuiz } = useUpdateQuiz();
+
+  const handleUpdateQuizName = name => {
+    updateQuiz({ quizId, payload: { name } });
+  };
 
   const quizMatch = useRouteMatch("/quiz/:quizId/create");
   const questionMatch = useRouteMatch(
@@ -42,7 +51,17 @@ const PageHeader = ({
             style="link"
             onClick={() => history.goBack()}
           />
-          <Typography style="h2">{quiz?.name}</Typography>
+          {/* <Typography style="h2">{quiz?.name}</Typography> */}
+          <Rename
+            hideMenu
+            placeholder="Enter a name"
+            value={quiz?.name}
+            textProps={{
+              className:
+                "text-2xl font-semibold bg-white border hover:border-gray-300 px-2 py-1 rounded",
+            }}
+            onRename={handleUpdateQuizName}
+          />
         </div>
         <div className="space-x-6">
           <NavLink

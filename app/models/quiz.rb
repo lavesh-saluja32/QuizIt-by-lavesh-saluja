@@ -33,7 +33,7 @@ class Quiz < ApplicationRecord
   belongs_to :category
   belongs_to :user
 
-  has_many :submissions
+  has_many :submissions, dependent: :destroy
 
   has_one_attached :report
 

@@ -20,8 +20,6 @@ module ApiRescuable
   private
 
     def handle_validation_error(exception)
-      puts exception.message
-      puts "HI"
       log_exception(exception)
       render_error(exception.record.errors.full_messages.to_sentence, :unprocessable_entity)
     end
@@ -33,12 +31,12 @@ module ApiRescuable
 
     def handle_record_not_unique(exception)
       log_exception(exception)
-      render_error("Record already exists.", :conflict)
+      render_error(I18n.t("errors.messages.record_exists"), :conflict)
     end
 
     def handle_statement_invalid(exception)
       log_exception(exception)
-      render_error("Invalid database query.", :bad_request)
+      render_error(I18n.t("errors.messages.invalid_query"), :bad_request)
     end
 
     def handle_api_error(exception)
@@ -48,21 +46,21 @@ module ApiRescuable
 
     def handle_parse_error(exception)
       log_exception(exception)
-      render_error("Invalid JSON format.", :unprocessable_entity)
+      render_error(I18n.t("errors.messages.invalid_json"), :unprocessable_entity)
     end
 
     def handle_user_not_authorized_error(exception)
-      render_error("You are not authorized to perform this action.", :forbidden)
+      render_error(I18n.t("errors.messages.not_authorized"), :forbidden)
     end
 
     def handle_jwt_decode_error(exception)
       log_exception(exception)
-      render_error("Invalid or expired token.", :unauthorized)
+      render_error(I18n.t("errors.messages.invalid_token"), :unauthorized)
     end
 
     def handle_timeout_error(exception)
       log_exception(exception)
-      render_error("Request timed out. Please try again later.", :gateway_timeout)
+      render_error(I18n.t("errors.messages.timeout"), :gateway_timeout)
     end
 
     def handle_argument_error(exception)
@@ -72,8 +70,7 @@ module ApiRescuable
 
     def handle_generic_exception(exception)
       log_exception(exception)
-      puts exception
-      render_error("Something went wrong. Please try again later.", :internal_server_error)
+      render_error(I18n.t("errors.messages.generic"), :internal_server_error)
     end
 
     def log_exception(exception)

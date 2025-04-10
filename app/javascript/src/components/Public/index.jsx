@@ -4,11 +4,10 @@ import { routes } from "../../routes";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Search from "@bigbinary/neeto-molecules/Search";
-import { Filter } from "@bigbinary/neeto-icons";
 import QuizCard from "./QuizCard";
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { useFetchQuizzes } from "../../hooks/reactQuery/public/useQuizzes";
-
+import DropdownFilter from "./DropdownFilter";
 const Public = () => {
   const history = useHistory();
 
@@ -45,7 +44,7 @@ const Public = () => {
               className="w-[30vw]"
             />
           </div>
-          <Button icon={Filter} style="link" />
+          <DropdownFilter />
         </div>
         <div className="m-auto flex flex-wrap justify-center">
           {quizzes.map(quiz => (

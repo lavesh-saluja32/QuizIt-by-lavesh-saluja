@@ -113,7 +113,7 @@
     "maxOptions": "You can have a maximum of {{max}} options"
   },
   "placeholder": {
-    "selectCategory": "Select Category",
+    "selectCategory": "Select category",
     "noQuestions": "There are no questions to show",
     "question": "Type your question here...",
     "option": "Type option {{number}}",
