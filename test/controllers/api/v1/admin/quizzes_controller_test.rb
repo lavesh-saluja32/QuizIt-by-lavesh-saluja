@@ -183,6 +183,9 @@ end
 
   def test_admin_can_bulk_update_quizzes
     quizzes = create_list(:quiz, 2, user: @admin, category: @category)
+    quizzes.each do |quiz|
+      create(:question, quiz: quiz)
+    end
     category = create(:category, name: "Sample Category")
     quiz_ids = quizzes.map(&:id)
     patch bulk_update_api_v1_admin_quizzes_path,

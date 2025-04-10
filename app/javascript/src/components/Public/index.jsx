@@ -8,13 +8,17 @@ import QuizCard from "./QuizCard";
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { useFetchQuizzes } from "../../hooks/reactQuery/public/useQuizzes";
 import DropdownFilter from "./DropdownFilter";
+import { useQueryParams } from "@bigbinary/neeto-commons-frontend/react-utils";
+
 const Public = () => {
   const history = useHistory();
 
   const { t } = useTranslation();
 
+  const { category = [] } = useQueryParams();
+
   const { data: { data: { quizzes = [], organizationName = "" } = {} } = {} } =
-    useFetchQuizzes();
+    useFetchQuizzes({ category });
   console.log(quizzes);
 
   const handleAuthNavigation = () => {
