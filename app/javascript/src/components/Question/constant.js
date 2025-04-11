@@ -1,5 +1,5 @@
 import { t } from "i18next";
-import * as Yup from "yup";
+import * as yup from "yup";
 
 export const OPTION_VALUE = { text: "" };
 
@@ -10,12 +10,14 @@ export const QUESTION_INITIAL_VALUES = {
 
 export const MAX_OPTIONS = 6;
 
-export const QUESTION_VALIDATION_SCHEMA = Yup.object({
-  question: Yup.string().required(t("validation.questionRequired")),
-  options: Yup.array()
+export const QUESTION_VALIDATION_SCHEMA = yup.object({
+  question: yup.string().required(t("validation.questionRequired")),
+  options: yup
+    .array()
     .of(
-      Yup.object().shape({
-        text: Yup.string()
+      yup.object().shape({
+        text: yup
+          .string()
           .required("Option is required")
           .min(1, t("validation.optionMin")),
       })

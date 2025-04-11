@@ -10,10 +10,17 @@ class Api::V1::QuizzesFilterService
 
   def process!
     filter_by_category
+    filter_by_search_term
     @quizzes
   end
 
   private
+
+    def filter_by_search_term
+      return unless params[:search].present?
+
+      @quizzes = @quizzes.where("quizzes.name ILIKE ?", "%#{params[:search]}%")
+    end
 
     def filter_by_category
       return unless params[:category].present? && params[:category].is_a?(Array)

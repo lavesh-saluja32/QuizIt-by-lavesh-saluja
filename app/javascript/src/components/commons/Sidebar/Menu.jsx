@@ -12,6 +12,8 @@ import { List, Settings, Globe } from "neetoicons";
 import { useTranslation } from "react-i18next";
 import { NavLink, useHistory, useRouteMatch } from "react-router-dom";
 
+import { DEFAULT_QUIZ_COUNT } from "./constant";
+
 import useLogout from "../../../hooks/reactQuery/useLogout";
 import { routes } from "../../../routes";
 import useQuizSelectionStore from "../../../stores/useQuizSelectionStore";
@@ -86,7 +88,9 @@ const Menu = ({ isExpanded }) => {
               {t("button.filter.all")}
             </Typography>
             <Typography className="text-right">
-              {statusCounts.draft + statusCounts.published || 0}
+              {Number(statusCounts?.draft || DEFAULT_QUIZ_COUNT) +
+                Number(statusCounts?.published || DEFAULT_QUIZ_COUNT) ||
+                DEFAULT_QUIZ_COUNT}
             </Typography>
           </div>
           <div
