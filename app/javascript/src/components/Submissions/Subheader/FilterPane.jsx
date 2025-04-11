@@ -24,8 +24,8 @@ const FilterPane = () => {
     const { name, status } = values;
 
     const params = filterNonNull({
-      search: name,
-      status: status.value,
+      ...(name?.trim() && { search: name.trim() }),
+      status: status?.value,
       quizId,
     });
 
@@ -42,7 +42,7 @@ const FilterPane = () => {
         </Header>
         <Form
           formikProps={{
-            initialValues: { name: "", email: "" },
+            initialValues: { name: "" },
             onSubmit: handleSubmit,
           }}
         >

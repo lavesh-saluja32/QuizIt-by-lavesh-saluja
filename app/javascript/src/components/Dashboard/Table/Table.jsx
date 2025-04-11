@@ -32,7 +32,6 @@ const Table = ({
   category,
   search,
   status,
-  totalSize,
   history,
   selectedRows,
 }) => {
@@ -148,7 +147,7 @@ const Table = ({
               category,
               search,
               status,
-              totalSize,
+              totalSize: data.length,
               history,
               t,
               selectedRows,

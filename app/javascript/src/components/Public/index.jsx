@@ -15,10 +15,10 @@ const Public = () => {
 
   const { t } = useTranslation();
 
-  const { category = [] } = useQueryParams();
+  const { category = [], search = "" } = useQueryParams();
 
   const { data: { data: { quizzes = [], organizationName = "" } = {} } = {} } =
-    useFetchQuizzes({ category });
+    useFetchQuizzes({ category, search });
   console.log(quizzes);
 
   const handleAuthNavigation = () => {
@@ -44,6 +44,7 @@ const Public = () => {
           <div>
             <Search
               searchParamName="search"
+              enableUrlSync
               placeholder={t("placeholder.searchQuiz")}
               className="w-[30vw]"
             />
