@@ -17,7 +17,6 @@ const QuizSearchInput = ({ clearSelections }) => {
   const handleSearchNavigation = useFuncDebounce(() => {
     const pathname = window.location.pathname;
 
-    // Remove `search` from URL if empty, otherwise update it
     const updatedParams = searchTerm
       ? mergeLeft({ search: searchTerm }, queryParams)
       : omit(["search"], queryParams);

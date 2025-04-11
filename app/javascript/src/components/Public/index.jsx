@@ -10,7 +10,7 @@ import { useFetchQuizzes } from "../../hooks/reactQuery/public/useQuizzes";
 import DropdownFilter from "./DropdownFilter";
 import { useQueryParams } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { isEmpty } from "ramda";
-import PageLoader from "..//commons/PageLoader";
+import PageLoader from "../commons/PageLoader";
 const Public = () => {
   const history = useHistory();
 

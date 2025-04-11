@@ -66,7 +66,8 @@ const Create = () => {
   const buildQuizPublicUrl = () =>
     `${window.location.origin}${buildUrl(routes.quiz.register, { quizId })}`;
 
-  const handleQuizPublicNavigation = () => history.push(buildQuizPublicUrl());
+  const handleQuizPublicNavigation = () =>
+    window.open(buildQuizPublicUrl(), "_blank");
 
   const copyQuizPublicUrl = () => {
     navigator.clipboard.writeText(buildQuizPublicUrl());
@@ -112,9 +113,9 @@ const Create = () => {
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-500">
+          <Typography className="text-center text-gray-500">
             {t("placeholder.noQuestions")}
-          </p>
+          </Typography>
         )}
       </div>
     </div>

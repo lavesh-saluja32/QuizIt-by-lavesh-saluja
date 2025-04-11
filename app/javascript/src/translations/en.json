@@ -39,6 +39,7 @@
     "delete": "Delete",
     "register": "Register",
     "login": "Login",
+    "logout": "Logout",
     "save": "Save",
     "saveNext": "Save & add new question",
     "cancel": "Cancel",

@@ -40,7 +40,7 @@ en:
       invalid_token: "Invalid or expired token."
       timeout: "Request timed out. Please try again later."
       generic: "Something went wrong. Please try again later."
-  publishError: "No questions exist!"
+  publishError: "Quiz cannot be published without any questions."
   report:
     render: "Rendering the report"
     generate: "Generating the PDF report"

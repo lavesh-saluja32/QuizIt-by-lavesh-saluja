@@ -5,6 +5,7 @@ import { Form, Input } from "@bigbinary/neetoui/formik";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
+import { routes } from "../../../routes";
 import { SIGNUP_INITIAL_VALUES, SIGNUP_VALIDATION_SCHEMA } from "../constants";
 
 const Signup = ({ handleSubmit, loading }) => {
@@ -18,7 +19,7 @@ const Signup = ({ handleSubmit, loading }) => {
         </h2>
         <div className="text-center">
           <Link
-            to="/"
+            to={routes.authentication.login}
             className="text-bb-purple mt-2 text-sm font-medium text-blue-300 transition duration-150 ease-in-out
               focus:underline focus:outline-none"
           >
@@ -62,7 +63,7 @@ const Signup = ({ handleSubmit, loading }) => {
                 type="password"
               />
               <Button
-                disabled={!isValid || !dirty} // Button disabled until form is valid & modified
+                disabled={!isValid || !dirty}
                 label={t("button.register")}
                 loading={loading}
                 type="submit"

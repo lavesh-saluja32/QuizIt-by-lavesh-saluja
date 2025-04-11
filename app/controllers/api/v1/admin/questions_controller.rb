@@ -12,8 +12,10 @@ class Api::V1::Admin::QuestionsController < ApplicationController
   def create
     @question = @quiz.questions.new(question_params)
     authorize([:admin, @question])
-    @question.save!
-    @quiz.update!(status: "draft") unless @quiz.draft?
+    Question.transaction do
+     @question.save!
+     @quiz.update!(status: "draft") unless @quiz.draft?
+   end
     render_json
   end
 
@@ -26,8 +28,6 @@ class Api::V1::Admin::QuestionsController < ApplicationController
     end
 
     render_json
-  rescue ActiveRecord::RecordInvalid => e
-    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   def show
@@ -42,8 +42,11 @@ class Api::V1::Admin::QuestionsController < ApplicationController
 
   def clone
     authorize([:admin, @question])
-    @question.clone_question!
-    @question.quiz.update!(status: "draft") unless @question.quiz.draft?
+    Question.transaction do
+      @question.clone_question!
+      @question.quiz.update!(status: "draft") unless @question.quiz.draft?
+    end
+    render_json
   end
 
   private

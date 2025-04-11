@@ -6,7 +6,7 @@ class Api::V1::Admin::ReportsController < ApplicationController
   def create
     authorize [:admin, @quiz]
     SubmissionsReportJob.perform_async(@quiz.id, @current_user.id)
-    render_json(message: "Report generation started")
+    render_json
   end
 
   def show
