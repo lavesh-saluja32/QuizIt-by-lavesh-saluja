@@ -13,7 +13,8 @@ class SubmissionsReportJob
     submissions = quiz.submissions.includes(:user)
     html_content = ApplicationController.render(
       assigns: {
-        submissions:
+        submissions:,
+        quiz:
       },
       template: "api/v1/admin/submissions/report/download",
       layout: "pdf"
