@@ -310,9 +310,9 @@ def create_submissions!(quizzes, users)
       Submission.create!(
         user: users.sample,
         quiz: quiz,
-        correct_answers: rand(1..5),
-        wrong_answers: rand(0..3),
-        unanswered: rand(0..2),
+        correct_answers: 3,
+        wrong_answers: 1,
+        unanswered: 1,
         status: "completed",
         submission_time: Time.current
       )
