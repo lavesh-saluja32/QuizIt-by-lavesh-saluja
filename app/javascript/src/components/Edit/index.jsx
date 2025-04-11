@@ -27,7 +27,7 @@ const Index = () => {
   const location = useLocation();
 
   if (!location.state) history.goBack();
-  const { quizId = "" } = location.state || "";
+  const { quizId = "" } = location.state || {};
   const { mutate: updateQuestion } = useUpdateQuestion();
 
   const { data: { data: { question = {} } = {} } = {} } =

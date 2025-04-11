@@ -26,7 +26,6 @@ class Api::V1::QuestionsControllerTest < ActionDispatch::IntegrationTest
   private
 
     def fetch_quiz_questions
-      puts api_v1_quiz_questions_path(@quiz.id)
       get api_v1_quiz_questions_path(@quiz.id), as: :json
       response
     end

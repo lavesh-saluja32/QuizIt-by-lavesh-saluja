@@ -2,10 +2,11 @@ import React from "react";
 
 import { capitalize } from "@bigbinary/neeto-cist";
 import classNames from "classnames";
+import { Typography } from "neetoui";
 
 const Status = ({ text }) => {
   const statusStyles = classNames(
-    "px-2 py-1 rounded-full text-xs font-semibold",
+    "px-2 py-1 rounded-full text-xs font-semibold w-fit",
     {
       "bg-blue-100 text-blue-600": text === "published",
       "bg-orange-100 text-orange-600": text === "draft",
@@ -14,7 +15,7 @@ const Status = ({ text }) => {
     }
   );
 
-  return <span className={statusStyles}>{capitalize(text)}</span>;
+  return <Typography className={statusStyles}>{capitalize(text)}</Typography>;
 };
 
 export default Status;

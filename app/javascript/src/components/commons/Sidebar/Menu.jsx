@@ -8,7 +8,7 @@ import {
 import { User } from "@bigbinary/neeto-icons";
 import { Typography } from "@bigbinary/neetoui";
 import classNames from "classnames";
-import { List, Settings, Globe } from "neetoicons";
+import { List, Settings, Globe, LeftArrow } from "neetoicons";
 import { useTranslation } from "react-i18next";
 import { NavLink, useHistory, useRouteMatch } from "react-router-dom";
 
@@ -44,8 +44,8 @@ const Menu = ({ isExpanded }) => {
     clearSelections();
   };
 
-  const userName = getFromLocalStorage("authUserName") || "Oliver Smith";
-  const userEmail = getFromLocalStorage("authEmail") || "oliver@example.com";
+  const userName = getFromLocalStorage("authUserName");
+  const userEmail = getFromLocalStorage("authEmail");
 
   return (
     <div
@@ -142,18 +142,21 @@ const Menu = ({ isExpanded }) => {
         <div className="flex items-center space-x-2 p-2">
           <User />
           <div>
-            <p className="text-sm font-semibold">{userName}</p>
-            <p className="text-xs text-gray-500">{userEmail}</p>
+            <Typography className="text-sm font-semibold">
+              {userName}
+            </Typography>
+            <Typography className="text-xs text-gray-500">
+              {userEmail}
+            </Typography>
           </div>
         </div>
-        <NavLink
-          className="flex items-center space-x-2 rounded p-2 text-red-500 hover:bg-gray-100"
-          to="/logout"
+        <div
+          className="flex cursor-pointer items-center space-x-2 rounded p-2 text-red-500 hover:bg-gray-100"
           onClick={handleLogout}
         >
-          <span>←</span>
-          <span>Logout</span>
-        </NavLink>
+          <LeftArrow size={20} />
+          <Typography>{t("button.logout")}</Typography>
+        </div>
       </div>
     </div>
   );

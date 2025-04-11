@@ -9,7 +9,7 @@ const useSubmissionStore = create(
       clearSubmissionId: () => set({ submissionId: null }),
     }),
     {
-      name: "submission-storage", // key in localStorage
+      name: "submission-storage",
     }
   )
 );

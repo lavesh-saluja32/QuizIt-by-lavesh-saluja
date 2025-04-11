@@ -31,7 +31,6 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :unprocessable_entity
-    puts response.parsed_body
     assert_includes response.parsed_body["error"], "Email is invalid"
     assert_includes response.parsed_body["error"], "Name can't be blank"
   end
@@ -40,16 +39,10 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     @admin = create(:user, role: :admin_user)
     @headers = headers(@admin)
 
-    puts @admin_user.inspect
-
     patch api_v1_user_url(@admin),
       params: { user: { organization_name: "New Org" } },
       headers: @headers,
       as: :json
-    puts @admin.inspect
-    puts "LPOO"
     assert_response :success
-    # @admin_user.reload
-    # assert_equal "New Org", user.organization_name
   end
 end

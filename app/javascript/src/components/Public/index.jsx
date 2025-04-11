@@ -1,4 +1,4 @@
-import { Typography, Button } from "neetoui";
+import { Typography, Button, NoData } from "neetoui";
 import React from "react";
 import { routes } from "../../routes";
 import { useHistory } from "react-router-dom";
@@ -9,7 +9,8 @@ import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { useFetchQuizzes } from "../../hooks/reactQuery/public/useQuizzes";
 import DropdownFilter from "./DropdownFilter";
 import { useQueryParams } from "@bigbinary/neeto-commons-frontend/react-utils";
-
+import { isEmpty } from "ramda";
+import PageLoader from "../commons/PageLoader";
 const Public = () => {
   const history = useHistory();
 
@@ -17,9 +18,12 @@ const Public = () => {
 
   const { category = [], search = "" } = useQueryParams();
 
-  const { data: { data: { quizzes = [], organizationName = "" } = {} } = {} } =
-    useFetchQuizzes({ category, search });
-  console.log(quizzes);
+  const {
+    data: {
+      data: { quizzes = [], organizationName = "" } = {},
+      isLoading,
+    } = {},
+  } = useFetchQuizzes({ category, search });
 
   const handleAuthNavigation = () => {
     history.push(routes.authentication.login);
@@ -28,6 +32,8 @@ const Public = () => {
   const handleQuizLoginNavigation = quizId => {
     history.push(buildUrl(routes.quiz.register, { quizId }));
   };
+
+  if (isLoading) return <PageLoader />;
 
   return (
     <div className="h-full w-full bg-slate-100">
@@ -52,12 +58,16 @@ const Public = () => {
           <DropdownFilter />
         </div>
         <div className="m-auto flex flex-wrap justify-center">
-          {quizzes.map(quiz => (
-            <QuizCard
-              key={quiz.id}
-              {...{ ...quiz, handleQuizLoginNavigation, t }}
-            />
-          ))}
+          {!isEmpty(quizzes) ? (
+            quizzes.map(quiz => (
+              <QuizCard
+                key={quiz.id}
+                {...{ ...quiz, handleQuizLoginNavigation, t }}
+              />
+            ))
+          ) : (
+            <NoData title={t("response.error.quizzesNotFound")} />
+          )}
         </div>
       </div>
     </div>

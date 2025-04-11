@@ -25,7 +25,7 @@ const FilterPane = () => {
     const { name, status, category } = values;
 
     const params = filterNonNull({
-      search: name,
+      ...(name?.trim() && { search: name.trim() }),
       status: status.value,
       category: category.map(cat => cat.label),
     });

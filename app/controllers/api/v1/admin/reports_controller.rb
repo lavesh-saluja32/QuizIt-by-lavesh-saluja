@@ -5,13 +5,11 @@ class Api::V1::Admin::ReportsController < ApplicationController
 
   def create
     authorize [:admin, @quiz]
-    puts @current_user.id
     SubmissionsReportJob.perform_async(@quiz.id, @current_user.id)
-    render_json(message: "Report generation started")
+    render_json
   end
 
   def show
-    puts "HELLO"
     authorize [:admin, @quiz]
     if @quiz.report.attached?
       send_data @quiz.report.download, filename: pdf_file_name, type: "application/pdf", disposition: "attachment"

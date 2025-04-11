@@ -141,10 +141,7 @@ class Api::V1::Admin::QuizzesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     cloned_quiz = Quiz.order(:created_at).last
-    puts cloned_quiz.questions.inspect
 
-    puts cloned_quiz.questions.inspect
-    puts @quiz2.questions.inspect
     assert_not_equal @quiz.id, cloned_quiz.id
     assert_equal @quiz2.name, cloned_quiz.name
     assert_equal @quiz2.questions.count, cloned_quiz.questions.count
@@ -192,7 +189,7 @@ end
       params: { quizzes: { status: "published", category_id: category.id, ids: quiz_ids } },
       headers: @admin_headers,
       as: :json
-    puts "suc"
+
     assert_response :success
     quizzes.each do |quiz|
       assert_equal "published", quiz.reload.status

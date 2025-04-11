@@ -3,17 +3,16 @@
 class SubmissionsReportJob
   include Sidekiq::Job
   def perform(quiz_id, user_id)
-    puts "POPOP"
-    puts user_id
     ActionCable.server.broadcast(
-      "7e44cc55-f79f-47c3-b889-88a8c98d8a79",
+      user_id,
       { message: I18n.t("report.render"), progress: 25 })
 
     quiz = Quiz.find(quiz_id)
     submissions = quiz.submissions.includes(:user)
     html_content = ApplicationController.render(
       assigns: {
-        submissions:
+        submissions:,
+        quiz:
       },
       template: "api/v1/admin/submissions/report/download",
       layout: "pdf"

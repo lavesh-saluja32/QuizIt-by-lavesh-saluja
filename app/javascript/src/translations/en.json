@@ -39,6 +39,7 @@
     "delete": "Delete",
     "register": "Register",
     "login": "Login",
+    "logout": "Logout",
     "save": "Save",
     "saveNext": "Save & add new question",
     "cancel": "Cancel",
@@ -86,7 +87,8 @@
   "response": {
     "error": {
       "default": "Something went wrong!",
-      "pageNotFound": "Page not found"
+      "pageNotFound": "Page not found",
+      "quizzesNotFound": "No quizzes found!"
     },
     "success": {
       "quizCreated": "Quiz created successfully!",

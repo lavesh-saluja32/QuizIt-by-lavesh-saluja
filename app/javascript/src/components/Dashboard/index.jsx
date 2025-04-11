@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
 import SidePane from "./QuizSidepane";
-import { DEFAULT_PAGE_SIZE } from "./QuizSidepane/constants";
+import { DEFAULT_PAGE_SIZE, DEFAULT_PAGE } from "./QuizSidepane/constants";
 import SearchInput from "./SearchInput";
 import Table from "./Table/Table";
 
@@ -119,7 +119,7 @@ const Dashboard = () => {
       <div className="mt-4">
         <Pagination
           count={totalSize}
-          pageNo={Number(page) || 1}
+          pageNo={Number(page) || DEFAULT_PAGE}
           pageSize={DEFAULT_PAGE_SIZE}
         />
       </div>

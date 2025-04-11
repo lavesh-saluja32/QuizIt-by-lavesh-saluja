@@ -5,7 +5,7 @@ import { Button, Typography } from "neetoui";
 
 import { routes } from "../../routes";
 
-const Header = ({ t, history }) => (
+const Header = ({ t, history, totalQuestions }) => (
   <div className="flex w-full flex-col items-center border-b-2 border-gray-200">
     <Typography style="h1">{t("quiz.result.title")}</Typography>
     <div className="flex w-full justify-between p-10">
@@ -17,7 +17,7 @@ const Header = ({ t, history }) => (
         onClick={() => history.push(routes.public)}
       />
       <Typography>
-        {t("quiz.result.totalQuestions", { totalQuestions: 3 })}
+        {t("quiz.result.totalQuestions", { totalQuestions })}
       </Typography>
     </div>
   </div>

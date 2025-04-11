@@ -171,7 +171,6 @@ class Api::V1::Admin::QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     cloned_question = Question.last
-    puts cloned_question.id == @question.id
     assert_not_equal @question.id, cloned_question.id
     assert_equal @question.quiz_id, cloned_question.quiz_id
     assert_equal @question.question_text, cloned_question.question_text

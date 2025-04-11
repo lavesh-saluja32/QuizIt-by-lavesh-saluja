@@ -49,7 +49,7 @@ const Result = () => {
   return (
     <div className="h-full w-full overflow-y-scroll">
       <div className="m-auto mt-[10vh] w-3/4 ">
-        <Header {...{ t, history }} />
+        <Header {...{ t, history, totalQuestions: questions.length }} />
         <ScoreCards {...submissionResult} />
         {questions.map((question, index) => (
           <QuestionCard {...{ ...question, index, t }} key={question.id} />

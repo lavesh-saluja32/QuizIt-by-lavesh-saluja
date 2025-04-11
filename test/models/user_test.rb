@@ -90,8 +90,7 @@ fishy+#.com]
     @user.password = "12345"
     @user.password_confirmation = "12345"
     assert_not @user.valid?
-    puts @user.errors.full_messages
-    puts I18n.t("password")
+
     assert_includes @user.errors.full_messages, "Password #{I18n.t('password')}"
   end
 

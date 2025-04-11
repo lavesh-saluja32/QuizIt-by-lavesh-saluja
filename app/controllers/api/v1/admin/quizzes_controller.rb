@@ -22,10 +22,8 @@ class Api::V1::Admin::QuizzesController < ApplicationController
 
   def create
     quiz = @current_user.quizzes.new(quiz_params)
-    puts quiz_params
     authorize [:admin, quiz]
     quiz.save!
-    puts @quiz.inspect
     quiz.update_last_saved
     render_json
   end
@@ -55,16 +53,13 @@ class Api::V1::Admin::QuizzesController < ApplicationController
     updates = permitted_params.slice(:status, :category_id).to_h.compact
 
     quizzes = Quiz.where(id: permitted_params[:ids], user_id: @current_user.id)
-    puts updates.key?(:status)
     if updates.key?(:status)
-      puts "India"
       Quiz.transaction do
         quizzes.each do |quiz|
           quiz.update!(updates.merge(last_saved_at: Time.current))
         end
       end
     elsif updates.key?(:category_id)
-      puts "Hello from india"
       quizzes.update_all(category_id: updates[:category_id], last_saved_at: Time.current)
     end
 

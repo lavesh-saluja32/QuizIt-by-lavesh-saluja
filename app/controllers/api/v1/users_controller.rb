@@ -8,8 +8,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    puts "LOP"
-    puts @current_user.inspect
     @current_user.update!(update_params)
     render_json
   end

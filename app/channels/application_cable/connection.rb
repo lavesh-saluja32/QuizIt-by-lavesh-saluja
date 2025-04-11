@@ -5,9 +5,7 @@ module ApplicationCable
     identified_by :current_user
 
     def connect
-      puts "HELLO POP"
       self.current_user = find_verified_user
-      puts self.current_user.inspect
     end
 
     private

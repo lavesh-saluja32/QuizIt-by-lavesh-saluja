@@ -32,7 +32,7 @@ const PageHeader = ({
     updateQuiz({ quizId, payload: { name } });
   };
 
-  const quizMatch = useRouteMatch("/quiz/:quizId/create");
+  const quizMatch = useRouteMatch(routes.quiz.create);
   const questionMatch = useRouteMatch(
     "/question/:quizId/create/:questionNumber"
   );
@@ -51,7 +51,6 @@ const PageHeader = ({
             style="link"
             onClick={() => history.goBack()}
           />
-          {/* <Typography style="h2">{quiz?.name}</Typography> */}
           <Rename
             hideMenu
             placeholder="Enter a name"
@@ -67,8 +66,9 @@ const PageHeader = ({
           <NavLink
             activeClassName="active-quiz-link"
             to={buildUrl(routes.quiz.create, { quizId })}
-            className={classNames("text-lg text-gray-400", {
-              "font-bold": quizMatch || questionMatch,
+            className={classNames("text-lg", {
+              "font-bold text-black":
+                questionMatch?.isExact || quizMatch?.isExact,
             })}
           >
             {t("link.quiz.questions")}

@@ -9,5 +9,12 @@
   "files.trimFinalNewlines": true,
   "editor.formatOnSave": true,
   "yaml.format.enable": true,
-  "cSpell.words": ["Clonable", "getfiltered", "Nextbutton", "tsearch"]
+  "cSpell.words": [
+    "Clonable",
+    "getfiltered",
+    "Nextbutton",
+    "Toastr",
+    "tsearch",
+    "utlis"
+  ]
 }
