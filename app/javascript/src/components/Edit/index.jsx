@@ -10,9 +10,11 @@ import {
   useUpdateQuestion,
   useShowQuestion,
 } from "../../hooks/reactQuery/useQuestions";
+import { useShowQuiz } from "../../hooks/reactQuery/useQuizzes";
 import { routes } from "../../routes";
 import QuestionForm from "../Question/Form";
 import { formatPayload } from "../Question/utlis";
+import PageHeader from "../Quiz/PageHeader";
 
 const Index = () => {
   const [isSaveLoading, setIsSaveLoading] = useState(false);
@@ -28,6 +30,8 @@ const Index = () => {
 
   if (!location.state) history.goBack();
   const { quizId = "" } = location.state || {};
+  const { data: { data: { quiz = {} } = {} } = {} } = useShowQuiz(quizId);
+
   const { mutate: updateQuestion } = useUpdateQuestion();
 
   const { data: { data: { question = {} } = {} } = {} } =
@@ -56,8 +60,9 @@ const Index = () => {
   }, [question]);
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
-      <div className="w-[50vw]">
+    <div className="flex h-full w-screen flex-col overflow-hidden bg-slate-100">
+      <PageHeader {...{ quiz, quizId }} />
+      <div className="m-auto w-[50vw]">
         <QuestionForm
           showBreadcrumbs={false}
           {...{
