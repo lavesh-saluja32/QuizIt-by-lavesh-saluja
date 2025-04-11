@@ -6,7 +6,9 @@ class Api::V1::Admin::QuestionsController < ApplicationController
   before_action :load_question!, only: %i[update destroy show clone]
 
   def index
-    @questions = Admin::QuestionPolicy::Scope.new(current_user, Question, @quiz.id).resolve.includes(:options)
+    @questions = Admin::QuestionPolicy::Scope.new(
+      current_user, Question,
+      @quiz.id).resolve.includes(:options).order(updated_at: :desc)
   end
 
   def create
