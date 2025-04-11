@@ -8,14 +8,12 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_standard_user_should_not_login_user_with_valid_credentials
-    puts @user.inspect
     post api_v1_session_path, params: { login: { email: @user.email, password: @user.password } }, as: :json
     assert_response :unauthorized
   end
 
   def test_admin_user_should_login_user_with_valid_credentials
     @admin = create(:user, role: "admin_user")
-    puts @admin.inspect
     post api_v1_session_path, params: { login: { email: @admin.email, password: @admin.password } }, as: :json
     assert_response :success
   end

@@ -13,8 +13,6 @@ const DropdownFilter = ({ t }) => {
 
   const queryParams = useQueryParams();
 
-  console.log(queryParams);
-
   const history = useHistory();
 
   const handleParams = selectedOptions => {

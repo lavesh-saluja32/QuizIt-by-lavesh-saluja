@@ -33,7 +33,6 @@ class Api::V1::SubmissionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_should_not_create_submission_with_invalid_email
-    puts @quiz.id
     assert_no_difference("Submission.count") do
       post api_v1_submissions_path,
         params: { submission: { name: "No Email", email: "", quiz_id: @quiz.id } },
@@ -72,8 +71,6 @@ class Api::V1::SubmissionsControllerTest < ActionDispatch::IntegrationTest
 
     submission = Submission.last
 
-    puts submission
-
     patch api_v1_submission_path(submission.id),
       params: {
         submission: {
@@ -86,7 +83,6 @@ class Api::V1::SubmissionsControllerTest < ActionDispatch::IntegrationTest
       as: :json
 
     assert_response :success
-    puts response.parsed_body
     submission.reload
     assert_equal "completed", submission.status
   end

@@ -5,7 +5,6 @@ class Api::V1::Admin::SubmissionsController < ApplicationController
   after_action :verify_authorized, except: %i[index]
 
   def index
-    puts params
     @submissions = Admin::SubmissionPolicy::Scope.new(current_user, Submission, @quiz).resolve
     @submissions = Api::V1::Admin::SubmissionsFilterService.new(params, @submissions).process!
     render

@@ -32,7 +32,6 @@ class Api::V1::Admin::QuestionsController < ApplicationController
 
   def show
     authorize([:admin, @question])
-    puts @question.inspect
   end
 
   def destroy
@@ -45,7 +44,6 @@ class Api::V1::Admin::QuestionsController < ApplicationController
     authorize([:admin, @question])
     @question.clone_question!
     @question.quiz.update!(status: "draft") unless @question.quiz.draft?
-    puts "CLone 3"
   end
 
   private
@@ -59,12 +57,10 @@ class Api::V1::Admin::QuestionsController < ApplicationController
     end
 
     def update_params
-      puts "1"
       params.require(:question).permit(:question_text, options_attributes: [:id, :option_text, :is_correct, :_destroy])
     end
 
     def load_question!
-      puts "hello"
       @question = Question.find(params[:id])
     end
 end

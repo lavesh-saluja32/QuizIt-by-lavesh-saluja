@@ -3,8 +3,6 @@
 class SubmissionsReportJob
   include Sidekiq::Job
   def perform(quiz_id, user_id)
-    puts "POPOP"
-    puts user_id
     ActionCable.server.broadcast(
       "7e44cc55-f79f-47c3-b889-88a8c98d8a79",
       { message: I18n.t("report.render"), progress: 25 })
