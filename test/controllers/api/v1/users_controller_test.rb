@@ -34,15 +34,4 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.parsed_body["error"], "Email is invalid"
     assert_includes response.parsed_body["error"], "Name can't be blank"
   end
-
-  def test_should_update_user_with_valid_params
-    @admin = create(:user, role: :admin_user)
-    @headers = headers(@admin)
-
-    patch api_v1_user_url(@admin),
-      params: { user: { organization_name: "New Org" } },
-      headers: @headers,
-      as: :json
-    assert_response :success
-  end
 end

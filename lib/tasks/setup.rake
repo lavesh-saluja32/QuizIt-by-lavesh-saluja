@@ -47,11 +47,18 @@ def create_sample_data!
   puts "Sample data has been seeded successfully."
 end
 
+def create_organization
+  puts "creating organization..."
+  organization=Organization.create!(name:"BigBinary Academy")
+  organization
+end
+
 def create_users!
+  organization=create_organization
   puts "Creating users..."
-  admin = create_user!(name: "Oliver Smith", email: "oliver@example.com", role: "admin_user")
-  luna = create_user!(name: "Luna Smith", email: "luna@example.com")
-  sam = create_user!(name: "Sam Smith", email: "sam@example.com")
+  admin = create_user!(name: "Oliver Smith", email: "oliver@example.com", role: "admin_user",organization:)
+  luna = create_user!(name: "Luna Smith", email: "luna@example.com",organization:)
+  sam = create_user!(name: "Sam Smith", email: "sam@example.com",organization:)
   { admin: admin, standard: [luna, sam] }
 end
 
@@ -60,7 +67,6 @@ def create_user!(options = {})
     password: "welcome",
     password_confirmation: "welcome",
     role: "standard_user",
-    organization_name: "BigBinary Academy"
   }
   User.create!(default_attrs.merge(options))
 end

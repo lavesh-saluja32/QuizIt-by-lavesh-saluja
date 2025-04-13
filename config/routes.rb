@@ -6,9 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       constraints(lambda { |req| req.format == :json }) do
         resources :submissions, only: %i[create update index]
-        resources :users, only: %i[create update show] do
-          get :organization_name, on: :collection
-        end
+        resources :users, only: %i[create update show]
         resource :session, only: %i[create destroy]
         resources :categories, only: %i[create index]
         resources :quizzes, only: %i[index create show update] do
@@ -16,6 +14,7 @@ Rails.application.routes.draw do
         end
 
         namespace :admin do
+          resource :organizations, only: :update
           resources :quizzes, only: %i[index create update show destroy] do
             resource :report, only: %i[create show], controller: "reports"
             resources :submissions, only: %i[index]
