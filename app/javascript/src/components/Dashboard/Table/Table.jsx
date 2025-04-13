@@ -83,15 +83,21 @@ const Table = ({
       key: "name",
       title: t("quiz.name"),
       render: (text, record) => (
-        <Tooltip content={text} disabled={text.length <= 20} position="top">
-          <Link
-            className="block text-blue-400"
-            onClick={() => handleQuizNavigate(record.id)}
-          >
-            <Typography className="max-w-xs truncate" style="body2">
-              {text.length > 20 ? `${text.slice(0, 20)}...` : text}
-            </Typography>
-          </Link>
+        <Tooltip
+          content={text}
+          disabled={!text || text.length <= 0}
+          position="top"
+        >
+          <div className="w-full">
+            <Link
+              className="block w-full text-blue-400"
+              onClick={() => handleQuizNavigate(record.id)}
+            >
+              <Typography className="w-full truncate" style="body2">
+                {text}
+              </Typography>
+            </Link>
+          </div>
         </Tooltip>
       ),
     },
