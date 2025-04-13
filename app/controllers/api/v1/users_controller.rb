@@ -8,7 +8,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_params.merge(role: "admin_user"))
+    user = User.new(user_params.merge(role: "admin_user", organization: Organization.first))
     user.save!
     render_notice(t("successfully_created", entity: "User"))
   end

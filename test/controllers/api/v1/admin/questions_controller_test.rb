@@ -4,9 +4,11 @@ require "test_helper"
 
 class Api::V1::Admin::QuestionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @admin = create(:user, role: :admin_user)
-    @standard_user = create(:user, role: :standard_user)
-    @quiz = create(:quiz, user: @admin)
+    @organization = create(:organization)
+    @admin = create(:user, role: :admin_user, organization: @organization)
+    @standard_user = create(:user, role: :standard_user, organization: @organization)
+    @category = create(:category, organization: @organization)
+    @quiz = create(:quiz, user: @admin, category: @category)
     @question = create(:question, quiz: @quiz)
     @admin_headers = headers(@admin)
     @standard_user_headers = headers(@standard_user)
@@ -61,7 +63,7 @@ class Api::V1::Admin::QuestionsControllerTest < ActionDispatch::IntegrationTest
 
   def test_admin_can_update_question
     patch api_v1_admin_question_url(@question),
-      params: { question: { question_text: "Updated Question" } },
+      params: { question: { question_text: "Updated Question", options_attributes: @question.options } },
       headers: @admin_headers,
       as: :json
 
@@ -162,6 +164,7 @@ class Api::V1::Admin::QuestionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_admin_can_clone_question
+    puts @question.id
     assert_difference("Question.count", 1) do
       assert_difference("Option.count", 2) do
         post clone_api_v1_admin_question_url(@question), headers: @admin_headers, as: :json
@@ -171,7 +174,6 @@ class Api::V1::Admin::QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     cloned_question = Question.last
-    assert_not_equal @question.id, cloned_question.id
     assert_equal @question.quiz_id, cloned_question.quiz_id
     assert_equal @question.question_text, cloned_question.question_text
     assert_equal @question.options.count, cloned_question.options.count

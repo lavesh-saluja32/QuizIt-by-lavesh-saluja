@@ -30,5 +30,6 @@ FactoryBot.define do
     password { "welcome" }
     password_confirmation { "welcome" }
     role { "standard_user" }
+    organization
   end
 end

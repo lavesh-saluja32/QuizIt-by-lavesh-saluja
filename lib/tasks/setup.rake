@@ -39,8 +39,9 @@ end
 
 def create_sample_data!
   puts "Seeding sample data..."
-  users = create_users!
-  categories = create_categories!
+  organization=create_organization
+  users = create_users!(organization)
+  categories = create_categories!(organization)
   quizzes = create_quizzes!(categories, users[:admin])
   create_questions_with_options!(quizzes)
   create_submissions!(quizzes, users[:standard])
@@ -53,8 +54,7 @@ def create_organization
   organization
 end
 
-def create_users!
-  organization=create_organization
+def create_users!(organization)
   puts "Creating users..."
   admin = create_user!(name: "Oliver Smith", email: "oliver@example.com", role: "admin_user",organization:)
   luna = create_user!(name: "Luna Smith", email: "luna@example.com",organization:)
@@ -71,12 +71,12 @@ def create_user!(options = {})
   User.create!(default_attrs.merge(options))
 end
 
-def create_categories!
+def create_categories!(organization)
   puts "Creating categories..."
   [
-    Category.create!(name: "Science"),
-    Category.create!(name: "History"),
-    Category.create!(name: "Technology")
+    Category.create!(name: "Science",organization:),
+    Category.create!(name: "History",organization:),
+    Category.create!(name: "Technology",organization:)
   ]
 end
 

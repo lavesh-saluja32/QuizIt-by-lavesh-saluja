@@ -4,11 +4,12 @@ require "test_helper"
 
 class Api::V1::SubmissionsControllerTest < ActionDispatch::IntegrationTest
   def setup
-    @admin_user = create(:user, role: "admin_user")
-    @standard_user = create(:user, role: "standard_user")
-    @category = create(:category, name: "Sportt")
-    @quiz = create(:quiz, user: @admin_user, category: @category, name: "sample quiz")
-    @admin_headers = headers(@admin_user)
+    @organization = create(:organization)
+    @admin = create(:user, role: :admin_user, organization: @organization)
+    @standard_user = create(:user, role: :standard_user, organization: @organization)
+    @category = create(:category, organization: @organization)
+    @quiz = create(:quiz, user: @admin, category: @category)
+    @admin_headers = headers(@admin)
     @standard_user_headers = headers(@standard_user)
   end
 
@@ -24,7 +25,7 @@ class Api::V1::SubmissionsControllerTest < ActionDispatch::IntegrationTest
   def test_should_not_create_submission_if_admin_user
     assert_no_difference("Submission.count") do
       post api_v1_submissions_path,
-        params: { submission: { name: "Admin User", email: @admin_user.email, quiz_id: @quiz.id } },
+        params: { submission: { name: "Admin User", email: @admin.email, quiz_id: @quiz.id } },
         headers: @admin_headers,
         as: :json
     end

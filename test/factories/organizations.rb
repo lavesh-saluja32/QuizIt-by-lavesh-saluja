@@ -15,7 +15,6 @@
 #
 FactoryBot.define do
   factory :organization do
-    name { "MyString" }
-    string { "MyString" }
+    name { Faker::Company.unique.name }
   end
 end

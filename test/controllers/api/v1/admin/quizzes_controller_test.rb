@@ -4,9 +4,10 @@ require "test_helper"
 
 class Api::V1::Admin::QuizzesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @admin = create(:user, role: :admin_user)
-    @standard_user = create(:user, role: :standard_user)
-    @category = create(:category, name: "category 1")
+    @organization = create(:organization)
+    @admin = create(:user, role: :admin_user, organization: @organization)
+    @standard_user = create(:user, role: :standard_user, organization: @organization)
+    @category = create(:category, organization: @organization)
     @quiz = create(:quiz, user: @admin, category: @category)
     @question = create(:question, quiz: @quiz)
     @admin_headers = headers(@admin)
