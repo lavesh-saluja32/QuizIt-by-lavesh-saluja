@@ -7,7 +7,7 @@ class Api::V1::CategoriesFilterService
     @categories = categories
   end
 
-  def process!
+  def process
     filter_by_name
     @categories
   end
