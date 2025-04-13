@@ -8,15 +8,20 @@
 #  authentication_token :string
 #  email                :string           not null
 #  name                 :string
-#  organization_name    :string
 #  password_digest      :string           not null
 #  role                 :string           default("standard_user"), not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  organization_id      :uuid
 #
 # Indexes
 #
-#  index_users_on_email  (email) UNIQUE
+#  index_users_on_email            (email) UNIQUE
+#  index_users_on_organization_id  (organization_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (organization_id => organizations.id)
 #
 require "test_helper"
 

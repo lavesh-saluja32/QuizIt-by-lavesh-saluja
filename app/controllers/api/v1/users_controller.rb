@@ -7,27 +7,15 @@ class Api::V1::UsersController < ApplicationController
     render
   end
 
-  def update
-    @current_user.update!(update_params)
-    render_json
-  end
-
   def create
-    user = User.new(user_params)
-    if user.save
-      render_notice(t("successfully_created", entity: "User"))
-    else
-      render_error(user.errors.full_messages)
-    end
+    user = User.new(user_params.merge(role: "admin_user"))
+    user.save!
+    render_notice(t("successfully_created", entity: "User"))
   end
 
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :organization_name)
-    end
-
-    def update_params
-      params.require(:user).permit(:organization_name)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 end

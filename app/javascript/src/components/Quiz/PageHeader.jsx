@@ -49,7 +49,7 @@ const PageHeader = ({
           <Button
             icon={LeftArrow}
             style="link"
-            onClick={() => history.goBack()}
+            onClick={() => history.push(routes.root)}
           />
           <Rename
             hideMenu

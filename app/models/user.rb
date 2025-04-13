@@ -8,15 +8,20 @@
 #  authentication_token :string
 #  email                :string           not null
 #  name                 :string
-#  organization_name    :string
 #  password_digest      :string           not null
 #  role                 :string           default("standard_user"), not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  organization_id      :uuid
 #
 # Indexes
 #
-#  index_users_on_email  (email) UNIQUE
+#  index_users_on_email            (email) UNIQUE
+#  index_users_on_organization_id  (organization_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (organization_id => organizations.id)
 #
 class User < ApplicationRecord
   PASSWORD_REQUIREMENTS = /\A
@@ -27,6 +32,8 @@ class User < ApplicationRecord
   MAX_ORGANIZATION_LENGTH = 50
   VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i.freeze
   VALID_ROLES = %w[admin_user standard_user].freeze
+
+  belongs_to :organization, optional: true
 
   has_many :quizzes
 
@@ -42,7 +49,6 @@ class User < ApplicationRecord
     format: { with: PASSWORD_REQUIREMENTS, message: I18n.t("password") }, on: :create
   validates :password_confirmation, presence: true, if: -> { password.present? }
   validates :role, inclusion: { in: VALID_ROLES }
-  validates :organization_name, length: { maximum: MAX_ORGANIZATION_LENGTH }
 
   before_save :to_lowercase
 

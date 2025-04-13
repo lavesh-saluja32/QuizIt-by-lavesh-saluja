@@ -20,7 +20,7 @@ const Settings = () => {
   const { mutate: updateOrganization } = useUpdateOrganization();
 
   const handleSubmit = values => {
-    updateOrganization({ organizationName: values.name });
+    updateOrganization({ name: values.name });
   };
 
   return (
