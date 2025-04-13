@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_13_092733) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_13_120952) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -47,6 +47,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_13_092733) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "organization_id"
+    t.index ["organization_id"], name: "index_categories_on_organization_id"
   end
 
   create_table "options", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -117,6 +119,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_13_092733) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "categories", "organizations"
   add_foreign_key "options", "questions"
   add_foreign_key "questions", "quizzes"
   add_foreign_key "quizzes", "categories"

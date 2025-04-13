@@ -4,9 +4,10 @@ require "test_helper"
 
 class Api::V1::Admin::SubmissionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @admin = create(:user, role: :admin_user)
-    @standard_user = create(:user, role: :standard_user)
-    @category = create(:category)
+    @organization = create(:organization)
+    @admin = create(:user, role: :admin_user, organization: @organization)
+    @standard_user = create(:user, role: :standard_user, organization: @organization)
+    @category = create(:category, organization: @organization)
     @quiz = create(:quiz, user: @admin, category: @category)
     @submission_user = create(:user)
     @submission = create(:submission, quiz: @quiz, user: @submission_user)

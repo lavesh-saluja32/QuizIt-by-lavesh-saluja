@@ -4,20 +4,25 @@
 #
 # Table name: categories
 #
-#  id         :uuid             not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :uuid             not null, primary key
+#  name            :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  organization_id :uuid
 #
-require "test_helper"
-
-# frozen_string_literal: true
-
+# Indexes
+#
+#  index_categories_on_organization_id  (organization_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (organization_id => organizations.id)
+#
 require "test_helper"
 
 class CategoryTest < ActiveSupport::TestCase
   def setup
-    @category = Category.new(name: "Science")
+    @category = create(:category, name: "Science")
   end
 
   def test_valid_category

@@ -48,6 +48,7 @@ class Api::V1::Admin::QuestionsController < ApplicationController
       @question.clone_question!
       @question.quiz.update!(status: "draft") unless @question.quiz.draft?
     end
+    @question
     render_json
   end
 
