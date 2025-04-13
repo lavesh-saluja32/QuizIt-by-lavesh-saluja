@@ -23,7 +23,16 @@ export const QUESTION_VALIDATION_SCHEMA = yup.object({
       })
     )
     .min(2, t("validation.minOptions"))
-    .max(MAX_OPTIONS, t("validation.maxOptions", { max: MAX_OPTIONS })),
+    .max(MAX_OPTIONS, t("validation.maxOptions", { max: MAX_OPTIONS }))
+    .test(
+      "unique-options",
+      t("validation.optionsMustBeUnique"), // Add this key in your i18n file
+      (options = []) => {
+        const lowerCased = options.map(opt => opt.text?.toLowerCase().trim());
+
+        return new Set(lowerCased).size === lowerCased.length;
+      }
+    ),
 });
 
 export const DEFAULT_CORRECT_OPTION = -1;

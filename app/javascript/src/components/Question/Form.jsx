@@ -49,7 +49,15 @@ const QuestionForm = ({
       validationSchema={QUESTION_VALIDATION_SCHEMA}
       onSubmit={values => handleSubmit(values, "save")}
     >
-      {({ values, isValid, dirty, setFieldValue, setTouched }) => (
+      {({
+        values,
+        isValid,
+        dirty,
+        setFieldValue,
+        setTouched,
+        errors,
+        touched,
+      }) => (
         <Form className="flex flex-col space-y-8">
           {showBreadcrumbs && (
             <Breadcrumbs {...{ quizId, questionNumber, t }} />
@@ -79,6 +87,11 @@ const QuestionForm = ({
                     />
                   ))}
                 </div>
+                {typeof errors.options === "string" && touched.options && (
+                  <div className="text-sm text-red-500">
+                    {t("validation.optionsMustBeUnique")}
+                  </div>
+                )}
                 <Button
                   className="text-blue-600"
                   disabled={values.options.length === MAX_OPTIONS}

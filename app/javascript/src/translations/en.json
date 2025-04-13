@@ -113,7 +113,8 @@
     "optionRequired": "Option is required",
     "optionMin": "Option cannot be empty",
     "minOptions": "At least two options are required",
-    "maxOptions": "You can have a maximum of {{max}} options"
+    "maxOptions": "You can have a maximum of {{max}} options",
+    "optionsMustBeUnique": "Options must be unique."
   },
   "placeholder": {
     "selectCategory": "Select category",
