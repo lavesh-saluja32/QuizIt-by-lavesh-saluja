@@ -7,7 +7,7 @@ class Api::V1::CategoriesControllerTest < ActionDispatch::IntegrationTest
     @organization = create(:organization)
     @admin_user = create(:user, role: :admin_user, organization: @organization)
     @standard_user = create(:user, role: :standard_user, organization: @organization)
-    @category1 = create(:category, organization: @organization)
+    @category1 = create(:category, organization: @organization, name: "random")
     @category2 = create(:category, organization: @organization)
     @admin_headers = headers(@admin_user)
     @standard_user_headers = headers(@standard_user)

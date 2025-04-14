@@ -1,22 +1,12 @@
 # frozen_string_literal: true
 
-class Api::V1::CategoriesFilterService
-  attr_reader :params
+class Api::V1::CategoriesFilterService < BaseFilterService
   def initialize(params, categories)
-    @params = params
+    super(params)
     @categories = categories
   end
 
   def process
-    filter_by_name
-    @categories
+    filter_by_search_term(@categories)
   end
-
-  private
-
-    def filter_by_name
-      return unless params[:search].present?
-
-      @categories = @categories.where("name ILIKE ?", "%#{params[:search]}%")
-    end
 end

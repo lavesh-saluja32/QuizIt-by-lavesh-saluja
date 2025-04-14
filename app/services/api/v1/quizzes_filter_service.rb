@@ -1,30 +1,14 @@
 # frozen_string_literal: true
 
-class Api::V1::QuizzesFilterService
-  attr_reader :params, :quizzes
-
+class Api::V1::QuizzesFilterService < BaseFilterService
   def initialize(quizzes, params)
+    super(params)
     @quizzes = quizzes
-    @params = params
   end
 
   def process!
-    filter_by_category
-    filter_by_search_term
+    @quizzes = filter_by_category(@quizzes)
+    @quizzes = filter_by_search_term(@quizzes, table: "quizzes")
     @quizzes
   end
-
-  private
-
-    def filter_by_search_term
-      return unless params[:search].present?
-
-      @quizzes = @quizzes.where("quizzes.name ILIKE ?", "%#{params[:search]}%")
-    end
-
-    def filter_by_category
-      return unless params[:category].present? && params[:category].is_a?(Array)
-
-      @quizzes = @quizzes.joins(:category).where(categories: { name: params[:category] })
-    end
 end

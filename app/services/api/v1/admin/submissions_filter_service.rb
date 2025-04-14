@@ -1,30 +1,22 @@
 # frozen_string_literal: true
 
-class Api::V1::Admin::SubmissionsFilterService
-  attr_reader :params
+class Api::V1::Admin::SubmissionsFilterService < BaseFilterService
   def initialize(params, submissions)
-    @params = params
+    super(params)
     @submissions = submissions
   end
 
   def process!
-    filter_by_name
-    filter_by_status
+    @submissions = filter_by_user_name(@submissions)
+    @submissions = filter_by_status(@submissions)
     @submissions
   end
 
   private
 
-    def filter_by_name
-      return unless params[:search].present?
+    def filter_by_user_name(records)
+      return records unless params[:search].present?
 
-      @submissions = @submissions.joins(:user)
-        .where("users.name ILIKE ?", "%#{params[:search]}%")
-    end
-
-    def filter_by_status
-      return unless params[:status].present?
-
-      @submissions = @submissions.where(status: params[:status])
+      records.joins(:user).where("users.name ILIKE ?", "%#{params[:search]}%")
     end
 end
