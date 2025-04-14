@@ -18,7 +18,7 @@ class BaseFilterService
 
     def filter_by_status(records)
       return records unless params[:status].present?
-      return records unless records.column_names.include?("status")
+      return records if params[:status] == "all"
 
       records.where(status: params[:status])
     end

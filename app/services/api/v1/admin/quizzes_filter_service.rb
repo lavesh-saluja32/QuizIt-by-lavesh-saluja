@@ -12,11 +12,11 @@ class Api::V1::Admin::QuizzesFilterService < BaseFilterService
   end
 
   def process!
-    @quizzes = filter_by_status(quizzes)
-    @quizzes = filter_by_search_term(quizzes, table: "quizzes")
-    @filtered_size = quizzes.count
-    @quizzes = apply_pagination(quizzes, default_page: DEFAULT_PAGE, page_size: DEFAULT_PAGE_SIZE)
-    @quizzes = filter_by_category(quizzes)
+    @quizzes = filter_by_status(@quizzes)
+    @quizzes = filter_by_search_term(@quizzes, table: "quizzes")
+    @filtered_size = @quizzes.count
+    @quizzes = apply_pagination(@quizzes, default_page: DEFAULT_PAGE, page_size: DEFAULT_PAGE_SIZE)
+    @quizzes = filter_by_category(@quizzes)
     self
   end
 end
