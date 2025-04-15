@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { routes } from "../../../routes";
-import { SIGNUP_INITIAL_VALUES, SIGNUP_VALIDATION_SCHEMA } from "../constants";
+import { SIGNUP_INITIAL_VALUES, getSignupValidationSchema } from "../constants";
 
 const Signup = ({ handleSubmit, loading }) => {
   const { t } = useTranslation();
@@ -29,7 +29,7 @@ const Signup = ({ handleSubmit, loading }) => {
         <Form
           formikProps={{
             initialValues: SIGNUP_INITIAL_VALUES,
-            validationSchema: SIGNUP_VALIDATION_SCHEMA,
+            validationSchema: getSignupValidationSchema(t),
             onSubmit: handleSubmit,
           }}
         >

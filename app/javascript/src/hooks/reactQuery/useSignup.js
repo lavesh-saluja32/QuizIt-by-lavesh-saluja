@@ -11,7 +11,7 @@ const useSignup = () => {
   return useMutation({
     mutationFn: async values => await authApi.signup(values),
     onSuccess: () => {
-      history.push(routes.root);
+      history.push(routes.authentication.login);
     },
     onError: error => {
       Toastr.error(error?.response?.data?.error || "Something went wrong!");

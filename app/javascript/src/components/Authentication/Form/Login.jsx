@@ -6,7 +6,7 @@ import { withTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { routes } from "../../../routes";
-import { LOGIN_INITIAL_VALUES, LOGIN_VALIDATION_SCHEMA } from "../constants";
+import { LOGIN_INITIAL_VALUES, getLoginValidationSchema } from "../constants";
 
 const Login = ({ handleSubmit, loading, t }) => (
   <div className="flex h-screen w-screen items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
@@ -26,7 +26,7 @@ const Login = ({ handleSubmit, loading, t }) => (
       <Form
         formikProps={{
           initialValues: LOGIN_INITIAL_VALUES,
-          validationSchema: LOGIN_VALIDATION_SCHEMA,
+          validationSchema: getLoginValidationSchema(t),
           onSubmit: handleSubmit,
         }}
       >

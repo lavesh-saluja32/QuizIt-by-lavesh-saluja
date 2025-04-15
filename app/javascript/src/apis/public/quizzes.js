@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const fetch = params => axios.get("/quizzes", { params });
-const show = quizId => axios.get(`/quizzes/${quizId}`);
+const baseURL = "/quizzes";
+
+const fetch = params => axios.get(baseURL, { params });
+const show = quizId => axios.get(`${baseURL}/${quizId}`);
 const quizzesApi = { fetch, show };
 export default quizzesApi;

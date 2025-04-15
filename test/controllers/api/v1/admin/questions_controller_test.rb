@@ -164,7 +164,6 @@ class Api::V1::Admin::QuestionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_admin_can_clone_question
-    puts @question.id
     assert_difference("Question.count", 1) do
       assert_difference("Option.count", 2) do
         post clone_api_v1_admin_question_url(@question), headers: @admin_headers, as: :json

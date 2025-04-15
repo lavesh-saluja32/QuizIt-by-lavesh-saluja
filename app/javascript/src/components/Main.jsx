@@ -2,7 +2,7 @@ import React from "react";
 
 import { PrivateRoute } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { either, isEmpty, isNil } from "ramda";
-import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
+import { Route, Switch, useLocation } from "react-router-dom";
 import { getFromLocalStorage } from "utils/storage";
 
 import { Login, Signup } from "./Authentication";
@@ -24,10 +24,19 @@ import { routes } from "../routes";
 const Main = () => {
   const authToken = getFromLocalStorage("authToken");
   const isLoggedIn = !either(isNil, isEmpty)(authToken);
+  const location = useLocation();
+
+  const hideSidebarRoutes = [
+    routes.public,
+    routes.quiz.register,
+    routes.quiz.attempt,
+    routes.quiz.submissions,
+  ];
+  const shouldHideSidebar = hideSidebarRoutes.includes(location.pathname);
 
   return (
     <div className="flex h-screen w-screen">
-      {isLoggedIn && <Sidebar />}
+      {!shouldHideSidebar && isLoggedIn && <Sidebar />}
       <Switch>
         <Route exact component={Public} path="/public" />
         <Route exact component={Login} path={routes.authentication.login} />
@@ -56,4 +65,5 @@ const Main = () => {
     </div>
   );
 };
+
 export default Main;

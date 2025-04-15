@@ -45,7 +45,7 @@ const PageHeader = ({
           " w-[53vw] justify-between": !showPublishButton,
         })}
       >
-        <div className="ml-3 flex items-center justify-center space-x-2 p-3 ">
+        <div className="ml-3 flex items-center justify-center space-x-2 p-3">
           <Button
             icon={LeftArrow}
             style="link"
@@ -53,11 +53,10 @@ const PageHeader = ({
           />
           <Rename
             hideMenu
-            placeholder="Enter a name"
             value={quiz?.name}
             textProps={{
               className:
-                "text-2xl font-semibold bg-white border hover:border-gray-300 px-2 py-1 rounded",
+                "text-2xl font-semibold hover:border hover:border-gray-300 px-2 py-1 rounded cursor-pointer",
             }}
             onRename={handleUpdateQuizName}
           />

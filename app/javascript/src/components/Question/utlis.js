@@ -6,8 +6,8 @@ export const formatPayload = (values, correctOption, previousOptions = []) => ({
       _destroy: true,
     })),
     ...values.options.map((option, index) => ({
-      option_text: option.text,
-      is_correct: index === correctOption,
+      optionText: option.text,
+      isCorrect: index === correctOption,
     })),
   ],
 });

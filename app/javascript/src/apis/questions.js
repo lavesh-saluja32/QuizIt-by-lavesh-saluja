@@ -1,21 +1,24 @@
 import axios from "axios";
 
-const fetch = quizId => axios.get(`/admin/quizzes/${quizId}/questions`);
+const quizQuestionBaseURL = id => `/admin/quizzes/${id}/questions`;
+const questionBaseURL = id => `/admin/questions/${id}`;
+
+const fetch = quizId => axios.get(quizQuestionBaseURL(quizId));
 
 const create = ({ quizId, payload }) =>
-  axios.post(`/admin/quizzes/${quizId}/questions`, {
+  axios.post(quizQuestionBaseURL(quizId), {
     question: payload,
   });
 
-const destroy = questionId => axios.delete(`/admin/questions/${questionId}`);
+const destroy = questionId => axios.delete(questionBaseURL(questionId));
 
 const update = ({ questionId, payload }) =>
-  axios.put(`/admin/questions/${questionId}`, {
+  axios.put(questionBaseURL(questionId), {
     question: payload,
   });
 
-const show = questionId => axios.get(`/admin/questions/${questionId}`);
+const show = questionId => axios.get(questionBaseURL(questionId));
 
-const clone = questionId => axios.post(`/admin/questions/${questionId}/clone`);
+const clone = questionId => axios.post(`${questionBaseURL(questionId)}/clone`);
 const questionsApi = { fetch, create, destroy, update, show, clone };
 export default questionsApi;

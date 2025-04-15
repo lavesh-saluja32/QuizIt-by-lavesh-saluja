@@ -103,7 +103,9 @@ const Menu = ({ isExpanded }) => {
             onClick={() => handleFilterNavigation("published")}
           >
             <Typography>{t("button.filter.published")}</Typography>
-            <Typography>{statusCounts.published}</Typography>
+            <Typography>
+              {statusCounts.published || DEFAULT_QUIZ_COUNT}
+            </Typography>
           </div>
           <div
             className={classNames(
@@ -115,7 +117,7 @@ const Menu = ({ isExpanded }) => {
             onClick={() => handleFilterNavigation("draft")}
           >
             <Typography>{t("button.filter.draft")}</Typography>
-            <Typography>{statusCounts.draft}</Typography>
+            <Typography>{statusCounts.draft || DEFAULT_QUIZ_COUNT}</Typography>
           </div>
         </div>
       </div>

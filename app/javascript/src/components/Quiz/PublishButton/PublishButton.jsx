@@ -18,7 +18,10 @@ const PublishButton = ({
 }) => (
   <div className="flex items-center gap-4 rounded-md bg-gray-100 p-2">
     {quiz.status === "draft" && (
-      <DraftStatus lastSavedAt={formatDate(quiz.lastSavedAt, true)} t={t} />
+      <DraftStatus
+        lastSavedAt={formatDate(quiz.updatedAt || quiz.createdAt, true)}
+        t={t}
+      />
     )}
     <div className="flex rounded-md bg-blue-600">
       <PublishActions

@@ -4,7 +4,7 @@ import { Button, Typography } from "neetoui";
 import { Form, Input } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
 
-import { VALIDATION_SCHEMA } from "./constants";
+import { getValidationSchema } from "./constants";
 
 import {
   useShowOrganization,
@@ -34,7 +34,7 @@ const Settings = () => {
           formikProps={{
             initialValues: { name: organizationName },
             enableReinitialize: true,
-            validationSchema: VALIDATION_SCHEMA,
+            validationSchema: getValidationSchema(t),
             onSubmit: handleSubmit,
           }}
         >

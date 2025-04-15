@@ -22,8 +22,10 @@ const DeleteAlert = ({
   const message = isDeleteAll ? (
     <Trans
       components={{ span: <span className="font-semibold" /> }}
-      i18nKey="deleteAlert.bulkMessage"
       values={{ count: selectedRows.length }}
+      i18nKey={`deleteAlert.bulkMessage${
+        selectedRows.length === 1 ? "One" : "Other"
+      }`}
     />
   ) : (
     <Trans

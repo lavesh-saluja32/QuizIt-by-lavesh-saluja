@@ -1,36 +1,39 @@
 import axios from "axios";
 
+const baseURL = "/admin/quizzes";
+const quizURL = quizId => `${baseURL}/${quizId}`;
+
 const create = payload =>
-  axios.post("/admin/quizzes", {
+  axios.post(baseURL, {
     quiz: payload,
   });
 
-const fetch = params => axios.get("/admin/quizzes", { params });
+const fetch = params => axios.get(baseURL, { params });
 const update = ({ quizId, payload }) =>
-  axios.put(`/admin/quizzes/${quizId}`, {
+  axios.put(`${baseURL}/${quizId}`, {
     quiz: payload,
   });
 
-const show = quizId => axios.get(`/admin/quizzes/${quizId}`);
+const show = quizId => axios.get(quizURL(quizId));
 
-const destroy = quizId => axios.delete(`/admin/quizzes/${quizId}`);
+const destroy = quizId => axios.delete(quizURL(quizId));
 
-const clone = quizId => axios.post(`/admin/quizzes/${quizId}/clone`);
+const clone = quizId => axios.post(`${quizURL(quizId)}/clone`);
 
 const bulkDelete = ids =>
-  axios.delete("/admin/quizzes/bulk_delete", {
+  axios.delete(`${baseURL}/bulk_delete`, {
     data: { ids },
   });
 
 const bulkUpdate = payload =>
-  axios.patch("/admin/quizzes/bulk_update", {
+  axios.patch(`${baseURL}/bulk_update`, {
     quizzes: payload,
   });
 
-const createReport = quizId => axios.post(`/admin/quizzes/${quizId}/report`);
+const createReport = quizId => axios.post(`${quizURL(quizId)}/report`);
 
 const downloadReport = quizId =>
-  axios.get(`/admin/quizzes/${quizId}/report`, {
+  axios.get(`${quizURL(quizId)}/report`, {
     responseType: "blob",
   });
 

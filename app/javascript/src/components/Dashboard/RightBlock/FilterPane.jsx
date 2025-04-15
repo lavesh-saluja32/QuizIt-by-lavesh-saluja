@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { filterNonNull } from "@bigbinary/neeto-cist";
+import { useQueryParams } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { Filter } from "@bigbinary/neeto-icons";
 import { Form, Select, Input } from "neetoui/formik";
@@ -8,26 +9,31 @@ import { Button, Pane, Typography } from "neetoui/index";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-import { FILTER_INITIAL_VALUES } from "./constant";
-
 import useCategories from "../../../hooks/reactQuery/useFetchCategories";
 import { routes } from "../../../routes";
+import useQuizSelectionStore from "../../../stores/useQuizSelectionStore";
 
 const FilterPane = () => {
   const [isOpen, setIsOpen] = useState(false);
+
   const { data: { data: { categories = [] } = {} } = {} } = useCategories();
 
   const history = useHistory();
 
+  const queryParams = useQueryParams();
+
+  const { clearSelections } = useQuizSelectionStore();
+
   const { Header, Body, Footer } = Pane;
   const { t } = useTranslation();
   const handleSubmit = values => {
-    const { name, status, category } = values;
+    clearSelections();
 
+    const { name, status, category } = values;
     const params = filterNonNull({
-      ...(name?.trim() && { search: name.trim() }),
-      status: status.value,
-      category: category.map(cat => cat.label),
+      ...(name?.trim() && { search: name?.trim() }),
+      status: status?.value,
+      category: category?.map(cat => cat.label),
     });
 
     history.push(buildUrl(routes.root, params));
@@ -43,7 +49,14 @@ const FilterPane = () => {
         </Header>
         <Form
           formikProps={{
-            initialValues: FILTER_INITIAL_VALUES,
+            initialValues: {
+              name: queryParams.search,
+              category: queryParams?.category?.map(category => ({
+                label: category,
+                value: category,
+              })),
+              status: queryParams.status,
+            },
             onSubmit: handleSubmit,
           }}
         >
@@ -67,7 +80,7 @@ const FilterPane = () => {
                     placeholder={t("placeholder.selectCategory")}
                     options={categories?.map(category => ({
                       label: category.name,
-                      value: category.id,
+                      value: category.name,
                     }))}
                   />
                   <Select

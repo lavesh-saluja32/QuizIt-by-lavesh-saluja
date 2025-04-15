@@ -1,5 +1,6 @@
 import React from "react";
 
+import { capitalize } from "@bigbinary/neeto-cist";
 import { Delete } from "@bigbinary/neeto-icons";
 import Search from "@bigbinary/neeto-molecules/Search";
 import { Typography, Button, Dropdown } from "neetoui";
@@ -86,7 +87,12 @@ const SubHeaderContent = ({
           />
         </div>
       ) : (
-        <Trans i18nKey="subheader.filters.totalSize" values={{ totalSize }} />
+        <Trans
+          values={{ totalSize }}
+          i18nKey={`subheader.filters.totalSize${
+            totalSize <= 1 ? "One" : "Other"
+          }`}
+        />
       )}
     </div>
     <div className="flex flex-wrap items-center gap-2 text-sm text-gray-600">
@@ -95,7 +101,7 @@ const SubHeaderContent = ({
           <Trans
             components={{ span: <span className="text-gray-300" /> }}
             i18nKey="subheader.filters.name"
-            values={{ search }}
+            values={{ search: capitalize(search) }}
           />
         </Typography>
       )}
@@ -113,7 +119,7 @@ const SubHeaderContent = ({
           <Trans
             components={{ span: <span className="text-gray-300" /> }}
             i18nKey="subheader.filters.status"
-            values={{ status }}
+            values={{ status: capitalize(status) }}
           />
         </Typography>
       )}
