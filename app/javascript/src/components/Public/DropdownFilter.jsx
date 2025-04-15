@@ -17,7 +17,7 @@ const DropdownFilter = ({ t }) => {
 
   const handleParams = selectedOptions => {
     history.replace(
-      buildUrl(routes.public, {
+      buildUrl(routes.root, {
         category: selectedOptions.map(option => option.label),
       })
     );

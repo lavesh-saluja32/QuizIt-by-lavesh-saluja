@@ -24,9 +24,13 @@ class BaseFilterService
     end
 
     def filter_by_category(records)
-      return records unless params[:category].present? && params[:category].is_a?(Array)
+      return records unless params[:category].present?
 
-      records.joins(:category).where(categories: { name: params[:category] })
+      categories = params[:category]
+
+      categories = categories.split(",") if categories.is_a?(String)
+
+      records.joins(:category).where(categories: { name: categories })
     end
 
     def apply_pagination(records, default_page:, page_size:)

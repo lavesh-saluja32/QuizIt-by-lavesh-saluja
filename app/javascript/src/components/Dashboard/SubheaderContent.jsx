@@ -105,12 +105,12 @@ const SubHeaderContent = ({
           />
         </Typography>
       )}
-      {Array.isArray(category) && category.length > 0 && (
+      {category && category.length > 0 && (
         <Typography>
           <Trans
             components={{ span: <span className="text-gray-300" /> }}
             i18nKey="subheader.filters.category"
-            values={{ categories: category.join(", ") }}
+            values={{ categories: category }}
           />
         </Typography>
       )}
@@ -123,11 +123,11 @@ const SubHeaderContent = ({
           />
         </Typography>
       )}
-      {(status || Array.isArray(category) || search) && (
+      {(status || category || search) && (
         <Button
           label={t("button.filter.clear")}
           style="secondary"
-          onClick={() => history.push(routes.root)}
+          onClick={() => history.push(routes.admin)}
         />
       )}
     </div>

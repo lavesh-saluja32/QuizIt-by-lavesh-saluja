@@ -28,7 +28,7 @@ const Menu = ({ isExpanded }) => {
 
   const { statusCounts } = useQuizStatsStore();
 
-  const homePage = useRouteMatch(routes.root);
+  const homePage = useRouteMatch(routes.admin);
 
   const { t } = useTranslation();
 
@@ -40,7 +40,7 @@ const Menu = ({ isExpanded }) => {
 
   const handleFilterNavigation = status => {
     const query = !(status === "all") ? { status } : {};
-    history.push(buildUrl(routes.root, query));
+    history.push(buildUrl(routes.admin, query));
     clearSelections();
   };
 
@@ -61,7 +61,7 @@ const Menu = ({ isExpanded }) => {
           exact
           activeClassName="active-link"
           className="flex items-center space-x-2 rounded p-2 hover:bg-blue-600 hover:text-white"
-          to={routes.root}
+          to={routes.admin}
         >
           <List />
           <Typography className="font-semibold">{t("quiz.heading")}</Typography>
@@ -132,7 +132,7 @@ const Menu = ({ isExpanded }) => {
         </NavLink>
         <a
           className="flex items-center space-x-2 rounded p-2 hover:bg-blue-600 hover:text-white"
-          href={routes.public}
+          href={routes.root}
           rel="noopener noreferrer"
           target="_blank"
         >

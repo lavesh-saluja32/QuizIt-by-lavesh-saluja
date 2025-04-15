@@ -24,7 +24,7 @@ const IconList = ({ isExpanded }) => (
       exact
       activeClassName="active-link-icon"
       className="w-full rounded-lg text-center"
-      to={routes.root}
+      to={routes.admin}
     >
       <Button icon={() => <List />} style="link" />
     </NavLink>
@@ -40,7 +40,7 @@ const IconList = ({ isExpanded }) => (
       exact
       activeClassName="active-link-icon"
       className="w-full rounded-lg text-center"
-      to={routes.public}
+      to={routes.root}
     >
       <Button icon={() => <Globe />} style="link" />
     </NavLink>

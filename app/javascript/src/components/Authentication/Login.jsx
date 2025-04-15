@@ -10,7 +10,7 @@ const Login = () => {
 
   const handleSubmit = async values => {
     loginMutation.mutate(values, {
-      onSuccess: () => window.location.replace(routes.root),
+      onSuccess: () => window.location.replace(routes.admin),
     });
   };
 

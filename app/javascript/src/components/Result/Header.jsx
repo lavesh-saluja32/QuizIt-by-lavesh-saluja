@@ -14,7 +14,7 @@ const Header = ({ t, history, totalQuestions }) => (
         icon={LeftArrow}
         iconPosition="left"
         label={t("button.home")}
-        onClick={() => history.push(routes.public)}
+        onClick={() => history.push(routes.root)}
       />
       <Typography>
         {t("quiz.result.totalQuestions", { totalQuestions })}

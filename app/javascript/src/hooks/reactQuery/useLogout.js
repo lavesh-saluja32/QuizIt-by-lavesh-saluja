@@ -21,7 +21,7 @@ const useLogout = () => {
       });
 
       resetAuthTokens();
-      history.replace(routes.public);
+      history.replace(routes.root);
     },
   });
 };

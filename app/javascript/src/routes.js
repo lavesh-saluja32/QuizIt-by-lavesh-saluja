@@ -15,6 +15,6 @@ export const routes = {
     create: "/question/:quizId/create/:questionNumber",
     edit: "/question/:questionId/edit",
   },
-  public: "/public",
+  admin: "/admin",
   settings: "/settings",
 };

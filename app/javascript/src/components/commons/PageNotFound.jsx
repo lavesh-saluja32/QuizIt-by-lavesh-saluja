@@ -12,7 +12,7 @@ const PageNotFound = ({ t }) => (
       primaryButtonProps={{
         label: t("button.home"),
         className: "bg-neutral-800 hover:bg-neutral-950",
-        to: routes.public,
+        to: routes.root,
       }}
     />
   </div>
