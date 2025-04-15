@@ -31,6 +31,8 @@ const Main = () => {
     routes.quiz.register,
     routes.quiz.attempt,
     routes.quiz.submissions,
+    routes.authentication.login,
+    routes.authentication.signup,
   ];
 
   const shouldHideSidebar = hideSidebarRoutes.some(path =>

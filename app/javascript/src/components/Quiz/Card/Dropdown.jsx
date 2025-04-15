@@ -9,6 +9,7 @@ const CardDropdown = ({
   handleDelete,
   handleEditNavigation,
   handleClone,
+  questionNumber,
 }) => {
   const { Menu, MenuItem, Divider } = Dropdown;
   const { Button: MenuButton } = MenuItem;
@@ -25,7 +26,7 @@ const CardDropdown = ({
           <MenuButton
             className="text-black"
             style="link"
-            onClick={() => handleEditNavigation(questionId)}
+            onClick={() => handleEditNavigation({ questionId, questionNumber })}
           >
             {t("button.edit")}
           </MenuButton>

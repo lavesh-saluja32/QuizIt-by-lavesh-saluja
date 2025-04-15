@@ -34,6 +34,7 @@ const Table = ({
   status,
   history,
   selectedRows,
+  handleclearFilter,
 }) => {
   const { t } = useTranslation();
   const [quizToDelete, setQuizToDelete] = useState("");
@@ -150,6 +151,7 @@ const Table = ({
         leftActionBlock={
           <SubHeaderContent
             {...{
+              handleclearFilter,
               category,
               search,
               status,

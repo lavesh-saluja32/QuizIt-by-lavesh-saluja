@@ -5,7 +5,7 @@ import { Right } from "@bigbinary/neeto-icons";
 import { Typography } from "neetoui";
 import { NavLink } from "react-router-dom";
 
-import { routes } from "../../routes";
+import { routes } from "../routes";
 
 const Breadcrumb = ({ quizId, questionNumber, t }) => (
   <div className="custom-breadcrumbs flex items-center space-x-3">

@@ -78,6 +78,12 @@ const Dashboard = () => {
     }
   }, [memoizedStatusCounts]);
 
+  const handleclearFilter = key => {
+    const newQuery = { ...{ status, search, category } };
+    delete newQuery[key];
+    history.push(buildUrl(routes.admin, newQuery));
+  };
+
   return (
     <div className="flex h-full w-full flex-1 flex-col overflow-auto p-10 transition-all duration-300">
       <div className="flex justify-between p-6">
@@ -98,6 +104,7 @@ const Dashboard = () => {
         {isNotEmpty(quizzes) ? (
           <Table
             {...{
+              handleclearFilter,
               data: quizzes,
               selectedRows,
               setSelectedRows,

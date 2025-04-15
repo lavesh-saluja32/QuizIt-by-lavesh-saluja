@@ -22,7 +22,7 @@ const Index = () => {
 
   const history = useHistory();
 
-  const { questionId } = useParams();
+  const { questionId, questionNumber } = useParams();
 
   const { t } = useTranslation();
 
@@ -64,14 +64,16 @@ const Index = () => {
       <PageHeader {...{ quiz, quizId }} />
       <div className="m-auto w-[50vw]">
         <QuestionForm
-          showBreadcrumbs={false}
+          showBreadcrumbs
           {...{
+            quizId,
             isSaveLoading,
             correctOption,
             setCorrectOption,
             handleSubmit,
             t,
             initialQuestion: initialValues,
+            questionNumber,
           }}
         />
       </div>

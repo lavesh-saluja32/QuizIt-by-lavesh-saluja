@@ -9,12 +9,19 @@ const Card = ({
   handleDelete,
   handleEditNavigation,
   handleClone,
+  questionNumber,
 }) => (
   <div className="flex w-[50vw] flex-col space-y-3 bg-white p-3">
     <div className="flex items-center justify-between">
       <Typography weight="bold">{questionText}</Typography>
       <Dropdown
-        {...{ questionId, handleDelete, handleEditNavigation, handleClone }}
+        {...{
+          questionId,
+          handleDelete,
+          handleEditNavigation,
+          handleClone,
+          questionNumber,
+        }}
       />
     </div>
     <Radio stacked>

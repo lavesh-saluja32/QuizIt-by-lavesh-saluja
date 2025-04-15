@@ -1,7 +1,7 @@
 import React from "react";
 
 import { capitalize } from "@bigbinary/neeto-cist";
-import { Delete } from "@bigbinary/neeto-icons";
+import { Delete, Close } from "@bigbinary/neeto-icons";
 import Search from "@bigbinary/neeto-molecules/Search";
 import { Typography, Button, Dropdown } from "neetoui";
 import { isEmpty } from "ramda";
@@ -21,6 +21,7 @@ const SubHeaderContent = ({
   handleBulkUpdate,
   categories = [],
   setCategorySearchValue,
+  handleclearFilter,
 }) => (
   <div className="flex flex-col space-y-4">
     <div>
@@ -97,31 +98,61 @@ const SubHeaderContent = ({
     </div>
     <div className="flex flex-wrap items-center gap-2 text-sm text-gray-600">
       {search && (
-        <Typography>
-          <Trans
-            components={{ span: <span className="text-gray-300" /> }}
-            i18nKey="subheader.filters.name"
-            values={{ search: capitalize(search) }}
+        <div className="flex items-center space-x-2 rounded-lg bg-gray-100 p-1">
+          <Typography>
+            <Trans
+              i18nKey="subheader.filters.name"
+              values={{ search: capitalize(search) }}
+              components={{
+                span: <span className="text-sm" />,
+                strong: <strong className="text-sm" />,
+              }}
+            />
+          </Typography>
+          <Button
+            icon={Close}
+            style="link"
+            onClick={() => handleclearFilter("search")}
           />
-        </Typography>
+        </div>
       )}
       {category && category.length > 0 && (
-        <Typography>
-          <Trans
-            components={{ span: <span className="text-gray-300" /> }}
-            i18nKey="subheader.filters.category"
-            values={{ categories: category }}
+        <div className="flex items-center space-x-2 rounded-lg bg-gray-100 p-1">
+          <Typography>
+            <Trans
+              i18nKey="subheader.filters.category"
+              values={{ categories: category }}
+              components={{
+                span: <span className="text-sm" />,
+                strong: <strong className="text-sm" />,
+              }}
+            />
+          </Typography>
+          <Button
+            icon={Close}
+            style="link"
+            onClick={() => handleclearFilter("category")}
           />
-        </Typography>
+        </div>
       )}
       {status && status !== "all" && (
-        <Typography>
-          <Trans
-            components={{ span: <span className="text-gray-300" /> }}
-            i18nKey="subheader.filters.status"
-            values={{ status: capitalize(status) }}
+        <div className="flex items-center space-x-2 rounded-lg bg-gray-100 p-1">
+          <Typography>
+            <Trans
+              i18nKey="subheader.filters.status"
+              values={{ status: capitalize(status) }}
+              components={{
+                span: <span className="text-sm" />,
+                strong: <strong className="text-sm" />,
+              }}
+            />
+          </Typography>
+          <Button
+            icon={Close}
+            style="link"
+            onClick={() => handleclearFilter("status")}
           />
-        </Typography>
+        </div>
       )}
       {(status || category || search) && (
         <Button
