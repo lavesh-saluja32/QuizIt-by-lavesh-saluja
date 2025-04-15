@@ -10,10 +10,10 @@ const QuizCard = ({
   t,
 }) => {
   return (
-    <div className="m-1 flex w-1/5 flex-col space-y-8 rounded-xl bg-white p-4">
+    <div className="m-1 flex w-1/4 flex-col space-y-8 rounded-xl bg-white p-4">
       <div className="flex flex-col space-y-1">
         <Typography style="h3">{name}</Typography>
-        <span className="w-fit rounded-xl bg-red-400 p-1 text-white">
+        <span className="w-fit rounded-xl bg-red-400 p-1 text-xs text-white">
           {categoryName}
         </span>
       </div>

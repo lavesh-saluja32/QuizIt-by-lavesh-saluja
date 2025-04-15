@@ -9,7 +9,7 @@ import {
   QUESTION_INITIAL_VALUES,
   MAX_OPTIONS,
   OPTION_VALUE,
-  QUESTION_VALIDATION_SCHEMA,
+  getQuestionFormValidationSchema,
 } from "./constant";
 import QuestionInput from "./Input";
 import Option from "./Option";
@@ -46,7 +46,7 @@ const QuestionForm = ({
     <Formik
       enableReinitialize
       initialValues={formValues}
-      validationSchema={QUESTION_VALIDATION_SCHEMA}
+      validationSchema={getQuestionFormValidationSchema(t)}
       onSubmit={values => handleSubmit(values, "save")}
     >
       {({
@@ -87,10 +87,8 @@ const QuestionForm = ({
                     />
                   ))}
                 </div>
-                {typeof errors.options === "string" && touched.options && (
-                  <div className="text-sm text-red-500">
-                    {t("validation.optionsMustBeUnique")}
-                  </div>
+                {touched.options && typeof errors.options === "string" && (
+                  <div className="text-sm text-red-500">{errors.options}</div>
                 )}
                 <Button
                   className="text-blue-600"

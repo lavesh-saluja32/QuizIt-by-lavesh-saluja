@@ -20,7 +20,7 @@ const FilterTableColumn = () => {
       closeOnSelect={false}
       icon={Column}
     >
-      <Menu className="space-y-2">
+      <Menu className="space-y-5">
         {columns.map(({ label, key }) => (
           <MenuItem key={key}>
             <Checkbox

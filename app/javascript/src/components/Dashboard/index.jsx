@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 
+import { capitalize, isNotEmpty } from "@bigbinary/neeto-cist";
 import useQueryParams from "@bigbinary/neeto-commons-frontend/react-utils/useQueryParams";
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
-import PageLoader from "components/commons/PageLoader";
-import { Typography, Button, Pagination } from "neetoui/index";
+import { Typography, Button, Pagination, NoData } from "neetoui/index";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
@@ -44,7 +44,6 @@ const Dashboard = () => {
     data: {
       data: { quizzes = [], totalSize = 0, statusCounts = {} } = {},
     } = {},
-    isLoading,
   } = useFetchQuizzes({ status, page, search, category });
 
   const memoizedStatusCounts = useMemo(() => statusCounts, [statusCounts]);
@@ -79,12 +78,12 @@ const Dashboard = () => {
     }
   }, [memoizedStatusCounts]);
 
-  if (isLoading) return <PageLoader />;
-
   return (
     <div className="flex h-full w-full flex-1 flex-col overflow-auto p-10 transition-all duration-300">
       <div className="flex justify-between p-6">
-        <Typography style="h1">{t("quiz.title")}</Typography>
+        <Typography style="h1">
+          {t("quiz.title", { title: capitalize(status || t("quiz.all")) })}
+        </Typography>
         <div className="flex items-center justify-center space-x-3">
           <SearchInput searchKey={search} {...{ clearSelections }} />
           <Button
@@ -96,25 +95,34 @@ const Dashboard = () => {
         </div>
       </div>
       <div className=" custom-table ant-table-thead h-full w-full overflow-auto p-4">
-        <Table
-          {...{
-            data: quizzes,
-            selectedRows,
-            setSelectedRows,
-            selectedRowKeys,
-            setSelectedRowKeys,
-            handleQuizNavigate,
-            handlePublish,
-            handleDelete,
-            handleClone,
-            isDeletePending,
-            category,
-            search,
-            status,
-            totalSize,
-            history,
-          }}
-        />
+        {isNotEmpty(quizzes) ? (
+          <Table
+            {...{
+              data: quizzes,
+              selectedRows,
+              setSelectedRows,
+              selectedRowKeys,
+              setSelectedRowKeys,
+              handleQuizNavigate,
+              handlePublish,
+              handleDelete,
+              handleClone,
+              isDeletePending,
+              category,
+              search,
+              status,
+              totalSize,
+              history,
+            }}
+          />
+        ) : (
+          <div className="flex h-full w-full flex-1 items-center justify-center">
+            <NoData
+              className="m-auto"
+              title={t("response.error.quizzesNotFound")}
+            />
+          </div>
+        )}
       </div>
       <div className="mt-4">
         <Pagination

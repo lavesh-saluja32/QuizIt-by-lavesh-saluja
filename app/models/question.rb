@@ -20,14 +20,13 @@
 #
 
 class Question < ApplicationRecord
-  MINIMUM_QUESTION_LENGTH = 5
   MAX_OPTIONS_PER_QUESTION = 6
   MIN_OPTIONS_PER_QUESTION = 2
 
   belongs_to :quiz
   has_many :options, dependent: :destroy
 
-  validates :question_text, presence: true, length: { minimum: MINIMUM_QUESTION_LENGTH }
+  validates :question_text, presence: true
 
   validate :validate_options_count
   validate :validate_only_one_correct_option

@@ -4,7 +4,7 @@ import { Pane, Typography, Button } from "@bigbinary/neetoui";
 import { Form, Input, Select } from "@bigbinary/neetoui/formik";
 import { useTranslation } from "react-i18next";
 
-import { QUIZ_VALIDATION_SCHEMA, QUIZ_INITIAL_VALUES } from "./constants";
+import { getQuizFormValidationSchema, QUIZ_INITIAL_VALUES } from "./constants";
 
 import useCategories from "../../../hooks/reactQuery/useFetchCategories";
 import { useCreateQuiz } from "../../../hooks/reactQuery/useQuizzes";
@@ -35,7 +35,7 @@ const QuizForm = ({ isOpen, setIsOpen }) => {
       <Form
         formikProps={{
           initialValues: QUIZ_INITIAL_VALUES,
-          validationSchema: QUIZ_VALIDATION_SCHEMA,
+          validationSchema: getQuizFormValidationSchema(t),
           onSubmit: handleSubmit,
         }}
       >

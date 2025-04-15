@@ -1,7 +1,8 @@
 {
   "quiz": {
     "heading": "Quizzes",
-    "title": "All Quizzes",
+    "title": "{{title}} Quizzes",
+    "all": "All",
     "search": "Search quizzes",
     "name": "Name",
     "submissions": "Submission Count",
@@ -114,7 +115,16 @@
     "optionMin": "Option cannot be empty",
     "minOptions": "At least two options are required",
     "maxOptions": "You can have a maximum of {{max}} options",
-    "optionsMustBeUnique": "Options must be unique."
+    "optionsMustBeUnique": "Options must be unique.",
+    "correctOptionRequired": "Please select the correct option.",
+    "quizSignup": {
+      "firstNameRequired": "First name is required",
+      "firstNameMin": "First name should be at least 2 characters",
+      "lastNameRequired": "Last name is required",
+      "lastNameMin": "Last name should be at least 2 characters",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Must be a valid email"
+    }
   },
   "placeholder": {
     "selectCategory": "Select category",
@@ -144,12 +154,14 @@
     "message": "You're about to delete <span>{{name}}?</span> .<br>It'll be permanently deleted and we won't be able to recover it.",
     "delete": "Yes, delete",
     "cancel": "No, Cancel",
-    "bulkMessage": "Are you sure you want to delete <strong>{{count}}</strong> quizzes? This action cannot be undone.",
+    "bulkMessageOne": "Are you sure you want to delete <strong>{{count}} quiz?</strong> This action cannot be undone.",
+    "bulkMessageOther": "Are you sure you want to delete <strong>{{count}} quizzes?</strong> This action cannot be undone.",
     "bulkTitle": "Delete Multiple Quizzes"
   },
   "subheader": {
     "filters": {
-      "totalSize": "<strong>{{totalSize}} quizzes</strong>",
+      "totalSizeOne": "<strong>{{totalSize}} quiz</strong>",
+      "totalSizeOther": "<strong>{{totalSize}} quizzes</strong>",
       "category": "<strong>Category:</strong> <span>{{categories}}</span>",
       "name": "<strong>Name:</strong> <span>{{search}}</span>",
       "status": " <strong>Status:</strong> <span>{{status}}</span>",

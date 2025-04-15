@@ -8,7 +8,7 @@ import { useParams, useHistory } from "react-router-dom";
 
 import {
   QUIZ_SIGNUP_FORM_INITIAL_VALUES,
-  QUIZ_SIGNUP_FORM_VALIDATION_SCHEMA,
+  getQuizSignupFormValidationSchema,
 } from "./constants";
 
 import { useShowQuiz } from "../../../hooks/reactQuery/public/useQuizzes";
@@ -64,7 +64,7 @@ const Signup = () => {
             className="space-y-16"
             formikProps={{
               initialValues: QUIZ_SIGNUP_FORM_INITIAL_VALUES,
-              validationSchema: QUIZ_SIGNUP_FORM_VALIDATION_SCHEMA,
+              validationSchema: getQuizSignupFormValidationSchema(t),
               onSubmit: handleSubmit,
             }}
           >

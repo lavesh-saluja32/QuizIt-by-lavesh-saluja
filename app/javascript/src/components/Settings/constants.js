@@ -1,5 +1,6 @@
 import * as yup from "yup";
 
-export const VALIDATION_SCHEMA = yup.object({
-  name: yup.string().required("Quiz site name is required"),
-});
+export const getValidationSchema = t =>
+  yup.object({
+    name: yup.string().required(t("validation.required")),
+  });

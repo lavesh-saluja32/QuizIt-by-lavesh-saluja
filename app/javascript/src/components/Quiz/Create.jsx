@@ -28,7 +28,6 @@ const Create = () => {
   } = useFetchQuestions(quizId);
 
   const { data: { data: { quiz = {} } = {} } = {} } = useShowQuiz(quizId);
-
   const { mutate: deleteQuiz, isPending: isDeleteLoading } =
     useDeleteQuestion();
 

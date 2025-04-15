@@ -4,18 +4,9 @@ class Api::V1::CategoriesController < ApplicationController
   after_action :verify_authorized, except: :index
   skip_before_action :authenticate_user_using_x_auth_token, only: :index
   def index
-    @categories = Api::V1::CategoriesFilterService.new(params, Organization.first.categories).process
+    puts Organization.first
+    @categories = Api::V1::CategoriesFilterService.new(params, Organization.last.categories).process
     render :index
-  end
-
-  def create
-    category = Category.new(category_params.merge(organization: Organization.first))
-    authorize category
-    if category.save
-      render_notice(t("successfully_created", entity: "Category"))
-    else
-      render_error(category.errors.full_messages, :unprocessable_entity)
-    end
   end
 
   private
