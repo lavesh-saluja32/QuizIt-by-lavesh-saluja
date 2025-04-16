@@ -2,15 +2,13 @@ import React from "react";
 
 import { Button } from "@bigbinary/neetoui";
 import { Link } from "neetoicons";
+import { formatDate } from "utils/formatDate";
 
 import PublishActions from "./Actions";
 import DraftStatus from "./DraftStatus";
 
-import { formatDate } from "../../../utils/formatDate";
-
 const PublishButton = ({
   handlePublish,
-  t,
   quiz,
   handleQuizPublicNavigation,
   copyQuizPublicUrl,
@@ -20,7 +18,6 @@ const PublishButton = ({
     {quiz.status === "draft" && (
       <DraftStatus
         lastSavedAt={formatDate(quiz.updatedAt || quiz.createdAt, true)}
-        t={t}
       />
     )}
     <div className="flex rounded-md bg-blue-600">
@@ -28,7 +25,6 @@ const PublishButton = ({
         {...{
           handlePublish,
           quiz,
-          t,
           handleQuizPublicNavigation,
           totalQuestions,
         }}

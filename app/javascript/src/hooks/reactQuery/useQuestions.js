@@ -1,9 +1,9 @@
+import { QUERY_KEY } from "constants/query";
+
 import { Toastr } from "@bigbinary/neetoui";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import questionsApi from "apis/questions";
 import { t } from "i18next";
-
-import questionsApi from "../../apis/questions";
-import { QUERY_KEY } from "../../constants/query";
 
 export const useFetchQuestions = quizId =>
   useQuery({

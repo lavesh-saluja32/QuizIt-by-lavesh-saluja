@@ -4,14 +4,13 @@ import { filterNonNull } from "@bigbinary/neeto-cist";
 import { useQueryParams } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { Filter } from "@bigbinary/neeto-icons";
+import useCategories from "hooks/reactQuery/useFetchCategories";
 import { Form, Select, Input } from "neetoui/formik";
 import { Button, Pane, Typography } from "neetoui/index";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-
-import useCategories from "../../../hooks/reactQuery/useFetchCategories";
-import { routes } from "../../../routes";
-import useQuizSelectionStore from "../../../stores/useQuizSelectionStore";
+import { routes } from "routes";
+import useQuizSelectionStore from "stores/useQuizSelectionStore";
 
 const FilterPane = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,10 +32,10 @@ const FilterPane = () => {
     const params = filterNonNull({
       ...(name?.trim() && { search: name?.trim() }),
       status: status?.value,
-      category: category?.map(cat => cat.label),
+      category: category?.map(cat => cat.label).join(","),
     });
 
-    history.push(buildUrl(routes.root, params));
+    history.push(buildUrl(routes.admin, params));
     setIsOpen(false);
   };
 
@@ -51,7 +50,7 @@ const FilterPane = () => {
           formikProps={{
             initialValues: {
               name: queryParams.search,
-              category: queryParams?.category?.map(category => ({
+              category: queryParams?.category?.split(",").map(category => ({
                 label: category,
                 value: category,
               })),

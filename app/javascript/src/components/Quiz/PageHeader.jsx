@@ -4,14 +4,13 @@ import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { LeftArrow } from "@bigbinary/neeto-icons";
 import Rename from "@bigbinary/neeto-molecules/Rename";
 import classNames from "classnames";
+import { useUpdateQuiz } from "hooks/reactQuery/useQuizzes";
 import { Button } from "neetoui/index";
 import { useTranslation } from "react-i18next";
 import { NavLink, useHistory, useRouteMatch } from "react-router-dom";
+import { routes } from "routes";
 
 import PublishButton from "./PublishButton/PublishButton";
-
-import { useUpdateQuiz } from "../../hooks/reactQuery/useQuizzes";
-import { routes } from "../../routes";
 
 const PageHeader = ({
   quizId,
@@ -33,9 +32,7 @@ const PageHeader = ({
   };
 
   const quizMatch = useRouteMatch(routes.quiz.create);
-  const questionMatch = useRouteMatch(
-    "/question/:quizId/create/:questionNumber"
-  );
+  const questionMatch = useRouteMatch(routes.question.create);
 
   return (
     <div className="flex h-20 items-center border-b border-gray-400 bg-slate-100">
@@ -49,7 +46,7 @@ const PageHeader = ({
           <Button
             icon={LeftArrow}
             style="link"
-            onClick={() => history.push(routes.root)}
+            onClick={() => history.push(routes.admin)}
           />
           <Rename
             hideMenu
@@ -83,7 +80,6 @@ const PageHeader = ({
         {showPublishButton && (
           <PublishButton
             {...{
-              t,
               quiz,
               handlePublish,
               handleQuizPublicNavigation,

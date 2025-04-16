@@ -32,5 +32,6 @@ FactoryBot.define do
     total_questions { 0 }
     category
     user
+    organization
   end
 end

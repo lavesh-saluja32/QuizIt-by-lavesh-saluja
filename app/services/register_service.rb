@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::RegisterService
+class RegisterService
   attr_reader :params
 
   def initialize(params)

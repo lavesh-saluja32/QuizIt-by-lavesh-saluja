@@ -1,10 +1,9 @@
+import { QUERY_KEY } from "constants/query";
+
 import { Toastr } from "@bigbinary/neetoui";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import organizationsApi from "apis/organizations";
 import { t } from "i18next";
-
-import organizationsApi from "../../apis/organizations";
-import usersApi from "../../apis/users";
-import { QUERY_KEY } from "../../constants/query";
 
 export const useUpdateOrganization = () => {
   const queryClient = useQueryClient();
@@ -22,5 +21,5 @@ export const useUpdateOrganization = () => {
 export const useShowOrganization = () =>
   useQuery({
     queryKey: [QUERY_KEY.ORGANIZATION],
-    queryFn: () => usersApi.show(),
+    queryFn: () => organizationsApi.show(),
   });

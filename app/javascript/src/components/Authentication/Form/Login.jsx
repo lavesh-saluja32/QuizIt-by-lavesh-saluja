@@ -1,11 +1,11 @@
 import React from "react";
 
+import { withT } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { Button } from "@bigbinary/neetoui";
 import { Form, Input } from "@bigbinary/neetoui/formik";
-import { withTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { routes } from "routes";
 
-import { routes } from "../../../routes";
 import { LOGIN_INITIAL_VALUES, getLoginValidationSchema } from "../constants";
 
 const Login = ({ handleSubmit, loading, t }) => (
@@ -59,4 +59,4 @@ const Login = ({ handleSubmit, loading, t }) => (
   </div>
 );
 
-export default withTranslation()(Login);
+export default withT(Login);

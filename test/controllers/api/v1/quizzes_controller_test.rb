@@ -8,7 +8,7 @@ class Api::V1::QuizzesControllerTest < ActionDispatch::IntegrationTest
     @admin = create(:user, role: :admin_user, organization: @organization)
     @standard_user = create(:user, role: :standard_user, organization: @organization)
     @category = create(:category, organization: @organization)
-    @quiz = create(:quiz, user: @admin, category: @category)
+    @quiz = create(:quiz, user: @admin, category: @category, organization: @organization)
     @admin_headers = headers(@admin)
     @standard_user_headers = headers(@standard_user)
   end

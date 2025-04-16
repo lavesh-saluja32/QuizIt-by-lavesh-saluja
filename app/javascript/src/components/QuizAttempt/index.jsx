@@ -1,17 +1,16 @@
 import React from "react";
 
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
+import { useFetchQuestions } from "hooks/reactQuery/public/useQuestions";
 import { Typography } from "neetoui";
 import { useTranslation } from "react-i18next";
 import { useParams, useHistory } from "react-router-dom";
+import { routes } from "routes";
+import useQuizStore from "stores/useQuizStore";
+import useSubmissionStore from "stores/useSubmissionStore";
 
 import Buttons from "./Buttons";
 import QuestionCard from "./QuestionCard";
-
-import { useFetchQuestions } from "../../hooks/reactQuery/public/useQuestions";
-import { routes } from "../../routes";
-import useQuizStore from "../../stores/useQuizStore";
-import useSubmissionStore from "../../stores/useSubmissionStore";
 
 const QuizAttempt = () => {
   const { quizId } = useParams();
@@ -60,7 +59,7 @@ const QuizAttempt = () => {
           }}
         />
         <Buttons
-          {...{ t, handleSubmit, handleNext, handlePrevious }}
+          {...{ handleSubmit, handleNext, handlePrevious }}
           isFirstQuestion={questionNumber === 0}
           isLastQuestion={questionNumber === questions.length - 1}
         />

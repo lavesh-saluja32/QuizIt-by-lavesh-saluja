@@ -13,8 +13,8 @@ export const routes = {
   submission: "/submission/:submissionId",
   question: {
     create: "/question/:quizId/create/:questionNumber",
-    edit: "/question/:questionId/edit",
+    edit: "/question/:questionId/edit/:questionNumber",
   },
-  public: "/public",
+  admin: "/admin",
   settings: "/settings",
 };

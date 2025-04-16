@@ -9,17 +9,16 @@ class Admin::SubmissionPolicy
   end
 
   class Scope
-    attr_reader :user, :scope, :quiz
+    attr_reader :user, :scope
 
-    def initialize(user, scope, quiz)
+    def initialize(user, scope)
       @user = user
       @scope = scope
-      @quiz = quiz
     end
 
     def resolve
-      if user.role == "admin_user" && quiz.user_id == user.id
-        @quiz.submissions.includes(:user)
+      if scope&.first&.quiz&.user_id == user.id
+        scope.includes(:user)
       else
         scope.none
       end

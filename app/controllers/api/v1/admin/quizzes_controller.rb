@@ -1,31 +1,25 @@
 # frozen_string_literal: true
 
 class Api::V1::Admin::QuizzesController < ApplicationController
-  after_action :verify_authorized, except: %i[index bulk_delete bulk_update]
+  after_action :verify_authorized, except: %i[index bulk_delete bulk_update create]
   before_action :load_quiz!, only: %i[update show clone destroy download]
 
   def index
     @quizzes = policy_scope([:admin, Quiz.includes(:category, :questions, :user, :submissions)])
     @status_counts = @quizzes.group(:status).count
-    @quizzes_filter = Api::V1::Admin::QuizzesFilterService.new(@quizzes, params).process!
-    @quizzes = @quizzes_filter.quizzes.order(updated_at: :desc)
-    @total_size = @quizzes_filter.filtered_size
+    @filtered_quizzes = Admin::QuizzesFilterService.new(@quizzes, params).process
+    @quizzes = @filtered_quizzes.quizzes.order(updated_at: :desc)
+    @total_size = @filtered_quizzes.filtered_size
     render "api/v1/quizzes/index"
   end
 
   def update
     authorize [:admin, @quiz]
     @quiz.update!(update_params)
-    @quiz.update_last_saved
-    render_json
   end
 
   def create
-    quiz = @current_user.quizzes.new(quiz_params)
-    authorize [:admin, quiz]
-    quiz.save!
-    quiz.update_last_saved
-    render_json
+    @current_user.organization.quizzes.create!(quiz_params.merge(user: @current_user))
   end
 
   def show
@@ -39,13 +33,11 @@ class Api::V1::Admin::QuizzesController < ApplicationController
 
   def destroy
     authorize([:admin, @quiz])
-    @quiz.destroy
-    render_json
+    @quiz.destroy!
   end
 
   def bulk_delete
     Quiz.where(id: bulk_delete_params[:ids], user_id: current_user.id).destroy_all
-    render_json
   end
 
   def bulk_update
@@ -62,8 +54,6 @@ class Api::V1::Admin::QuizzesController < ApplicationController
     elsif updates.key?(:category_id)
       quizzes.update_all(category_id: updates[:category_id], last_saved_at: Time.current)
     end
-
-    render_json
   end
 
   private
@@ -77,11 +67,9 @@ class Api::V1::Admin::QuizzesController < ApplicationController
     end
 
     def load_quiz!
-      @quiz = if action_name == "destroy"
-        Quiz.includes(questions: :options).find(params[:id])
-              else
-                Quiz.find(params[:id])
-      end
+      scope = @current_user.organization.quizzes
+      scope = scope.includes(questions: :options) if action_name == "destroy"
+      @quiz = scope.find(params[:id])
     end
 
     def bulk_delete_params

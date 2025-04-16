@@ -21,11 +21,14 @@ import {
 import { routes } from "../../routes";
 import useQuizSelectionStore from "../../stores/useQuizSelectionStore";
 import useQuizStatsStore from "../../stores/useQuizStatsStore";
+import PageLoader from "../commons/PageLoader";
 
 const Dashboard = () => {
   const [isSidePaneOpen, setIsSidePaneOpen] = useState(false);
-
   const { t } = useTranslation();
+  const history = useHistory();
+
+  const { status, page, search, category } = useQueryParams();
 
   const {
     selectedRows,
@@ -37,26 +40,26 @@ const Dashboard = () => {
 
   const setStatusCounts = useQuizStatsStore(state => state.setStatusCounts);
 
-  const history = useHistory();
+  const { data = {}, isLoading } = useFetchQuizzes({
+    status,
+    page,
+    search,
+    category,
+  });
+  const { quizzes = [], totalSize = 0, statusCounts = {} } = data.data || {};
 
-  const { status, page, search, category } = useQueryParams();
-  const {
-    data: {
-      data: { quizzes = [], totalSize = 0, statusCounts = {} } = {},
-    } = {},
-  } = useFetchQuizzes({ status, page, search, category });
+  const { mutate: updateQuiz } = useUpdateQuiz();
+  const { mutate: cloneQuiz } = useCloneQuiz();
+  const { mutate: deleteQuiz, isDeletePending } = useDeleteQuiz();
 
   const memoizedStatusCounts = useMemo(() => statusCounts, [statusCounts]);
 
-  const { mutate: updateQuiz } = useUpdateQuiz();
-
-  const { mutate: cloneQuiz } = useCloneQuiz();
-
-  const { mutate: deleteQuiz, isDeletePending } = useDeleteQuiz();
+  useEffect(() => {
+    setStatusCounts(memoizedStatusCounts);
+  }, [memoizedStatusCounts, setStatusCounts]);
 
   const handleQuizNavigate = quizId => {
-    const url = buildUrl(routes.quiz.create, { quizId });
-    history.push(url);
+    history.push(buildUrl(routes.quiz.create, { quizId }));
     clearSelections();
   };
 
@@ -72,11 +75,13 @@ const Dashboard = () => {
     cloneQuiz(quizId);
   };
 
-  useEffect(() => {
-    if (memoizedStatusCounts) {
-      setStatusCounts(memoizedStatusCounts);
-    }
-  }, [memoizedStatusCounts]);
+  const handleClearFilter = key => {
+    const newQuery = { status, search, category };
+    delete newQuery[key];
+    history.push(buildUrl(routes.admin, newQuery));
+  };
+
+  if (isLoading) return <PageLoader />;
 
   return (
     <div className="flex h-full w-full flex-1 flex-col overflow-auto p-10 transition-all duration-300">
@@ -85,7 +90,7 @@ const Dashboard = () => {
           {t("quiz.title", { title: capitalize(status || t("quiz.all")) })}
         </Typography>
         <div className="flex items-center justify-center space-x-3">
-          <SearchInput searchKey={search} {...{ clearSelections }} />
+          <SearchInput clearSelections={clearSelections} searchKey={search} />
           <Button
             className="bg-blue-600"
             label={t("button.addQuiz")}
@@ -94,26 +99,25 @@ const Dashboard = () => {
           />
         </div>
       </div>
-      <div className=" custom-table ant-table-thead h-full w-full overflow-auto p-4">
+      <div className="custom-table ant-table-thead h-full w-full overflow-auto p-4">
         {isNotEmpty(quizzes) ? (
           <Table
-            {...{
-              data: quizzes,
-              selectedRows,
-              setSelectedRows,
-              selectedRowKeys,
-              setSelectedRowKeys,
-              handleQuizNavigate,
-              handlePublish,
-              handleDelete,
-              handleClone,
-              isDeletePending,
-              category,
-              search,
-              status,
-              totalSize,
-              history,
-            }}
+            category={category}
+            data={quizzes}
+            handleClone={handleClone}
+            handleDelete={handleDelete}
+            handlePublish={handlePublish}
+            handleQuizNavigate={handleQuizNavigate}
+            handleclearFilter={handleClearFilter}
+            history={history}
+            isDeletePending={isDeletePending}
+            search={search}
+            selectedRowKeys={selectedRowKeys}
+            selectedRows={selectedRows}
+            setSelectedRowKeys={setSelectedRowKeys}
+            setSelectedRows={setSelectedRows}
+            status={status}
+            totalSize={totalSize}
           />
         ) : (
           <div className="flex h-full w-full flex-1 items-center justify-center">

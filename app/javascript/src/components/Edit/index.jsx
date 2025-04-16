@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useMemo } from "react";
 
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
+import { useShowQuiz } from "hooks/reactQuery/useQuizzes";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useLocation } from "react-router-dom";
+import { routes } from "routes";
 
 import { formatQuestionFormInitialValue } from "./utils";
 
@@ -10,19 +12,17 @@ import {
   useUpdateQuestion,
   useShowQuestion,
 } from "../../hooks/reactQuery/useQuestions";
-import { useShowQuiz } from "../../hooks/reactQuery/useQuizzes";
-import { routes } from "../../routes";
 import QuestionForm from "../Question/Form";
 import { formatPayload } from "../Question/utlis";
 import PageHeader from "../Quiz/PageHeader";
 
-const Index = () => {
+const Edit = () => {
   const [isSaveLoading, setIsSaveLoading] = useState(false);
   const [correctOption, setCorrectOption] = useState("");
 
   const history = useHistory();
 
-  const { questionId } = useParams();
+  const { questionId, questionNumber } = useParams();
 
   const { t } = useTranslation();
 
@@ -64,14 +64,16 @@ const Index = () => {
       <PageHeader {...{ quiz, quizId }} />
       <div className="m-auto w-[50vw]">
         <QuestionForm
-          showBreadcrumbs={false}
+          showBreadcrumbs
           {...{
+            quizId,
             isSaveLoading,
             correctOption,
             setCorrectOption,
             handleSubmit,
             t,
             initialQuestion: initialValues,
+            questionNumber,
           }}
         />
       </div>
@@ -79,4 +81,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Edit;

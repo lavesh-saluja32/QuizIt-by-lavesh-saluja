@@ -8,7 +8,7 @@ class Api::V1::Admin::QuestionsControllerTest < ActionDispatch::IntegrationTest
     @admin = create(:user, role: :admin_user, organization: @organization)
     @standard_user = create(:user, role: :standard_user, organization: @organization)
     @category = create(:category, organization: @organization)
-    @quiz = create(:quiz, user: @admin, category: @category)
+    @quiz = create(:quiz, user: @admin, category: @category, organization: @organization)
     @question = create(:question, quiz: @quiz)
     @admin_headers = headers(@admin)
     @standard_user_headers = headers(@standard_user)
@@ -21,6 +21,7 @@ class Api::V1::Admin::QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     response_json = response.parsed_body
+    puts response_json
     assert_equal @quiz.questions.count, response_json["questions"].length
   end
 

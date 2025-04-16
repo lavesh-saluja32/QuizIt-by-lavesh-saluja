@@ -6,9 +6,7 @@ class Api::V1::Admin::QuestionsController < ApplicationController
   before_action :load_question!, only: %i[update destroy show clone]
 
   def index
-    @questions = Admin::QuestionPolicy::Scope.new(
-      current_user, Question,
-      @quiz.id).resolve.includes(:options).order(updated_at: :desc)
+    @questions = policy_scope([:admin, @quiz.questions]).includes(:options).order(updated_at: :desc)
   end
 
   def create
@@ -18,7 +16,6 @@ class Api::V1::Admin::QuestionsController < ApplicationController
      @question.save!
      @quiz.update!(status: "draft") unless @quiz.draft?
    end
-    render_json
   end
 
   def update
@@ -28,8 +25,6 @@ class Api::V1::Admin::QuestionsController < ApplicationController
       @question.options.destroy_all
       @question.update!(question_params)
     end
-
-    render_json
   end
 
   def show
@@ -39,7 +34,6 @@ class Api::V1::Admin::QuestionsController < ApplicationController
   def destroy
     authorize([:admin, @question])
     @question.destroy!
-    render_json
   end
 
   def clone
@@ -49,13 +43,12 @@ class Api::V1::Admin::QuestionsController < ApplicationController
       @question.quiz.update!(status: "draft") unless @question.quiz.draft?
     end
     @question
-    render_json
   end
 
   private
 
     def load_quiz!
-      @quiz = Quiz.find(params[:quiz_id])
+      @quiz = @current_user.organization.quizzes.find(params[:quiz_id])
     end
 
     def question_params
@@ -67,6 +60,9 @@ class Api::V1::Admin::QuestionsController < ApplicationController
     end
 
     def load_question!
-      @question = Question.find(params[:id])
+      @question = Question
+        .joins(quiz: :organization)
+        .where(id: params[:id], quizzes: { organization_id: @current_user.organization_id })
+        .first!
     end
 end

@@ -8,7 +8,7 @@ class Api::V1::Admin::SubmissionsControllerTest < ActionDispatch::IntegrationTes
     @admin = create(:user, role: :admin_user, organization: @organization)
     @standard_user = create(:user, role: :standard_user, organization: @organization)
     @category = create(:category, organization: @organization)
-    @quiz = create(:quiz, user: @admin, category: @category)
+    @quiz = create(:quiz, user: @admin, category: @category, organization: @organization)
     @submission_user = create(:user)
     @submission = create(:submission, quiz: @quiz, user: @submission_user)
 
@@ -21,9 +21,10 @@ class Api::V1::Admin::SubmissionsControllerTest < ActionDispatch::IntegrationTes
 
     assert_response :success
     response_json = response.parsed_body["submissions"]
+    puts response_json
     assert_equal 1, response_json.length
     assert_equal @submission.id, response_json.first["id"]
-    assert_equal @submission_user.id, response_json.first["user"]["id"]
+    assert_equal @submission_user.id, response_json.first["user_id"]
   end
 
   def test_admin_cannot_view_submissions_for_other_admins_quiz

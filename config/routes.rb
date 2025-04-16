@@ -13,7 +13,7 @@ Rails.application.routes.draw do
           end
 
           namespace :admin do
-            resource :organizations, only: :update
+            resource :organizations, only: %i[update show]
             resources :quizzes, only: %i[index create update show destroy] do
               resource :report, only: %i[create show], controller: "reports"
               resources :submissions, only: %i[index]

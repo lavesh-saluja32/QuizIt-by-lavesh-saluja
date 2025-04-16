@@ -1,9 +1,8 @@
 import { Toastr } from "@bigbinary/neetoui";
 import { useMutation } from "@tanstack/react-query";
+import authApi from "apis/authentication";
 import { useHistory } from "react-router-dom";
-
-import authApi from "../../apis/authentication";
-import { routes } from "../../routes";
+import { routes } from "routes";
 
 const useSignup = () => {
   const history = useHistory();

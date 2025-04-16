@@ -162,7 +162,7 @@
     "filters": {
       "totalSizeOne": "<strong>{{totalSize}} quiz</strong>",
       "totalSizeOther": "<strong>{{totalSize}} quizzes</strong>",
-      "category": "<strong>Category:</strong> <span>{{categories}}</span>",
+      "category": "<strong>Category:</strong> <span>{{category}}</span>",
       "name": "<strong>Name:</strong> <span>{{search}}</span>",
       "status": " <strong>Status:</strong> <span>{{status}}</span>",
       "selectedRow": "<strong>{{selectedRowsSize}} quiz</strong> selected out of {{totalSize}}",

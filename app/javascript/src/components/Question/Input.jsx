@@ -1,7 +1,7 @@
 import React from "react";
 
+import { withT } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { Input } from "neetoui/formik";
-import { withTranslation } from "react-i18next";
 
 const QuestionInput = ({ t }) => (
   <div>
@@ -17,4 +17,4 @@ const QuestionInput = ({ t }) => (
   </div>
 );
 
-export default withTranslation()(QuestionInput);
+export default withT(QuestionInput);

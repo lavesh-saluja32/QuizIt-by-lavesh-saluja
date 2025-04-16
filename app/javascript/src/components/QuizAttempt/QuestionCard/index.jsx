@@ -5,25 +5,28 @@ import { Typography } from "neetoui";
 import Option from "./Option";
 
 const QuestionCard = ({
-  id,
+  id: questionId,
   questionText,
   options = [],
   selectedAnswers,
   setSelectedAnswer,
 }) => {
-  const selectedOption = selectedAnswers[id] || null;
+  const selectedOption = selectedAnswers[questionId] || null;
 
   return (
     <div className="flex w-[40vw] flex-col space-y-4">
       <Typography style="h3">{questionText}</Typography>
       <div className="flex flex-col space-y-2">
-        {options.map(option => (
+        {options.map(({ id, optionText }) => (
           <Option
-            id={option.id}
-            key={option.id}
-            optionText={option.optionText}
-            questionId={id}
-            {...{ selectedOption, setSelectedAnswer }}
+            key={id}
+            {...{
+              selectedOption,
+              setSelectedAnswer,
+              questionId,
+              id,
+              optionText,
+            }}
           />
         ))}
       </div>

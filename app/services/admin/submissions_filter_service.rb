@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::Admin::SubmissionsFilterService < BaseFilterService
+class Admin::SubmissionsFilterService < BaseFilterService
   def initialize(params, submissions)
     super(params)
     @submissions = submissions

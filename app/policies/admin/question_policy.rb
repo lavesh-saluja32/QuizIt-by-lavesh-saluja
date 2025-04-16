@@ -31,15 +31,14 @@ class Admin::QuestionPolicy
   class Scope
     attr_reader :user, :scope, :quiz_id
 
-    def initialize(user, scope, quiz_id = nil)
+    def initialize(user, scope)
       @user = user
       @scope = scope
-      @quiz_id = quiz_id
     end
 
     def resolve
-      if user.role == "admin_user"
-        scope.where(quiz_id: quiz_id)
+      if user.role == "admin_user" && scope
+        scope
       else
         scope.none
       end

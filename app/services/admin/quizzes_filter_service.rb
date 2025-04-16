@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::Admin::QuizzesFilterService < BaseFilterService
+class Admin::QuizzesFilterService < BaseFilterService
   DEFAULT_PAGE = 1
   DEFAULT_PAGE_SIZE = 8
 
@@ -11,7 +11,7 @@ class Api::V1::Admin::QuizzesFilterService < BaseFilterService
     @quizzes = quizzes
   end
 
-  def process!
+  def process
     @quizzes = filter_by_status(@quizzes)
     @quizzes = filter_by_search_term(@quizzes, table: "quizzes")
     @filtered_size = @quizzes.count

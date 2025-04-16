@@ -1,7 +1,7 @@
 import React from "react";
 
+import { withT } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { MenuHorizontal } from "@bigbinary/neeto-icons";
-import { t } from "i18next";
 import { Dropdown } from "neetoui/index";
 
 const CardDropdown = ({
@@ -9,6 +9,8 @@ const CardDropdown = ({
   handleDelete,
   handleEditNavigation,
   handleClone,
+  questionNumber,
+  t,
 }) => {
   const { Menu, MenuItem, Divider } = Dropdown;
   const { Button: MenuButton } = MenuItem;
@@ -25,7 +27,7 @@ const CardDropdown = ({
           <MenuButton
             className="text-black"
             style="link"
-            onClick={() => handleEditNavigation(questionId)}
+            onClick={() => handleEditNavigation({ questionId, questionNumber })}
           >
             {t("button.edit")}
           </MenuButton>
@@ -55,4 +57,4 @@ const CardDropdown = ({
   );
 };
 
-export default CardDropdown;
+export default withT(CardDropdown);

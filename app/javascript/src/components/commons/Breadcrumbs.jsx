@@ -1,13 +1,13 @@
 import React from "react";
 
+import { withT } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { Right } from "@bigbinary/neeto-icons";
 import { Typography } from "neetoui";
 import { NavLink } from "react-router-dom";
+import { routes } from "routes";
 
-import { routes } from "../../routes";
-
-const Breadcrumb = ({ quizId, questionNumber, t }) => (
+const Breadcrumbs = ({ quizId, questionNumber, t }) => (
   <div className="custom-breadcrumbs flex items-center space-x-3">
     <NavLink to={buildUrl(routes.quiz.create, { quizId })}>
       {t("link.question.allQuestion")}
@@ -19,4 +19,4 @@ const Breadcrumb = ({ quizId, questionNumber, t }) => (
   </div>
 );
 
-export default Breadcrumb;
+export default withT(Breadcrumbs);

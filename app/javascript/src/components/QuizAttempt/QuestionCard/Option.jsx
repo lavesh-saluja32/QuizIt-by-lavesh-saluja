@@ -4,8 +4,7 @@ import { CheckCircle } from "@bigbinary/neeto-icons";
 import { Input } from "@bigbinary/neetoui";
 import classNames from "classnames";
 import { Button } from "neetoui";
-
-import useQuizStore from "../../../stores/useQuizStore";
+import useQuizStore from "stores/useQuizStore";
 
 const Option = ({ id, questionId, optionText }) => {
   const { selectedAnswers, setSelectedAnswer } = useQuizStore();

@@ -10,8 +10,7 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
-
-import { routes } from "../../../routes";
+import { routes } from "routes";
 
 const FilterPane = () => {
   const [isOpen, setIsOpen] = useState(false);

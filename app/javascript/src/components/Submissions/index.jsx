@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import useQueryParams from "@bigbinary/neeto-commons-frontend/react-utils/useQueryParams";
+import createConsumer from "channels/consumer";
+import { subscribeToReportDownloadChannel } from "channels/reportDownloadChannel";
 import { useParams } from "react-router-dom";
 
 import Header from "./Header";
@@ -8,8 +10,6 @@ import Progress from "./Progress";
 import Subheader from "./Subheader";
 import Table from "./Table";
 
-import createConsumer from "../../channels/consumer";
-import { subscribeToReportDownloadChannel } from "../../channels/reportDownloadChannel";
 import {
   useShowQuiz,
   useCreateReport,

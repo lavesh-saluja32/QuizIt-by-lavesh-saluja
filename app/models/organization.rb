@@ -16,5 +16,6 @@
 class Organization < ApplicationRecord
   has_many :users
   has_many :categories
+  has_many :quizzes
   validates :name, uniqueness: { case_sensitive: false }
 end

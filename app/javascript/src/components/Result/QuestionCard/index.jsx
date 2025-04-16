@@ -1,5 +1,6 @@
 import React from "react";
 
+import { withT } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { Typography } from "neetoui";
 
 import AnswerStatus from "./AnswerStatus";
@@ -30,4 +31,4 @@ const QuestionCard = ({
     </div>
   );
 };
-export default QuestionCard;
+export default withT(QuestionCard);

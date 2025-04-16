@@ -7,20 +7,16 @@ class Admin::QuizPolicy
     @quiz = quiz
   end
 
-  def create?
-    user.role == "admin_user"
-  end
-
   def update?
-    user.role == "admin_user" && user.id == quiz.user.id
+    user.id == quiz.user.id
   end
 
   def destroy?
-    user.role == "admin_user" && user.id == quiz.user.id
+    update?
   end
 
   def show?
-    user.role == "admin_user" && user.id == quiz.user.id
+    update?
   end
 
   def clone?

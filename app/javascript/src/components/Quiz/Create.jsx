@@ -53,8 +53,8 @@ const Create = () => {
     cloneQuestion(questionId);
   };
 
-  const handleEditNavigation = questionId => {
-    const url = buildUrl(routes.question.edit, { questionId });
+  const handleEditNavigation = ({ questionId, questionNumber }) => {
+    const url = buildUrl(routes.question.edit, { questionId, questionNumber });
     history.push({ pathname: url, state: { quizId } });
   };
 
@@ -99,7 +99,7 @@ const Create = () => {
             <Typography className="self-start" weight="bold">
               {t("placeholder.totalQuestions", { number: questions.length })}
             </Typography>
-            {questions.map(question => (
+            {questions.map((question, index) => (
               <QuestionCard
                 key={question.id}
                 {...{
@@ -107,6 +107,7 @@ const Create = () => {
                   handleDelete,
                   handleEditNavigation,
                   handleClone,
+                  questionNumber: index + 1,
                 }}
               />
             ))}

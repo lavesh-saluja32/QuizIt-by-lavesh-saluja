@@ -1,8 +1,8 @@
 import React from "react";
 
-import SignupForm from "./Form/Signup";
+import useSignup from "hooks/reactQuery/useSignup";
 
-import useSignup from "../../hooks/reactQuery/useSignup";
+import SignupForm from "./Form/Signup";
 
 const Signup = () => {
   const { mutate: handleSubmit, isLoading: loading } = useSignup();

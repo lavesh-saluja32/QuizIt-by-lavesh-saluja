@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class Api::V1::SubmissionServiceTest < ActiveSupport::TestCase
+class SubmissionServiceTest < ActiveSupport::TestCase
   def setup
     @category = create(:category, name: "category 1")
     @quiz = create(:quiz, category: @category)
@@ -21,7 +21,7 @@ class Api::V1::SubmissionServiceTest < ActiveSupport::TestCase
       @question2.id.to_s => @correct_option_q2.id
     }
 
-    result = Api::V1::SubmissionService.new(@submission, { answers: answers }).process!
+    result = SubmissionService.new(@submission, { answers: answers }).process
 
     assert_equal 2, result[:correct_answers]
     assert_equal 0, result[:wrong_answers]
@@ -36,7 +36,7 @@ class Api::V1::SubmissionServiceTest < ActiveSupport::TestCase
       @question2.id.to_s => @correct_option_q2.id
     }
 
-    result = Api::V1::SubmissionService.new(@submission, { answers: answers }).process!
+    result = SubmissionService.new(@submission, { answers: answers }).process
 
     assert_equal 1, result[:correct_answers]
     assert_equal 1, result[:wrong_answers]
@@ -46,23 +46,21 @@ class Api::V1::SubmissionServiceTest < ActiveSupport::TestCase
   def test_returns_unanswered_count
     answers = {
       @question1.id.to_s => @correct_option_q1.id
-      # question2 not answered
     }
-
-    result = Api::V1::SubmissionService.new(@submission, { answers: answers }).process!
+    result = SubmissionService.new(@submission, { answers: answers }).process
 
     assert_equal 1, result[:correct_answers]
     assert_equal 0, result[:wrong_answers]
     assert_equal 1, result[:unanswered]
   end
 
-  def test_handles_invalid_option_ids_gracefully
+  def test_handles_invalid_option_ids
     answers = {
       @question1.id.to_s => "nonexistent_option_id",
       @question2.id.to_s => @correct_option_q2.id
     }
 
-    result = Api::V1::SubmissionService.new(@submission, { answers: answers }).process!
+    result = SubmissionService.new(@submission, { answers: answers }).process
 
     assert_equal 1, result[:correct_answers]
     assert_equal 1, result[:wrong_answers]

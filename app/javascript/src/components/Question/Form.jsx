@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 
+import { withT } from "@bigbinary/neeto-commons-frontend/react-utils";
+import Breadcrumbs from "components/commons/Breadcrumbs";
 import PageLoader from "components/commons/PageLoader";
 import { Formik, Form, FieldArray } from "formik";
 import { Button } from "neetoui";
 
-import Breadcrumbs from "./Breadcrumbs";
 import {
   QUESTION_INITIAL_VALUES,
   MAX_OPTIONS,
   OPTION_VALUE,
   getQuestionFormValidationSchema,
-} from "./constant";
+} from "./constants";
 import QuestionInput from "./Input";
 import Option from "./Option";
 
@@ -126,4 +127,4 @@ const QuestionForm = ({
   );
 };
 
-export default QuestionForm;
+export default withT(QuestionForm);

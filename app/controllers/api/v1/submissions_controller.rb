@@ -7,7 +7,7 @@ class Api::V1::SubmissionsController < ApplicationController
   before_action :load_submission!, only: %i[update]
 
   def create
-    user = Api::V1::RegisterService.new(submission_params).process!
+    user = RegisterService.new(submission_params).process!
     @submission = @quiz.submissions.new(user: user)
     authorize @submission
     @submission.save!
@@ -15,14 +15,8 @@ class Api::V1::SubmissionsController < ApplicationController
 
   def update
     authorize @submission
-    updated_params = Api::V1::SubmissionService.new(@submission, update_params).process!
-    updated_params[:status] = "completed"
-    Submission.transaction do
-        @submission.update!(updated_params)
-        @submission.quiz.increment!(:submission_count)
-      end
-
-    @user_answers = update_params[:answers].to_h.transform_keys(&:to_s)
+    @user_answers = SubmissionService.new(@submission, update_params).process[:answers]
+    @questions = @submission.quiz.questions.includes(:options)
   end
 
   private
@@ -32,7 +26,7 @@ class Api::V1::SubmissionsController < ApplicationController
     end
 
     def load_quiz!
-      @quiz = Quiz.find(submission_params[:quiz_id])
+      @quiz = Organization.last.quizzes.find(submission_params[:quiz_id])
     end
 
     def update_params

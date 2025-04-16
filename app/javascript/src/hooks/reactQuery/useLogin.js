@@ -1,8 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-
-import authApi from "../../apis/authentication";
-import { setAuthHeaders } from "../../apis/axios";
-import { setToLocalStorage } from "../../utils/storage";
+import authApi from "apis/authentication";
+import { setAuthHeaders } from "apis/axios";
+import { setToLocalStorage } from "utils/storage";
 
 const useLogin = () =>
   useMutation({
