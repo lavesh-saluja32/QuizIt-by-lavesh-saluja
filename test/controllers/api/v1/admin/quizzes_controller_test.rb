@@ -15,7 +15,6 @@ class Api::V1::Admin::QuizzesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_admin_should_get_index
-    create(:quiz, user: @admin, category: @category)
     get api_v1_admin_quizzes_url, headers: @admin_headers, as: :json
     assert_response :success
 

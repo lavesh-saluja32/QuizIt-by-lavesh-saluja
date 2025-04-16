@@ -35,4 +35,8 @@ class Submission < ApplicationRecord
     numericality: { greater_than_or_equal_to: 0 }
 
   validates :submission_time, presence: true, if: -> { completed? }
+
+  def total_questions
+    correct_answers + wrong_answers + unanswered
+  end
 end

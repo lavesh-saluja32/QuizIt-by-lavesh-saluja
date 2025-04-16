@@ -5,5 +5,5 @@ json.submissions @submissions do |submission|
 
   json.name submission.user.name
   json.email submission.user.email
-  json.total_questions(submission.correct_answers + submission.wrong_answers + submission.unanswered)
+  json.total_questions submission.total_questions
 end

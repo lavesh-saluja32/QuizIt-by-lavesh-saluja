@@ -12,7 +12,7 @@ class Api::V1::QuestionsController < ApplicationController
   private
 
     def load_quiz!
-      puts Organization.last.inspect
+      puts Organization.last
       puts params[:quiz_id]
       @quiz = Organization.last.quizzes.find(params[:quiz_id])
     end

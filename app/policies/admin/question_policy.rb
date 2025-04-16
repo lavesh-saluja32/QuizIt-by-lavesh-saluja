@@ -27,21 +27,4 @@ class Admin::QuestionPolicy
   def clone?
     create?
   end
-
-  class Scope
-    attr_reader :user, :scope, :quiz_id
-
-    def initialize(user, scope)
-      @user = user
-      @scope = scope
-    end
-
-    def resolve
-      if user.role == "admin_user" && scope
-        scope
-      else
-        scope.none
-      end
-    end
-  end
 end
