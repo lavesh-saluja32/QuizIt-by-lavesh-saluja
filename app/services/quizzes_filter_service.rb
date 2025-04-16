@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::QuizzesFilterService < BaseFilterService
+class QuizzesFilterService < BaseFilterService
   def initialize(quizzes, params)
     super(params)
     @quizzes = quizzes

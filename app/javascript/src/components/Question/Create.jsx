@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
-import { useTranslation } from "react-i18next";
+import { useCreateQuestion } from "hooks/reactQuery/useQuestions";
+import { useShowQuiz } from "hooks/reactQuery/useQuizzes";
 import { useParams, useHistory } from "react-router-dom";
+import { routes } from "routes";
 
-import { DEFAULT_CORRECT_OPTION } from "./constant";
+import { DEFAULT_CORRECT_OPTION } from "./constants";
 import QuestionForm from "./Form";
 import { formatPayload } from "./utlis";
 
-import { useCreateQuestion } from "../../hooks/reactQuery/useQuestions";
-import { useShowQuiz } from "../../hooks/reactQuery/useQuizzes";
-import { routes } from "../../routes";
 import PageHeader from "../Quiz/PageHeader";
 
 const Create = () => {
@@ -20,7 +19,6 @@ const Create = () => {
 
   const { quizId, questionNumber } = useParams();
   const { data: { data: { quiz = {} } = {} } = {} } = useShowQuiz(quizId);
-  const { t } = useTranslation();
 
   const history = useHistory();
 
@@ -67,7 +65,6 @@ const Create = () => {
           {...{
             questionNumber,
             quizId,
-            t,
             isSaveLoading,
             isSaveNextLoading,
             correctOption,

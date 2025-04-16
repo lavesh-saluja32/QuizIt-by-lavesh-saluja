@@ -2,13 +2,10 @@ import React from "react";
 
 import classNames from "classnames";
 import { Typography } from "neetoui/index";
-import { useTranslation } from "react-i18next";
 
-import { STYLE } from "./constants";
+import { STYLE, label } from "./constants";
 
 const Card = ({ style = STYLE.unanswered, score, totalScore }) => {
-  const { t } = useTranslation();
-
   const containerClasses = classNames(
     "flex flex-col items-center rounded-xl px-6 py-4 shadow-sm w-1/5 h-[15vh]",
     {
@@ -18,13 +15,6 @@ const Card = ({ style = STYLE.unanswered, score, totalScore }) => {
       "bg-gray-200 text-black": style === STYLE.unanswered,
     }
   );
-
-  const label = {
-    [STYLE.total]: t("quiz.result.score"),
-    [STYLE.correct]: t("quiz.result.correct"),
-    [STYLE.wrong]: t("quiz.result.wrong"),
-    [STYLE.unanswered]: t("quiz.result.unanswered"),
-  };
 
   return (
     <div className={containerClasses}>

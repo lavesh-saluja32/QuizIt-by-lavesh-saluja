@@ -1,5 +1,6 @@
 import React from "react";
 
+import { withT } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { Typography } from "@bigbinary/neetoui";
 
 const DraftStatus = ({ lastSavedAt, t }) => (
@@ -8,4 +9,4 @@ const DraftStatus = ({ lastSavedAt, t }) => (
   </Typography>
 );
 
-export default DraftStatus;
+export default withT(DraftStatus);

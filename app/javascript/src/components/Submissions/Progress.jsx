@@ -1,7 +1,7 @@
 import React from "react";
 
+import { withT } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { ProgressBar, Typography, Modal } from "@bigbinary/neetoui";
-import { withTranslation } from "react-i18next";
 
 const Progress = ({ isLoading, progress, t }) => (
   <Modal closeButton={false} isOpen={isLoading}>
@@ -17,4 +17,4 @@ const Progress = ({ isLoading, progress, t }) => (
   </Modal>
 );
 
-export default withTranslation()(Progress);
+export default withT(Progress);

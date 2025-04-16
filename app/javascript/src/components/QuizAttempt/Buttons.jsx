@@ -1,5 +1,6 @@
 import React from "react";
 
+import { withT } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { Button } from "neetoui";
 
 const Buttons = ({
@@ -35,4 +36,4 @@ const Buttons = ({
   </div>
 );
 
-export default Buttons;
+export default withT(Buttons);

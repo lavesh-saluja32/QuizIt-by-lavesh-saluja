@@ -13,16 +13,19 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  category_id      :uuid             not null
+#  organization_id  :uuid
 #  user_id          :uuid             not null
 #
 # Indexes
 #
-#  index_quizzes_on_category_id  (category_id)
-#  index_quizzes_on_user_id      (user_id)
+#  index_quizzes_on_category_id      (category_id)
+#  index_quizzes_on_organization_id  (organization_id)
+#  index_quizzes_on_user_id          (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (category_id => categories.id)
+#  fk_rails_...  (organization_id => organizations.id)
 #  fk_rails_...  (user_id => users.id)
 #
 

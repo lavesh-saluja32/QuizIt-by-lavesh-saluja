@@ -28,6 +28,10 @@ const alias = {
   neetoicons: "@bigbinary/neeto-icons",
   utils: absolutePath("src/utils"),
   assets: absolutePath("../assets"),
+  routes: absolutePath("src/routes.js"),
+  hooks: absolutePath("src/hooks"),
+  stores: absolutePath("src/stores"),
+  channels: absolutePath("src/channels")
 };
 
 export { alias };

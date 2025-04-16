@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
 
 import PageLoader from "components/commons/PageLoader";
-import { useTranslation } from "react-i18next";
+import { useUpdateSubmission } from "hooks/reactQuery/public/useSubmissions";
 import { useHistory, useParams } from "react-router-dom";
+import useQuizStore from "stores/useQuizStore";
 
 import Header from "./Header";
 import QuestionCard from "./QuestionCard";
 import ScoreCards from "./Scores";
 
-import { useUpdateSubmission } from "../../hooks/reactQuery/public/useSubmissions";
-import useQuizStore from "../../stores/useQuizStore";
-
 const Result = () => {
   const { submissionId } = useParams();
 
   const { selectedAnswers } = useQuizStore();
-
-  const { t } = useTranslation();
 
   const { mutate: updateSubmission, isPending } = useUpdateSubmission();
 
@@ -49,10 +45,10 @@ const Result = () => {
   return (
     <div className="h-full w-full overflow-y-scroll">
       <div className="m-auto mt-[10vh] w-3/4 ">
-        <Header {...{ t, history, totalQuestions: questions.length }} />
+        <Header {...{ history, totalQuestions: questions.length }} />
         <ScoreCards {...submissionResult} />
         {questions.map((question, index) => (
-          <QuestionCard {...{ ...question, index, t }} key={question.id} />
+          <QuestionCard {...{ ...question, index }} key={question.id} />
         ))}
       </div>
     </div>

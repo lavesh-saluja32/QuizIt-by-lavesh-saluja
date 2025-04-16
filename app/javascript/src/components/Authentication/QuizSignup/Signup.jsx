@@ -1,22 +1,21 @@
 import React from "react";
 
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
+import PageLoader from "components/commons/PageLoader";
+import { useShowQuiz } from "hooks/reactQuery/public/useQuizzes";
+import { useCreateSubmission } from "hooks/reactQuery/public/useSubmissions";
 import { Typography, Button } from "neetoui";
 import { Form, Input } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
 import { useParams, useHistory } from "react-router-dom";
+import { routes } from "routes";
+import useQuizStore from "stores/useQuizStore";
+import useSubmissionStore from "stores/useSubmissionStore";
 
 import {
   QUIZ_SIGNUP_FORM_INITIAL_VALUES,
   getQuizSignupFormValidationSchema,
 } from "./constants";
-
-import { useShowQuiz } from "../../../hooks/reactQuery/public/useQuizzes";
-import { useCreateSubmission } from "../../../hooks/reactQuery/public/useSubmissions";
-import { routes } from "../../../routes";
-import useQuizStore from "../../../stores/useQuizStore";
-import useSubmissionStore from "../../../stores/useSubmissionStore";
-import PageLoader from "../../commons/PageLoader";
 
 const Signup = () => {
   const { t } = useTranslation();

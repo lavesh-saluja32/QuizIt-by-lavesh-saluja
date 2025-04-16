@@ -1,21 +1,19 @@
 import React from "react";
 
+import {
+  useShowOrganization,
+  useUpdateOrganization,
+} from "hooks/reactQuery/useOrganizations";
 import { Button, Typography } from "neetoui";
 import { Form, Input } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
 
 import { getValidationSchema } from "./constants";
 
-import {
-  useShowOrganization,
-  useUpdateOrganization,
-} from "../../hooks/reactQuery/useOrganizations";
-
 const Settings = () => {
   const { t } = useTranslation();
 
-  const { data: { data: { organizationName = "" } = {} } = {} } =
-    useShowOrganization();
+  const { data: { data: organization = {} } = {} } = useShowOrganization();
 
   const { mutate: updateOrganization } = useUpdateOrganization();
 
@@ -32,7 +30,7 @@ const Settings = () => {
         </div>
         <Form
           formikProps={{
-            initialValues: { name: organizationName },
+            initialValues: { name: organization.name },
             enableReinitialize: true,
             validationSchema: getValidationSchema(t),
             onSubmit: handleSubmit,

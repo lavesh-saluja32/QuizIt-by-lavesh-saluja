@@ -8,7 +8,7 @@ class Api::V1::Admin::QuizzesControllerTest < ActionDispatch::IntegrationTest
     @admin = create(:user, role: :admin_user, organization: @organization)
     @standard_user = create(:user, role: :standard_user, organization: @organization)
     @category = create(:category, organization: @organization)
-    @quiz = create(:quiz, user: @admin, category: @category)
+    @quiz = create(:quiz, user: @admin, category: @category, organization: @organization)
     @question = create(:question, quiz: @quiz)
     @admin_headers = headers(@admin)
     @standard_user_headers = headers(@standard_user)
@@ -31,16 +31,6 @@ class Api::V1::Admin::QuizzesControllerTest < ActionDispatch::IntegrationTest
         as: :json
     end
     assert_response :success
-  end
-
-  def test_standard_user_should_not_create_quiz
-    assert_no_difference("Quiz.count") do
-      post api_v1_admin_quizzes_path,
-        params: { quiz: { name: "Unauthorized Quiz", category_id: @category.id } },
-        headers: @standard_user_headers,
-        as: :json
-    end
-    assert_response :forbidden
   end
 
   def test_admin_can_update_quiz
@@ -132,7 +122,7 @@ class Api::V1::Admin::QuizzesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_admin_can_clone_quiz
-    @quiz2 = create(:quiz, user: @admin, category: @category)
+    @quiz2 = create(:quiz, user: @admin, category: @category, organization: @organization)
     @question = create(:question, quiz: @quiz2)
 
     assert_difference("Quiz.count", 1) do

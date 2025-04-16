@@ -4,6 +4,7 @@ require "test_helper"
 
 class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
   def setup
+    create(:organization)
     @valid_user_params = {
       user: {
         name: "John Doe",

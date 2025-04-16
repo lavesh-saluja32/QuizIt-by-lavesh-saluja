@@ -3,13 +3,8 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :authenticate_user_using_x_auth_token, only: :create
 
-  def show
-    render
-  end
-
   def create
-    user = User.new(user_params.merge(role: "admin_user", organization: Organization.first))
-    user.save!
+    Organization.first.users.create!(user_params.merge(role: "admin_user"))
     render_notice(t("successfully_created", entity: "User"))
   end
 

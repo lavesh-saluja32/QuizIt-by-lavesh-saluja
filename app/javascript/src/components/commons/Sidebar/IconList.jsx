@@ -4,46 +4,36 @@ import { Settings, Globe, List } from "@bigbinary/neeto-icons";
 import { NeetoQuiz } from "@bigbinary/neeto-icons/logos";
 import classNames from "classnames";
 import { Button } from "neetoui";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { NavLink } from "react-router-dom";
+import { routes } from "routes";
 
-import { routes } from "../../../routes";
+const navItems = [
+  { to: routes.admin, icon: List },
+  { to: routes.settings, icon: Settings },
+  { to: routes.root, icon: Globe },
+];
 
 const IconList = ({ isExpanded }) => (
   <div
     className={classNames(
-      "flex  h-full w-full grid-rows-1 flex-col items-center  space-y-2 p-2 pt-3 transition-all",
-      {
-        " hidden": isExpanded,
-      }
+      "flex h-full w-full flex-col items-center space-y-2 p-2 pt-3 transition-all",
+      { hidden: isExpanded }
     )}
   >
-    <div className="">
+    <div>
       <NeetoQuiz className="rounded-lg bg-blue-600" color="blue" size={60} />
     </div>
-    <NavLink
-      exact
-      activeClassName="active-link-icon"
-      className="w-full rounded-lg text-center"
-      to={routes.admin}
-    >
-      <Button icon={() => <List />} style="link" />
-    </NavLink>
-    <NavLink
-      exact
-      activeClassName="active-link-icon"
-      className="w-full rounded-lg text-center"
-      to={routes.settings}
-    >
-      <Button icon={() => <Settings />} style="link" />
-    </NavLink>
-    <NavLink
-      exact
-      activeClassName="active-link-icon"
-      className="w-full rounded-lg text-center"
-      to={routes.root}
-    >
-      <Button icon={() => <Globe />} style="link" />
-    </NavLink>
+    {navItems.map(({ to, icon: Icon }, index) => (
+      <NavLink
+        exact
+        activeClassName="active-link-icon"
+        className="w-full rounded-lg text-center"
+        key={index}
+        to={to}
+      >
+        <Button icon={() => <Icon />} style="link" />
+      </NavLink>
+    ))}
   </div>
 );
 

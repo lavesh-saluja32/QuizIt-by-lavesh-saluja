@@ -1,10 +1,12 @@
 import axios from "axios";
 
 const update = payload =>
-  axios.put("/admin/organizations", {
+  axios.put(`/admin/organizations`, {
     organization: payload,
   });
 
-const organizationsApi = { update };
+const show = () => axios.get(`/admin/organizations/`);
+
+const organizationsApi = { update, show };
 
 export default organizationsApi;

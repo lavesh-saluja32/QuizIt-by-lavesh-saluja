@@ -1,23 +1,16 @@
 import React, { useState } from "react";
 
 import SubHeader from "@bigbinary/neeto-molecules/SubHeader";
-import { Table as NeetoTable, Tooltip, Typography } from "@bigbinary/neetoui";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Table as NeetoTable } from "@bigbinary/neetoui";
+import { useBulkDelete, useBulkUpdate } from "hooks/reactQuery/useQuizzes";
+import useColumnStore from "stores/useQuizColumnStore";
 
-import TableDropdown from "./ActionDropdown";
+import { getColumnsData } from "./utils";
 
 import useFetchCategories from "../../../hooks/reactQuery/useFetchCategories";
-import {
-  useBulkDelete,
-  useBulkUpdate,
-} from "../../../hooks/reactQuery/useQuizzes";
-import useColumnStore from "../../../stores/useQuizColumnStore";
-import { formatDate } from "../../../utils/formatDate";
-import Status from "../../commons/Status";
 import DeleteAlert from "../DeleteAlert";
 import RightBlock from "../RightBlock";
-import SubHeaderContent from "../SubheaderContent";
+import SubHeaderContent from "../Subheader";
 
 const Table = ({
   data,
@@ -36,113 +29,58 @@ const Table = ({
   selectedRows,
   handleclearFilter,
 }) => {
-  const { t } = useTranslation();
   const [quizToDelete, setQuizToDelete] = useState("");
   const [deleteAllAlert, setDeleteAllAlert] = useState(false);
   const [categorySearchValue, setCategorySearchValue] = useState("");
 
-  const handleSelect = (selectedRowKeys, selectedRows) => {
-    setSelectedRowKeys(selectedRowKeys);
-    setSelectedRows(selectedRows);
-  };
-
   const { visibleColumns } = useColumnStore();
 
-  const { data: { data: { categories = [] } = {} } = {} } = useFetchCategories({
+  const { data: categoryResponse = {} } = useFetchCategories({
     search: categorySearchValue,
   });
 
-  const getfilteredColumns = () =>
-    columns.filter(
-      column => visibleColumns[column.key] || column.key === "action"
-    );
+  const categories = categoryResponse.data?.categories || [];
 
   const { mutate: bulkDeleteQuiz } = useBulkDelete();
   const { mutate: bulkUpdateQuiz } = useBulkUpdate();
 
+  const columns = getColumnsData({
+    handleQuizNavigate,
+    handleDelete,
+    handlePublish,
+    handleClone,
+    setQuizToDelete,
+  });
+
+  const filteredColumns = columns.filter(
+    column => visibleColumns[column.key] || column.key === "action"
+  );
+
+  const handleSelect = (selectedKeys, selectedRows) => {
+    setSelectedRowKeys(selectedKeys);
+    setSelectedRows(selectedRows);
+  };
+
   const handleBulkDelete = () => {
-    bulkDeleteQuiz(
-      selectedRows.map(row => row.id),
-      {
-        onSuccess: () => {
-          setDeleteAllAlert(false);
-          setSelectedRowKeys([]);
-          setSelectedRows([]);
-        },
-      }
-    );
-  };
-
-  const handleBulkUpdate = updateParameters => {
     const ids = selectedRows.map(row => row.id);
-    bulkUpdateQuiz({ ids, ...updateParameters });
+    bulkDeleteQuiz(ids, {
+      onSuccess: () => {
+        setDeleteAllAlert(false);
+        setSelectedRowKeys([]);
+        setSelectedRows([]);
+      },
+    });
   };
 
-  const columns = [
-    {
-      dataIndex: "name",
-      key: "name",
-      title: t("quiz.name"),
-      render: (text, record) => (
-        <Tooltip
-          content={text}
-          disabled={!text || text.length <= 0}
-          position="top"
-        >
-          <div className="w-full">
-            <Link
-              className="block w-full text-blue-400"
-              onClick={() => handleQuizNavigate(record.id)}
-            >
-              <Typography className="w-full truncate" style="body2">
-                {text}
-              </Typography>
-            </Link>
-          </div>
-        </Tooltip>
-      ),
-    },
-    {
-      dataIndex: "submissionCount",
-      key: "submissions",
-      title: t("quiz.submissions"),
-      width: 250,
-    },
-    {
-      dataIndex: "createdAt",
-      key: "createdAt",
-      title: t("quiz.createdOn"),
-      render: created_at => formatDate(created_at),
-    },
-    {
-      dataIndex: "status",
-      key: "status",
-      title: t("quiz.status"),
-      render: status => <Status text={status} />,
-    },
-    {
-      dataIndex: "categoryName",
-      key: "category",
-      title: t("quiz.category"),
-    },
-    {
-      dataIndex: "action",
-      key: "action",
-      title: "",
-      render: (_, record) => (
-        <TableDropdown
-          {...{
-            record,
-            handleDelete,
-            handlePublish,
-            t,
-            handleClone,
-            setQuizToDelete,
-          }}
-        />
-      ),
-    },
-  ];
+  const handleBulkUpdate = updateParams => {
+    const ids = selectedRows.map(row => row.id);
+    bulkUpdateQuiz({ ids, ...updateParams });
+  };
+
+  const handleSingleDelete = () => {
+    handleDelete(quizToDelete.id);
+    setQuizToDelete("");
+  };
 
   return (
     <>
@@ -157,7 +95,6 @@ const Table = ({
               status,
               totalSize: data.length,
               history,
-              t,
               selectedRows,
               setDeleteAllAlert,
               handleBulkUpdate,
@@ -171,24 +108,23 @@ const Table = ({
         enableColumnResize
         rowSelection
         bordered={false}
-        columnData={getfilteredColumns()}
+        columnData={filteredColumns}
         dataSource={data}
         scroll={{ x: true }}
         selectedRowKeys={selectedRowKeys}
         onRowSelect={handleSelect}
       />
       <DeleteAlert
-        {...{ setDeleteAllAlert, handleBulkDelete, selectedRows }}
+        handleBulkDelete={handleBulkDelete}
+        handleDelete={handleSingleDelete}
         isDeleteAll={deleteAllAlert}
         isDeletePending={isDeletePending}
         isOpen={!!quizToDelete || deleteAllAlert}
         quizId={quizToDelete?.id}
         quizName={quizToDelete?.name}
+        selectedRows={selectedRows}
+        setDeleteAllAlert={setDeleteAllAlert}
         setIsOpen={setQuizToDelete}
-        handleDelete={() => {
-          handleDelete(quizToDelete.id);
-          setQuizToDelete("");
-        }}
       />
     </>
   );

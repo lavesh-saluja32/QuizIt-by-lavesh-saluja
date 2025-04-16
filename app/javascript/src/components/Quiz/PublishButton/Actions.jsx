@@ -1,5 +1,6 @@
 import React from "react";
 
+import { withT } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { Button } from "@bigbinary/neetoui";
 import { ExternalLink } from "neetoicons";
 
@@ -28,4 +29,4 @@ const Actions = ({
   </div>
 );
 
-export default Actions;
+export default withT(Actions);

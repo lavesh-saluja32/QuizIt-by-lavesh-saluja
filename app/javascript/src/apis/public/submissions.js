@@ -1,12 +1,12 @@
 import axios from "axios";
-
+const baseURL = "/submissions";
 const create = payload =>
-  axios.post("/submissions", {
+  axios.post(baseURL, {
     submission: payload,
   });
 
 const update = ({ submissionId, payload }) =>
-  axios.patch(`/submissions/${submissionId}`, {
+  axios.patch(`${baseURL}/${submissionId}`, {
     submission: payload,
   });
 

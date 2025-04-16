@@ -1,10 +1,10 @@
+import { QUERY_KEY } from "constants/query";
+
 import { Toastr } from "@bigbinary/neetoui";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import quizzesApi from "apis/quizzes";
 import FileSaver from "file-saver";
 import { t } from "i18next";
-
-import quizzesApi from "../../apis/quizzes";
-import { QUERY_KEY } from "../../constants/query";
 
 export const useCreateQuiz = () => {
   const queryClient = useQueryClient();

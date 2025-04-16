@@ -9,4 +9,4 @@ end
 
 json.total_size @total_size
 json.status_counts @status_counts
-json.organization_name @quizzes[0]&.user&.organization&.name
+json.organization_name Organization.first.name

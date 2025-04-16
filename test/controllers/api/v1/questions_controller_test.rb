@@ -6,7 +6,7 @@ class Api::V1::QuestionsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @organization = create(:organization)
     @category = create(:category, organization: @organization)
-    @quiz = create(:quiz, category: @category, name: "sample quiz")
+    @quiz = create(:quiz, category: @category, name: "sample quiz", organization: @organization)
     create_questions_with_options(@quiz)
   end
 

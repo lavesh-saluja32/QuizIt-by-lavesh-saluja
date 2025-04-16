@@ -1,7 +1,7 @@
 import React from "react";
 
+import { withT } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { MenuHorizontal } from "@bigbinary/neeto-icons";
-import { t } from "i18next";
 import { Dropdown } from "neetoui/index";
 
 const CardDropdown = ({
@@ -10,6 +10,7 @@ const CardDropdown = ({
   handleEditNavigation,
   handleClone,
   questionNumber,
+  t,
 }) => {
   const { Menu, MenuItem, Divider } = Dropdown;
   const { Button: MenuButton } = MenuItem;
@@ -56,4 +57,4 @@ const CardDropdown = ({
   );
 };
 
-export default CardDropdown;
+export default withT(CardDropdown);
