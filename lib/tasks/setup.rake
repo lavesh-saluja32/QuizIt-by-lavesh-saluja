@@ -42,7 +42,7 @@ def create_sample_data!
   organization=create_organization
   users = create_users!(organization)
   categories = create_categories!(organization)
-  quizzes = create_quizzes!(categories, users[:admin])
+  quizzes = create_quizzes!(categories, users[:admin], organization)
   create_questions_with_options!(quizzes)
   create_submissions!(quizzes, users[:standard])
   puts "Sample data has been seeded successfully."
@@ -81,7 +81,7 @@ def create_categories!(organization)
 end
 
 
-def create_quizzes!(categories, admin)
+def create_quizzes!(categories, admin,organization)
   puts "Creating quizzes..."
   quiz_data = {
     "Science" => ["Basics of Biology", "Physics Fundamentals"],
@@ -97,7 +97,8 @@ def create_quizzes!(categories, admin)
         user: admin,
         category: category,
         status: %w[draft published].sample,
-        total_questions: 5
+        total_questions: 5,
+        organization:
       )
     end
   end

@@ -16,18 +16,11 @@ class Api::V1::QuestionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_should_return_all_questions_with_options_without_is_correct
-    response = fetch_quiz_questions
+    get api_v1_quiz_questions_path(@quiz.id), as: :json
 
     assert_response :success
     body = response.parsed_body
 
     assert_equal 2, body["questions"].size
   end
-
-  private
-
-    def fetch_quiz_questions
-      get api_v1_quiz_questions_path(@quiz.id), as: :json
-      response
-    end
 end
