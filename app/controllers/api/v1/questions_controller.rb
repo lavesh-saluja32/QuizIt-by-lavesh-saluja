@@ -14,6 +14,6 @@ class Api::V1::QuestionsController < ApplicationController
     def load_quiz!
       puts Organization.last
       puts params[:quiz_id]
-      @quiz = Organization.last.quizzes.find(params[:quiz_id])
+      @quiz = Organization.last.quizzes.find_by!(slug: params[:quiz_slug])
     end
 end

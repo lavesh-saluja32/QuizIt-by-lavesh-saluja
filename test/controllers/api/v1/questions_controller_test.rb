@@ -17,7 +17,7 @@ class Api::V1::QuestionsControllerTest < ActionDispatch::IntegrationTest
 
   def test_should_return_all_questions_with_options_without_is_correct
     puts @organization.quizzes.inspect
-    get api_v1_quiz_questions_path(@quiz.id), as: :json
+    get api_v1_quiz_questions_path(@quiz.slug), as: :json
 
     assert_response :success
     body = response.parsed_body

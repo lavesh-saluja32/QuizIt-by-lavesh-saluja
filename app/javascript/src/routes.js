@@ -6,8 +6,8 @@ export const routes = {
   },
   quiz: {
     create: "/quiz/:quizId/create",
-    register: "/quiz/:quizId/register",
-    attempt: "/quiz/:quizId/attempt",
+    register: "/quiz/:quizSlug/register",
+    attempt: "/quiz/:quizSlug/attempt",
     submissions: "/quiz/:quizId/submissions",
   },
   submission: "/submission/:submissionId",

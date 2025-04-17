@@ -8,7 +8,7 @@ Rails.application.routes.draw do
           resources :users, only: %i[create update show]
           resource :session, only: %i[create destroy]
           resources :categories, only: %i[create index]
-          resources :quizzes, only: %i[index create show update] do
+          resources :quizzes, only: %i[index create show update], param: :slug do
             resources :questions, only: %i[index]
           end
 

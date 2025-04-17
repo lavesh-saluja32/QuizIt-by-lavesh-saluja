@@ -24,9 +24,9 @@ const Signup = () => {
 
   const { resetQuiz } = useQuizStore();
 
-  const { quizId } = useParams();
+  const { quizSlug } = useParams();
 
-  const { data: { data: quiz = {} } = {} } = useShowQuiz(quizId);
+  const { data: { data: quiz = {} } = {} } = useShowQuiz(quizSlug);
 
   const history = useHistory();
 
@@ -34,7 +34,7 @@ const Signup = () => {
     createSubmission(
       {
         name: `${values.firstName} ${values.lastName}`,
-        quizId,
+        quizSlug,
         email: values.email,
       },
       {
@@ -42,7 +42,7 @@ const Signup = () => {
           const submissionId = response.data.submissionId;
           setSubmissionId(submissionId);
           resetQuiz();
-          history.push(buildUrl(routes.quiz.attempt, { quizId }));
+          history.push(buildUrl(routes.quiz.attempt, { quizSlug }));
         },
       }
     );

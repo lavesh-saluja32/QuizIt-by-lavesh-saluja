@@ -7,6 +7,7 @@
 #  id               :uuid             not null, primary key
 #  last_saved_at    :datetime
 #  name             :string           not null
+#  slug             :string
 #  status           :string           default("draft"), not null
 #  submission_count :integer          default(0), not null
 #  total_questions  :integer          default(0), not null
@@ -20,6 +21,7 @@
 #
 #  index_quizzes_on_category_id      (category_id)
 #  index_quizzes_on_organization_id  (organization_id)
+#  index_quizzes_on_slug             (slug) UNIQUE
 #  index_quizzes_on_user_id          (user_id)
 #
 # Foreign Keys
@@ -94,5 +96,21 @@ class QuizTest < ActiveSupport::TestCase
     assert_raises(ArgumentError) do
       @quiz.status = "invalid_status"
     end
+  end
+
+  def test_slug_should_be_generated_on_create
+    @quiz.name = "Sample Quiz"
+    @quiz.save!
+
+    assert_not_nil @quiz.slug
+    assert_equal "sample-quiz", @quiz.slug
+  end
+
+  def test_slug_should_be_unique
+    @quiz.name = "Unique Quiz"
+    @quiz.save!
+
+    duplicate_quiz = build(:quiz, name: "Unique Quiz")
+    assert_not @quiz.slug == duplicate_quiz.slug
   end
 end

@@ -13,13 +13,13 @@ import Buttons from "./Buttons";
 import QuestionCard from "./QuestionCard";
 
 const QuizAttempt = () => {
-  const { quizId } = useParams();
+  const { quizSlug } = useParams();
   const { t } = useTranslation();
 
   const history = useHistory();
 
   const { data: { data: { questions = [] } = {} } = {} } =
-    useFetchQuestions(quizId);
+    useFetchQuestions(quizSlug);
 
   const {
     questionNumber,
