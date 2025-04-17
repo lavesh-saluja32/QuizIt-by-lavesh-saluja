@@ -16,5 +16,9 @@ export const routes = {
     edit: "/question/:questionId/edit/:questionNumber",
   },
   admin: "/admin",
-  settings: "/settings",
+  settings: {
+    general: "/settings/general",
+    redirection: "/settings/redirections",
+    categories: "/settings/categories",
+  },
 };

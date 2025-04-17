@@ -24,7 +24,7 @@ const MenuNavItem = ({ t }) => (
     </NavLink>
     <MenuFilterList />
     <div className="mt-4 space-y-2">
-      <NavLink className={baseItemClass} to={routes.settings}>
+      <NavLink className={baseItemClass} to={routes.settings.general}>
         <Settings />
         <Typography>{t("button.settings")}</Typography>
       </NavLink>

@@ -65,7 +65,8 @@
     "saveAndSubmit": "Save and submit the quiz",
     "home": "Back to home",
     "settings": "Settings",
-    "public": "Public page"
+    "public": "Public page",
+    "addRedirection": "Add new redirection"
   },
   "auth": {
     "signupTitle": "Sign Up",
@@ -137,7 +138,9 @@
     "searchQuiz": "Search for a quiz",
     "searchNames": "Search names",
     "email": "Enter email",
-    "name": "Enter name"
+    "name": "Enter name",
+    "fromURL": "Enter the source URL path",
+    "toURL": "Enter the destination URL"
   },
   "link": {
     "quiz": {
@@ -147,6 +150,11 @@
     "question": {
       "question": "Question {{number}}",
       "allQuestion": "All Questions"
+    },
+    "settings": {
+      "general": "General",
+      "redirections": "Redirections",
+      "categories": "Categories"
     }
   },
   "deleteAlert": {
@@ -167,10 +175,19 @@
       "status": " <strong>Status:</strong> <span>{{status}}</span>",
       "selectedRow": "<strong>{{selectedRowsSize}} quiz</strong> selected out of {{totalSize}}",
       "selectedRows": "<strong>{{selectedRowsSize}} quizzes</strong> selected out of {{totalSize}}"
+    },
+    "settings": {
+      "redirections": "Create and configure redirection rules to send users from old public quiz links to new links.",
+      "from": "From",
+      "to": "To"
     }
   },
   "headers": {
-    "submissions": "All submissions"
+    "submissions": "All submissions",
+    "settings": {
+      "general": "General Settings",
+      "redirections": "Redirections"
+    }
   },
   "table": {
     "submissionDate": "Submission date",
