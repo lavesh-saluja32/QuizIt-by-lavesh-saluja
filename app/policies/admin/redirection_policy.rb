@@ -18,16 +18,4 @@ class Admin::RedirectionPolicy
   def destroy?
     update?
   end
-
-  def show?
-    update?
-  end
-
-  def clone?
-    update?
-  end
-
-  def download?
-    update?
-  end
 end

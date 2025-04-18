@@ -2,10 +2,11 @@
 
 class Api::V1::Admin::RedirectionsController < ApplicationController
   after_action :verify_authorized, except: %i[index]
-  before_action :load_organization, only: :create
+  before_action :load_organization, only: %i[create index]
   before_action :load_redirection!, only: %i[update destroy]
 
   def index
+    @redirections = @organization.redirections
   end
 
   def create
@@ -15,11 +16,12 @@ class Api::V1::Admin::RedirectionsController < ApplicationController
   end
 
   def update
-    puts "1"
+    authorize([:admin, @redirection])
     @redirection.update!(redirection_params)
   end
 
   def destroy
+    authorize([:admin, @redirection])
     @redirection.destroy!
   end
 
@@ -35,8 +37,6 @@ class Api::V1::Admin::RedirectionsController < ApplicationController
 
     def load_redirection!
       load_organization
-      puts @organization.redirections.inspect
-      puts params[:id]
-      @redirection = @organization.redirections.find(id: params[:id])
+      @redirection = @organization.redirections.find(params[:id])
     end
 end

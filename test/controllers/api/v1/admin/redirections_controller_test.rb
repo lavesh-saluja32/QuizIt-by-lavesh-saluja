@@ -12,7 +12,7 @@ class Api::V1::Admin::RedirectionsControllerTest < ActionDispatch::IntegrationTe
     @redirection = create(:redirection, organization: @organization, from: "/old", to: "/new")
   end
 
-  def test_should_create_redirection_with_valid_params_as_admin
+  def test_should_create_redirection_with_valid_params
     assert_difference("Redirection.count", 1) do
       post api_v1_admin_redirections_url,
         params: { redirection: { from: "/old-path", to: "/new-path" } },
@@ -22,6 +22,7 @@ class Api::V1::Admin::RedirectionsControllerTest < ActionDispatch::IntegrationTe
     assert_response :success
 
     redirection = Redirection.last
+    puts redirection.inspect
     assert_equal "/old-path", redirection.from
     assert_equal "/new-path", redirection.to
   end
@@ -42,7 +43,7 @@ class Api::V1::Admin::RedirectionsControllerTest < ActionDispatch::IntegrationTe
   end
 
   def test_should_update_redirection
-    patch api_v1_admin_redirection_path(@redirection.id),
+    patch api_v1_admin_redirection_path(@redirection),
       params: { redirection: { from: "/updated", to: "/new-path" } },
       headers: @admin_headers,
       as: :json
@@ -60,4 +61,18 @@ class Api::V1::Admin::RedirectionsControllerTest < ActionDispatch::IntegrationTe
 
     assert_response :success
   end
+
+  def test_should_list_redirections
+    redirection2 = create(:redirection, organization: @organization, from: "/another-old", to: "/another-new")
+
+    get api_v1_admin_redirections_url, headers: @admin_headers, as: :json
+
+    assert_response :success
+
+    response_json = response.parsed_body
+    returned_paths = response_json.map { |r| r["from"] }
+
+    assert_includes returned_paths, @redirection.from
+    assert_includes returned_paths, redirection2.from
+end
 end
