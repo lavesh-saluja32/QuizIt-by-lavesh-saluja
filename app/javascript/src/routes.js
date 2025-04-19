@@ -6,8 +6,8 @@ export const routes = {
   },
   quiz: {
     create: "/quiz/:quizId/create",
-    register: "/quiz/:quizId/register",
-    attempt: "/quiz/:quizId/attempt",
+    register: "/quiz/:quizSlug/register",
+    attempt: "/quiz/:quizSlug/attempt",
     submissions: "/quiz/:quizId/submissions",
   },
   submission: "/submission/:submissionId",
@@ -16,5 +16,9 @@ export const routes = {
     edit: "/question/:questionId/edit/:questionNumber",
   },
   admin: "/admin",
-  settings: "/settings",
+  settings: {
+    general: "/settings/general",
+    redirection: "/settings/redirections",
+    categories: "/settings/categories",
+  },
 };

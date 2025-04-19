@@ -7,6 +7,7 @@
 #  id               :uuid             not null, primary key
 #  last_saved_at    :datetime
 #  name             :string           not null
+#  slug             :string
 #  status           :string           default("draft"), not null
 #  submission_count :integer          default(0), not null
 #  total_questions  :integer          default(0), not null
@@ -20,6 +21,7 @@
 #
 #  index_quizzes_on_category_id      (category_id)
 #  index_quizzes_on_organization_id  (organization_id)
+#  index_quizzes_on_slug             (slug) UNIQUE
 #  index_quizzes_on_user_id          (user_id)
 #
 # Foreign Keys
@@ -29,6 +31,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Quiz < ApplicationRecord
+  include QuizSluggable
+
   MAX_QUIZ_NAME_LENGTH = 30
   MIN_VALUE = 0
 
@@ -45,8 +49,10 @@ class Quiz < ApplicationRecord
   validates :submission_count, numericality: { greater_than_or_equal_to: MIN_VALUE, only_integer: true }
   validates :total_questions, numericality: { greater_than_or_equal_to: MIN_VALUE, only_integer: true }
   validate :publish_verification, on: :update
+  validates :slug, uniqueness: true
 
   after_update :update_last_saved_timestamp
+  before_create :set_slug
 
   def update_last_saved
     update(last_saved_at: Time.current)
@@ -56,6 +62,7 @@ class Quiz < ApplicationRecord
     cloned_quiz = deep_clone include: { questions: :options }
     cloned_quiz.status = "draft"
     cloned_quiz.submission_count = 0
+    cloned_quiz.slug = nil
     cloned_quiz.save!
     cloned_quiz
   end

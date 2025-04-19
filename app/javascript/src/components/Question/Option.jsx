@@ -21,7 +21,7 @@ const Option = ({
           size={index === correctOption ? 30 : 20}
         />
       )}
-      onMouseDown={e => e.preventDefault()}
+      onMouseDown={event => event.preventDefault()}
       onClick={() => {
         setCorrectOption(index);
       }}

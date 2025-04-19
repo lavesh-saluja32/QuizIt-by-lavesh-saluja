@@ -23,9 +23,15 @@ class Api::V1::QuizzesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_should_show_quiz
-    get api_v1_quiz_url(@quiz), headers: @standard_user_headers, as: :json
+    get api_v1_quiz_url(@quiz.slug), headers: @standard_user_headers, as: :json
     assert_response :success
     response_json = response.parsed_body
     assert_equal @quiz.name, response_json["name"]
+    assert_equal @quiz.slug, response_json["slug"]
+  end
+
+  def test_should_return_not_found_for_invalid_slug
+    get api_v1_quiz_url("invalid-slug"), headers: @standard_user_headers, as: :json
+    assert_response :not_found
   end
 end

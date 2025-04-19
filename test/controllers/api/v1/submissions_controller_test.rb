@@ -16,16 +16,29 @@ class Api::V1::SubmissionsControllerTest < ActionDispatch::IntegrationTest
   def test_should_create_submission_if_standard_user
     assert_difference("Submission.count", 1) do
       post api_v1_submissions_path,
-        params: { submission: { name: "John Doe", email: "john@example.com", quiz_id: @quiz.id } },
+        params: {
+          submission: {
+            name: "John Doe",
+            email: "john@example.com",
+            quiz_slug: @quiz.slug
+          }
+        },
         as: :json
     end
+
     assert_response :success
   end
 
   def test_should_not_create_submission_if_admin_user
     assert_no_difference("Submission.count") do
       post api_v1_submissions_path,
-        params: { submission: { name: "Admin User", email: @admin.email, quiz_id: @quiz.id } },
+        params: {
+          submission: {
+            name: "Admin User",
+            email: @admin.email,
+            quiz_slug: @quiz.slug
+          }
+        },
         headers: @admin_headers,
         as: :json
     end
@@ -36,17 +49,29 @@ class Api::V1::SubmissionsControllerTest < ActionDispatch::IntegrationTest
   def test_should_not_create_submission_with_invalid_email
     assert_no_difference("Submission.count") do
       post api_v1_submissions_path,
-        params: { submission: { name: "No Email", email: "", quiz_id: @quiz.id } },
+        params: {
+          submission: {
+            name: "No Email",
+            email: "",
+            quiz_slug: @quiz.slug
+          }
+        },
         as: :json
     end
 
     assert_response :unprocessable_entity
   end
 
-  def test_should_not_create_submission_without_quiz_id
+  def test_should_not_create_submission_without_quiz_slug
     assert_no_difference("Submission.count") do
       post api_v1_submissions_path,
-        params: { submission: { name: "Missing Quiz", email: "user@example.com" } },
+        params: {
+          submission: {
+            name: "Missing Quiz",
+            email: "user@example.com"
+            # quiz_slug is missing here
+          }
+        },
         as: :json
     end
 
@@ -65,7 +90,7 @@ class Api::V1::SubmissionsControllerTest < ActionDispatch::IntegrationTest
         submission: {
           name: "Jane Doe",
           email: "jane@example.com",
-          quiz_id: @quiz.id
+          quiz_slug: @quiz.slug
         }
       },
       as: :json

@@ -4,15 +4,17 @@ Rails.application.routes.draw do
 
   namespace :api do
       namespace :v1, defaults: { format: :json } do
+          resource :redirection, only: :create
           resources :submissions, only: %i[create update index]
           resources :users, only: %i[create update show]
           resource :session, only: %i[create destroy]
           resources :categories, only: %i[create index]
-          resources :quizzes, only: %i[index create show update] do
+          resources :quizzes, only: %i[index create show update], param: :slug do
             resources :questions, only: %i[index]
           end
 
           namespace :admin do
+            resources :redirections, only: %i[update create destroy index]
             resource :organizations, only: %i[update show]
             resources :quizzes, only: %i[index create update show destroy] do
               resource :report, only: %i[create show], controller: "reports"

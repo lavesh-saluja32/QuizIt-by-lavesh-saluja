@@ -22,11 +22,11 @@ class Api::V1::SubmissionsController < ApplicationController
   private
 
     def submission_params
-      params.require(:submission).permit(:name, :email, :quiz_id)
+      params.require(:submission).permit(:name, :email, :quiz_slug)
     end
 
     def load_quiz!
-      @quiz = Organization.last.quizzes.find(submission_params[:quiz_id])
+      @quiz = Organization.last.quizzes.find_by!(slug: submission_params[:quiz_slug])
     end
 
     def update_params

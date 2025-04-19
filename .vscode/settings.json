@@ -13,7 +13,9 @@
     "Clonable",
     "getfiltered",
     "Nextbutton",
+    "redirections",
     "Signup",
+    "Sluggable",
     "Toastr",
     "tsearch",
     "utlis"

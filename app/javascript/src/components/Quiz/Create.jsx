@@ -28,6 +28,7 @@ const Create = () => {
   } = useFetchQuestions(quizId);
 
   const { data: { data: { quiz = {} } = {} } = {} } = useShowQuiz(quizId);
+
   const { mutate: deleteQuiz, isPending: isDeleteLoading } =
     useDeleteQuestion();
 
@@ -63,7 +64,9 @@ const Create = () => {
   };
 
   const buildQuizPublicUrl = () =>
-    `${window.location.origin}${buildUrl(routes.quiz.register, { quizId })}`;
+    `${window.location.origin}${buildUrl(routes.quiz.register, {
+      quizSlug: quiz.slug,
+    })}`;
 
   const handleQuizPublicNavigation = () =>
     window.open(buildQuizPublicUrl(), "_blank");

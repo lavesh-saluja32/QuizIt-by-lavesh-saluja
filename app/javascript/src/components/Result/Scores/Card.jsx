@@ -1,11 +1,12 @@
 import React from "react";
 
+import { withT } from "@bigbinary/neeto-commons-frontend/react-utils";
 import classNames from "classnames";
 import { Typography } from "neetoui/index";
 
 import { STYLE, label } from "./constants";
 
-const Card = ({ style = STYLE.unanswered, score, totalScore }) => {
+const Card = ({ style = STYLE.unanswered, score, totalScore, t }) => {
   const containerClasses = classNames(
     "flex flex-col items-center rounded-xl px-6 py-4 shadow-sm w-1/5 h-[15vh]",
     {
@@ -19,7 +20,7 @@ const Card = ({ style = STYLE.unanswered, score, totalScore }) => {
   return (
     <div className={containerClasses}>
       <Typography className="text-xl" style="body1">
-        {label[style]}
+        {t(label[style])}
       </Typography>
       <Typography className="mt-5 text-3xl" style="h1">
         {style === STYLE.total ? `${score}/${totalScore}` : score}
@@ -28,4 +29,4 @@ const Card = ({ style = STYLE.unanswered, score, totalScore }) => {
   );
 };
 
-export default Card;
+export default withT(Card);

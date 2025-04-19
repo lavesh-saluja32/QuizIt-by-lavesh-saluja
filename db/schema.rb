@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_15_115944) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_17_114844) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -86,9 +86,21 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_15_115944) do
     t.datetime "updated_at", null: false
     t.datetime "last_saved_at"
     t.uuid "organization_id"
+    t.string "slug"
     t.index ["category_id"], name: "index_quizzes_on_category_id"
     t.index ["organization_id"], name: "index_quizzes_on_organization_id"
+    t.index ["slug"], name: "index_quizzes_on_slug", unique: true
     t.index ["user_id"], name: "index_quizzes_on_user_id"
+  end
+
+  create_table "redirections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "from", null: false
+    t.string "to", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "organization_id", null: false
+    t.index ["organization_id", "from"], name: "index_redirections_on_organization_id_and_from", unique: true
+    t.index ["organization_id"], name: "index_redirections_on_organization_id"
   end
 
   create_table "submissions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -116,7 +128,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_15_115944) do
     t.uuid "organization_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"
-    t.check_constraint "role::text = ANY (ARRAY['admin_user'::character varying::text, 'standard_user'::character varying::text])", name: "check_user_role"
+    t.check_constraint "role::text = ANY (ARRAY['admin_user'::character varying, 'standard_user'::character varying]::text[])", name: "check_user_role"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -127,6 +139,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_15_115944) do
   add_foreign_key "quizzes", "categories"
   add_foreign_key "quizzes", "organizations"
   add_foreign_key "quizzes", "users"
+  add_foreign_key "redirections", "organizations"
   add_foreign_key "submissions", "quizzes"
   add_foreign_key "submissions", "users"
   add_foreign_key "users", "organizations"
