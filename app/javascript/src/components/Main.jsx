@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { PrivateRoute } from "@bigbinary/neeto-commons-frontend/react-utils";
+import { useRedirect } from "hooks/reactQuery/public/useRedirection";
 import { either, isEmpty, isNil } from "ramda";
 import { Route, Switch, useLocation, matchPath } from "react-router-dom";
 import { routes } from "routes";
@@ -24,11 +25,17 @@ const hideSidebarRoutes = [
 ];
 
 const Main = () => {
+  const { mutate: redirect } = useRedirect();
+
   const location = useLocation();
 
   const shouldHideSidebar = hideSidebarRoutes.some(path =>
     matchPath(location.pathname, { path, exact: true })
   );
+
+  useEffect(() => {
+    redirect({ from: window.location.href });
+  }, [location.pathname]);
 
   return (
     <div className="flex h-screen w-screen">

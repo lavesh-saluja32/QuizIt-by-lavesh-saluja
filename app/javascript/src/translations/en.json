@@ -34,6 +34,7 @@
     "download": "Download report"
   },
   "button": {
+    "preview": "Preview:",
     "addQuiz": "Add new quiz",
     "addQuestion": "Add new question",
     "option": "Add new option",
@@ -103,7 +104,10 @@
       "questionCloned": "Question cloned successfully",
       "quizBulkDeleted": "Quizzes deleted successfully ",
       "quizBulkUpdated": "Quizzes updated successfully",
-      "linkCopied": "Link copied to clipboard!"
+      "linkCopied": "Link copied to clipboard!",
+      "redirectionCreated": "Redirection created successfully",
+      "redirectionUpdated": "Redirection updated successfully",
+      "redirectionDeleted": "Redirection deleted successfully"
     }
   },
   "validation": {
@@ -125,9 +129,11 @@
       "lastNameMin": "Last name should be at least 2 characters",
       "emailRequired": "Email is required",
       "emailInvalid": "Must be a valid email"
-    }
+    },
+    "url": "Invalid URL"
   },
   "placeholder": {
+    "pathOnly": "Path (e.g. /about-us)",
     "selectCategory": "Select category",
     "noQuestions": "There are no questions to show",
     "question": "Type your question here...",

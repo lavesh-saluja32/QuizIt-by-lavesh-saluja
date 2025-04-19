@@ -1,17 +1,15 @@
 import * as yup from "yup";
 
+export const DOMAIN = "http://localhost:3000";
+
 export const initialValues = {
   from: "",
   to: "",
 };
 
-export const validationSchema = yup.object().shape({
-  from: yup
-    .string()
-    .required("From URL is required")
-    .url("Please enter a valid URL"),
-  to: yup
-    .string()
-    .required("To URL is required")
-    .url("Please enter a valid URL"),
-});
+export const getValidationSchema = t =>
+  yup.object().shape({
+    from: yup.string().required(t("validation.required")),
+
+    to: yup.string().required(t("validation.required")),
+  });

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   namespace :api do
       namespace :v1, defaults: { format: :json } do
+          resource :redirection, only: :create
           resources :submissions, only: %i[create update index]
           resources :users, only: %i[create update show]
           resource :session, only: %i[create destroy]

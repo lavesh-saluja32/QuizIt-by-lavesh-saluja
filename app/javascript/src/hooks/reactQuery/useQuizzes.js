@@ -11,7 +11,7 @@ export const useCreateQuiz = () => {
   const mutation = useMutation({
     mutationFn: payload => quizzesApi.create(payload),
     onSuccess: () => {
-      Toastr.success("Quiz created successfully!");
+      Toastr.success(t("response.success.quizCreated"));
       queryClient.invalidateQueries(QUERY_KEY.QUIZZES);
     },
   });
