@@ -14,7 +14,7 @@ Rails.application.routes.draw do
           end
 
           namespace :admin do
-            resources :categories, only: %i[update create destroy index] do
+            resources :categories, only: %i[update create destroy index show] do
               member do
               patch :reorder
             end

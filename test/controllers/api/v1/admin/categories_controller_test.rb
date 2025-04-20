@@ -36,4 +36,36 @@ class Api::V1::Admin::CategoriesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :not_found
   end
+
+  def test_should_get_index
+    get api_v1_admin_categories_url, headers: @admin_headers, as: :json
+    assert_response :success
+
+    response_ids = response.parsed_body.map { |cat| cat["id"] }
+    expected_ids = @organization.categories.order(:position).pluck(:id)
+
+    assert_equal expected_ids, response_ids
+  end
+
+  def test_should_create_category
+    assert_difference "@organization.categories.count", 1 do
+      post api_v1_admin_categories_url,
+        params: { category: { name: "New Category" } },
+        headers: @admin_headers,
+        as: :json
+    end
+
+    assert_response :success
+    assert @organization.categories.pluck(:name).include?("New Category")
+  end
+
+  def test_should_update_category
+    patch api_v1_admin_category_url(@category1),
+      params: { category: { name: "Updated Name" } },
+      headers: @admin_headers,
+      as: :json
+
+    assert_response :success
+    assert_equal "Updated Name", @category1.reload.name
+  end
 end

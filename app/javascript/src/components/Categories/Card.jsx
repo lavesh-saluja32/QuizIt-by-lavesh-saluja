@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 
-import ActionDropdown from "components/Redirections/Form/ActionDropdown";
 import { Drag } from "neetoicons";
 import { Typography } from "neetoui/index";
 import { Trans } from "react-i18next";
 
-const Card = ({ name, quizzesCount }) => {
+import ActionDropdown from "./ActionDropdown";
+import DeleteAlert from "./DeleteAlert";
+
+const Card = ({ name, quizzesCount, id, setEditCategoryId }) => {
   const [showIcon, setShowIcon] = useState(false);
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
 
   return (
     <div className="flex w-full items-center justify-center">
@@ -27,8 +30,11 @@ const Card = ({ name, quizzesCount }) => {
             />
           </Typography>
         </div>
-        <ActionDropdown />
+        <ActionDropdown {...{ id, setEditCategoryId, setIsDeleteAlertOpen }} />
       </div>
+      <DeleteAlert
+        {...{ name, id, quizzesCount, isDeleteAlertOpen, setIsDeleteAlertOpen }}
+      />
     </div>
   );
 };

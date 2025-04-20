@@ -34,6 +34,8 @@
     "download": "Download report"
   },
   "button": {
+    "proceed": "Proceed",
+    "add": "Add",
     "addCategory": "Add new category",
     "preview": "Preview:",
     "addQuiz": "Add new quiz",
@@ -108,7 +110,10 @@
       "linkCopied": "Link copied to clipboard!",
       "redirectionCreated": "Redirection created successfully",
       "redirectionUpdated": "Redirection updated successfully",
-      "redirectionDeleted": "Redirection deleted successfully"
+      "redirectionDeleted": "Redirection deleted successfully",
+      "categoryCreated": "Category created successfully",
+      "categoryDeleted": "Category deleted successfully",
+      "categoryUpdated": "Category updated successfully"
     }
   },
   "validation": {
@@ -147,7 +152,8 @@
     "email": "Enter email",
     "name": "Enter name",
     "fromURL": "Enter the source URL path",
-    "toURL": "Enter the destination URL"
+    "toURL": "Enter the destination URL",
+    "categoryTitle": "Enter the category title"
   },
   "link": {
     "quiz": {
@@ -171,7 +177,11 @@
     "cancel": "No, Cancel",
     "bulkMessageOne": "Are you sure you want to delete <strong>{{count}} quiz?</strong> This action cannot be undone.",
     "bulkMessageOther": "Are you sure you want to delete <strong>{{count}} quizzes?</strong> This action cannot be undone.",
-    "bulkTitle": "Delete Multiple Quizzes"
+    "bulkTitle": "Delete Multiple Quizzes",
+    "categoryDeleteSubheader": "You are permanently deleting the <strong>{{name}}</strong> Category. This action cannot be undone. Are your sure you wish to continue?",
+    "categoryDeleteAlertOne": "Category <strong>{{name}}</strong> has {{count}} quiz. Before this category can be deleted, these quizzes needs to be moved to another category?",
+    "categoryDeleteAlertOther": "Category <strong>{{name}}</strong> has {{count}} quizzes. Before this category can be deleted, these quizzes needs to be moved to another category?",
+    "lastCategoryAlert": "All quizzes under that <strong>{{name}}</strong> will be moved to a new category called General"
   },
   "subheader": {
     "filters": {
@@ -198,7 +208,10 @@
       "general": "General Settings",
       "redirections": "Redirections",
       "categories": "Manage Categories"
-    }
+    },
+    "newCategory": "New Category",
+    "editCategory": "Edit Category",
+    "deleteCategory": "Delete Category?"
   },
   "table": {
     "submissionDate": "Submission date",
@@ -207,5 +220,9 @@
     "unanswered": "Unanswered",
     "questions": "Questions",
     "status": "Status"
+  },
+  "labels": {
+    "categoryTitle": "Category Title",
+    "categorySelect": "Select a category to move these quizzes into"
   }
 }

@@ -21,9 +21,6 @@ class Admin::CategoryPolicy
   end
 
   def reorder?
-    puts user.inspect
-    puts category
-    puts "LKLK"
     create?
   end
 end
