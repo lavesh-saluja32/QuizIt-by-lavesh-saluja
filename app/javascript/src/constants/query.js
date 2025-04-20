@@ -7,4 +7,5 @@ export const QUERY_KEY = {
   SUBMISSIONS: "submissions",
   ORGANIZATION: "organization",
   REDIRECTIONS: "redirections",
+  CATEGORY: "category",
 };

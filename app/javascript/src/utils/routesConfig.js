@@ -1,5 +1,6 @@
 import { Login, Signup } from "components/Authentication";
 import QuizSignup from "components/Authentication/QuizSignup/Signup";
+import Categories from "components/Categories";
 import Dashboard from "components/Dashboard";
 import Edit from "components/Edit";
 import Settings from "components/GeneralSettings";
@@ -31,9 +32,9 @@ export const routeConfig = [
     component: Redirections,
     isPrivate: true,
   },
-  // {
-  //   path: routes.settings.categories,
-  //   component: Catego,
-  //   isPrivate: true,
-  // },
+  {
+    path: routes.settings.categories,
+    component: Categories,
+    isPrivate: true,
+  },
 ];

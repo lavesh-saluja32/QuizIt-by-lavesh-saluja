@@ -4,7 +4,7 @@ import { filterNonNull } from "@bigbinary/neeto-cist";
 import { useQueryParams } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { Filter } from "@bigbinary/neeto-icons";
-import useCategories from "hooks/reactQuery/useFetchCategories";
+import useCategories from "hooks/reactQuery/public/useFetchCategories";
 import { Form, Select, Input } from "neetoui/formik";
 import { Button, Pane, Typography } from "neetoui/index";
 import { useTranslation } from "react-i18next";

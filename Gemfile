@@ -120,3 +120,5 @@ gem "wicked_pdf"
 gem "wkhtmltopdf-binary"
 
 gem "redis", ">= 4.0.1"
+
+gem "acts_as_list"

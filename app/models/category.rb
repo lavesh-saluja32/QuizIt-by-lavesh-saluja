@@ -6,6 +6,7 @@
 #
 #  id              :uuid             not null, primary key
 #  name            :string
+#  position        :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  organization_id :uuid
@@ -22,4 +23,5 @@ class Category < ApplicationRecord
   has_many :quizzes
   belongs_to :organization
   validates :name, presence: true, uniqueness: true
+  acts_as_list scope: :organization
 end
