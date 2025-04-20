@@ -34,6 +34,7 @@
     "download": "Download report"
   },
   "button": {
+    "addCategory": "Add new category",
     "preview": "Preview:",
     "addQuiz": "Add new quiz",
     "addQuestion": "Add new question",
@@ -185,14 +186,18 @@
     "settings": {
       "redirections": "Create and configure redirection rules to send users from old public quiz links to new links.",
       "from": "From",
-      "to": "To"
+      "to": "To",
+      "categories": "Create and configure categories of the quizzes",
+      "oneCategory": "{{count}} category",
+      "otherCategories": "{{count}} Categories"
     }
   },
   "headers": {
     "submissions": "All submissions",
     "settings": {
       "general": "General Settings",
-      "redirections": "Redirections"
+      "redirections": "Redirections",
+      "categories": "Manage Categories"
     }
   },
   "table": {

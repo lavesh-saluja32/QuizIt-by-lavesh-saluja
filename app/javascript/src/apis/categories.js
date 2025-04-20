@@ -1,6 +1,11 @@
 import axios from "axios";
 
-const fetch = params => axios.get("/categories", { params });
+const baseURL = "/admin/categories";
+const categoryURL = id => `${baseURL}/${id}`;
 
-const categoriesApi = { fetch };
+const fetch = () => axios.get(baseURL);
+const reorder = ({ categoryId, payload }) =>
+  axios.post(`${categoryURL(categoryId)}/reorder`, { category: payload });
+
+const categoriesApi = { fetch, reorder };
 export default categoriesApi;

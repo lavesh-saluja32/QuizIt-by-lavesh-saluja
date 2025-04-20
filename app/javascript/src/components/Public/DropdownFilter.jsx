@@ -2,7 +2,7 @@ import React from "react";
 
 import { useQueryParams } from "@bigbinary/neeto-commons-frontend/react-utils";
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
-import useFetchCategories from "hooks/reactQuery/useFetchCategories";
+import useFetchCategories from "hooks/reactQuery/public/useFetchCategories";
 import { Filter } from "neetoicons";
 import { Dropdown, Select } from "neetoui";
 import { withTranslation } from "react-i18next";

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_17_114844) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_19_103516) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_17_114844) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "organization_id"
+    t.integer "position"
     t.index ["organization_id"], name: "index_categories_on_organization_id"
   end
 
@@ -128,7 +129,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_17_114844) do
     t.uuid "organization_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"
-    t.check_constraint "role::text = ANY (ARRAY['admin_user'::character varying, 'standard_user'::character varying]::text[])", name: "check_user_role"
+    t.check_constraint "role::text = ANY (ARRAY['admin_user'::character varying::text, 'standard_user'::character varying::text])", name: "check_user_role"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

@@ -2,7 +2,7 @@ import React from "react";
 
 import { Pane, Typography, Button } from "@bigbinary/neetoui";
 import { Form, Input, Select } from "@bigbinary/neetoui/formik";
-import useCategories from "hooks/reactQuery/useFetchCategories";
+import useCategories from "hooks/reactQuery/public/useFetchCategories";
 import { useCreateQuiz } from "hooks/reactQuery/useQuizzes";
 import { useTranslation } from "react-i18next";
 

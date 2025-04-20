@@ -7,7 +7,7 @@ import useColumnStore from "stores/useQuizColumnStore";
 
 import { getColumnsData } from "./utils";
 
-import useFetchCategories from "../../../hooks/reactQuery/useFetchCategories";
+import useFetchCategories from "../../../hooks/reactQuery/public/useFetchCategories";
 import DeleteAlert from "../DeleteAlert";
 import RightBlock from "../RightBlock";
 import SubHeaderContent from "../Subheader";
