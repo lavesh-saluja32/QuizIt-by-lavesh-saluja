@@ -77,7 +77,7 @@ const Create = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen flex-col bg-slate-100">
+    <div className="flex h-full w-screen flex-col overflow-hidden bg-slate-100">
       <PageHeader
         {...{
           quizId,

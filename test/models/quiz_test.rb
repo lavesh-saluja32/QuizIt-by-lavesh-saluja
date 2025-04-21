@@ -4,18 +4,24 @@
 #
 # Table name: quizzes
 #
-#  id               :uuid             not null, primary key
-#  last_saved_at    :datetime
-#  name             :string           not null
-#  slug             :string
-#  status           :string           default("draft"), not null
-#  submission_count :integer          default(0), not null
-#  total_questions  :integer          default(0), not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  category_id      :uuid             not null
-#  organization_id  :uuid
-#  user_id          :uuid             not null
+#  id                 :uuid             not null, primary key
+#  email_notification :boolean          default(FALSE)
+#  is_public          :boolean          default(TRUE)
+#  is_time_enabled    :boolean          default(FALSE), not null
+#  last_saved_at      :datetime
+#  name               :string           not null
+#  shuffle_options    :boolean          default(FALSE)
+#  shuffle_questions  :boolean          default(FALSE)
+#  slug               :string
+#  status             :string           default("draft"), not null
+#  submission_count   :integer          default(0), not null
+#  time               :integer          default(0), not null
+#  total_questions    :integer          default(0), not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  category_id        :uuid             not null
+#  organization_id    :uuid
+#  user_id            :uuid             not null
 #
 # Indexes
 #

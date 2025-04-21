@@ -6,8 +6,8 @@ import { Typography, Button } from "neetoui";
 const QuizCard = ({
   name,
   totalQuestions,
-  id,
   categoryName,
+  slug,
   handleQuizLoginNavigation,
   t,
 }) => (
@@ -25,7 +25,7 @@ const QuizCard = ({
       <Button
         className="w-full bg-blue-600"
         label="Start Quiz"
-        onClick={() => handleQuizLoginNavigation(id)}
+        onClick={() => handleQuizLoginNavigation(slug)}
       />
     </div>
   </div>

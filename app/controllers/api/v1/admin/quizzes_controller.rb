@@ -15,6 +15,7 @@ class Api::V1::Admin::QuizzesController < ApplicationController
 
   def update
     authorize [:admin, @quiz]
+    puts update_params
     @quiz.update!(update_params)
   end
 
@@ -63,7 +64,9 @@ class Api::V1::Admin::QuizzesController < ApplicationController
     end
 
     def update_params
-      params.require(:quiz).permit(:name, :status)
+      params.require(:quiz).permit(
+        :name, :status, :is_public, :is_time_enabled, :time, :shuffle_options,
+        :shuffle_questions, :email_notification)
     end
 
     def load_quiz!

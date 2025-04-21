@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class Api::V1::RedirectionsController < ApplicationController
+  skip_before_action :authenticate_user_using_x_auth_token
   before_action :load_organization
 
   def create
-    puts "KOOO"
     from_url = redirection_params[:from]
     redirection = @organization.redirections.find_by(from: from_url)
 

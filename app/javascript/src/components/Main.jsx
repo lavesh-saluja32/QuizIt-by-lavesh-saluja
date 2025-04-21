@@ -18,7 +18,6 @@ const hideSidebarRoutes = [
   routes.root,
   routes.quiz.register,
   routes.quiz.attempt,
-  routes.quiz.submissions,
   routes.authentication.login,
   routes.authentication.signup,
   routes.submission,
