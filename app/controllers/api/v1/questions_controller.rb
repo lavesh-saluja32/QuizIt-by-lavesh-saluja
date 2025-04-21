@@ -7,6 +7,9 @@ class Api::V1::QuestionsController < ApplicationController
 
   def index
     @questions = @quiz.questions.includes(:options)
+    if @quiz.shuffle_questions
+      @questions = @questions.shuffle
+    end
   end
 
   private

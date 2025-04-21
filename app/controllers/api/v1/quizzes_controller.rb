@@ -5,6 +5,7 @@ class Api::V1::QuizzesController < ApplicationController
   skip_before_action :authenticate_user_using_x_auth_token
   def index
     @quizzes = QuizzesFilterService.new(Quiz.published.includes(:category, :questions, :user), params).process!
+    @quizzes = @quizzes.publicly_visible
   end
 
   def show

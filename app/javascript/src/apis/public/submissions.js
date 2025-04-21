@@ -10,5 +10,7 @@ const update = ({ submissionId, payload }) =>
     submission: payload,
   });
 
-const submissionsApi = { create, update };
+const show = submissionId => axios.get(`${baseURL}/${submissionId}`);
+
+const submissionsApi = { create, update, show };
 export default submissionsApi;

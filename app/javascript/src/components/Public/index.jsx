@@ -32,8 +32,8 @@ const Public = () => {
     history.push(routes.authentication.login);
   };
 
-  const handleQuizLoginNavigation = quizId => {
-    history.push(buildUrl(routes.quiz.register, { quizId }));
+  const handleQuizLoginNavigation = quizSlug => {
+    history.push(buildUrl(routes.quiz.register, { quizSlug }));
   };
 
   if (isLoading) return <PageLoader />;

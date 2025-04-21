@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { useFetchQuestions } from "hooks/reactQuery/public/useQuestions";
+import { useShowQuiz } from "hooks/reactQuery/public/useQuizzes";
+import { useShowSubmission } from "hooks/reactQuery/public/useSubmissions";
 import { Typography } from "neetoui";
 import { useTranslation } from "react-i18next";
 import { useParams, useHistory } from "react-router-dom";
@@ -11,15 +13,18 @@ import useSubmissionStore from "stores/useSubmissionStore";
 
 import Buttons from "./Buttons";
 import QuestionCard from "./QuestionCard";
+import { calculateTimeLeft } from "./utils";
 
 const QuizAttempt = () => {
   const { quizSlug } = useParams();
   const { t } = useTranslation();
-
   const history = useHistory();
 
   const { data: { data: { questions = [] } = {} } = {} } =
     useFetchQuestions(quizSlug);
+  const { data: { data: quiz = {} } = {} } = useShowQuiz(quizSlug);
+  const isTimeEnabled = quiz?.isTimeEnabled;
+  const totalTime = quiz.time;
 
   const {
     questionNumber,
@@ -27,8 +32,32 @@ const QuizAttempt = () => {
     selectedAnswers,
     setSelectedAnswer,
   } = useQuizStore();
-
   const { submissionId } = useSubmissionStore();
+  const { data: { data: submission = {} } = {} } =
+    useShowSubmission(submissionId);
+
+  const startedAt = submission?.createdAt;
+
+  const [timeLeft, setTimeLeft] = useState(totalTime);
+
+  useEffect(() => {
+    if (timeLeft <= 0 && isTimeEnabled) {
+      handleSubmit();
+    }
+
+    let timer;
+    if (isTimeEnabled) {
+      timer = setInterval(() => {
+        setTimeLeft(prevTime => prevTime - 1);
+      }, 1000);
+    }
+
+    return () => clearInterval(timer);
+  }, [timeLeft, isTimeEnabled]);
+
+  useEffect(() => {
+    setTimeLeft(calculateTimeLeft(startedAt, totalTime));
+  }, [startedAt, totalTime]);
 
   const handleSubmit = () => {
     history.push(buildUrl(routes.submission, { submissionId }));
@@ -45,12 +74,25 @@ const QuizAttempt = () => {
   return (
     <div className="flex h-full w-full items-center justify-center">
       <div className="space-y-4">
-        <Typography>
-          {t("quiz.questionNumber", {
-            questionNumber: questionNumber + 1,
-            totalQuestions: questions.length,
-          })}
-        </Typography>
+        <div className="flex items-center justify-between">
+          <Typography>
+            {t("quiz.questionNumber", {
+              questionNumber: questionNumber + 1,
+              totalQuestions: questions.length,
+            })}
+          </Typography>
+          {isTimeEnabled && (
+            <div className="text-xl font-bold">
+              <Typography>
+                {t("quiz.timeLeft", {
+                  timeLeft: `${Math.floor(timeLeft / 60)}:${
+                    timeLeft % 60 < 10 ? "0" : ""
+                  }${timeLeft % 60}`,
+                })}
+              </Typography>
+            </div>
+          )}
+        </div>
         <QuestionCard
           {...{
             ...questions[questionNumber],

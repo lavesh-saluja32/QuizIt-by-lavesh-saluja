@@ -8,6 +8,11 @@ import Public from "components/Public";
 import QuestionBuilder from "components/Question/Create";
 import Create from "components/Quiz/Create";
 import QuizAttempt from "components/QuizAttempt";
+import Configure from "components/QuizConfigure";
+import QuizNotification from "components/QuizNotification";
+import QuizRandomChoices from "components/QuizRandomChoices";
+import QuizTimings from "components/QuizTimings";
+import Visibility from "components/QuizVisibility";
 import Redirections from "components/Redirections";
 import Result from "components/Result";
 import Submissions from "components/Submissions";
@@ -35,6 +40,31 @@ export const routeConfig = [
   {
     path: routes.settings.categories,
     component: Categories,
+    isPrivate: true,
+  },
+  {
+    path: routes.quiz.configure,
+    component: Configure,
+    isPrivate: true,
+  },
+  {
+    path: routes.quiz.configureTimings,
+    component: QuizTimings,
+    isPrivate: true,
+  },
+  {
+    path: routes.quiz.configureQuestions,
+    component: QuizRandomChoices,
+    isPrivate: true,
+  },
+  {
+    path: routes.quiz.configureNotifications,
+    component: QuizNotification,
+    isPrivate: true,
+  },
+  {
+    path: routes.quiz.configureVisibility,
+    component: Visibility,
     isPrivate: true,
   },
 ];

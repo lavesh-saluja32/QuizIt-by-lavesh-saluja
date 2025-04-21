@@ -9,6 +9,11 @@ export const routes = {
     register: "/quiz/:quizSlug/register",
     attempt: "/quiz/:quizSlug/attempt",
     submissions: "/quiz/:quizId/submissions",
+    configure: "/quiz/:quizId/configure",
+    configureVisibility: "/quiz/:quizId/configure/visibility",
+    configureTimings: "/quiz/:quizId/configure/timings",
+    configureQuestions: "/quiz/:quizId/configure/questions",
+    configureNotifications: "/quiz/:quizId/configure/notifications",
   },
   submission: "/submission/:submissionId",
   question: {

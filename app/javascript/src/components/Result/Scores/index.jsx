@@ -2,7 +2,7 @@ import React from "react";
 
 import Card from "./Card";
 
-const Scores = ({ correctAnswers, wrongAnswers, unanswered }) => (
+const Scores = ({ correctAnswers = 0, wrongAnswers = 0, unanswered = 0 }) => (
   <div className="mt-8 flex w-full justify-center space-x-1">
     <Card
       score={correctAnswers}
