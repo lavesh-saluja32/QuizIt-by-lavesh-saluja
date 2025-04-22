@@ -6003,6 +6003,11 @@ isexe@^2.0.0:
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
 
+isomorphic.js@^0.2.4:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/isomorphic.js/-/isomorphic.js-0.2.5.tgz#13eecf36f2dba53e85d355e11bf9d4208c6f7f88"
+  integrity sha512-PIeMbHqMt4DnUP3MA/Flc0HElYjMXArsw1qwJZcm9sqR8mq3l8NYizFMty0pWwE/tzIGH3EKK5+jes5mAr85yw==
+
 isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
@@ -6209,6 +6214,13 @@ levn@^0.4.1:
   dependencies:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
+
+lib0@^0.2.99:
+  version "0.2.104"
+  resolved "https://registry.yarnpkg.com/lib0/-/lib0-0.2.104.tgz#1d9c8d4a8a88897b543a6f81fbd92e8605080282"
+  integrity sha512-1tqKRANSPTcjs/yjPoKh52oRM2u5AYdd8jie8sDiN8/5kpWWiQSHUGgtB4VEXLw1chVL3QPSPp8q9RWqzSn2FA==
+  dependencies:
+    isomorphic.js "^0.2.4"
 
 lilconfig@2.0.5:
   version "2.0.5"
@@ -8135,7 +8147,7 @@ react-router-dom@5.3.3:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-react-router-nav-prompt@0.4.1, react-router-nav-prompt@^0.4.1:
+react-router-nav-prompt@0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/react-router-nav-prompt/-/react-router-nav-prompt-0.4.1.tgz#d4e09466098efe4cd0bc64a2d843e1ddb39dd0b7"
   integrity sha512-I7rJln0+OW46/az8JIbygccx+dvg9IzEHX76ikQ3mu1rcAHB6dOqqsXIwIWbIfTeoffm1QlGuLheF9fBy1bz6w==
@@ -9643,6 +9655,13 @@ yauzl@^2.10.0:
   dependencies:
     buffer-crc32 "~0.2.3"
     fd-slicer "~1.1.0"
+
+yjs@^13.6.26:
+  version "13.6.26"
+  resolved "https://registry.yarnpkg.com/yjs/-/yjs-13.6.26.tgz#ab0928484f20249bcbe01a73e911b57d918f1bae"
+  integrity sha512-wiARO3wixu7mtoRP5f7LqpUtsURP9SmNgXUt3RlnZg4qDuF7dUjthwIvwxIDmK55dPw4Wl4QdW5A3ag0atwu7g==
+  dependencies:
+    lib0 "^0.2.99"
 
 yocto-queue@^0.1.0:
   version "0.1.0"

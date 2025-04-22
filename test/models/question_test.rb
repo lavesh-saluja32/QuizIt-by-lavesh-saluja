@@ -5,6 +5,7 @@
 # Table name: questions
 #
 #  id            :uuid             not null, primary key
+#  description   :string
 #  question_text :string           not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null

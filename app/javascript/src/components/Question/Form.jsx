@@ -12,6 +12,7 @@ import {
   OPTION_VALUE,
   getQuestionFormValidationSchema,
 } from "./constants";
+import Description from "./Description";
 import QuestionInput from "./Input";
 import Option from "./Option";
 
@@ -64,6 +65,7 @@ const QuestionForm = ({
             <Breadcrumbs {...{ quizId, questionNumber, t }} />
           )}
           <QuestionInput />
+          <Description initialValue={initialQuestion.description} />
           <FieldArray name="options">
             {({ push, remove }) => (
               <>

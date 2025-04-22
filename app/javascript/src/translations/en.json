@@ -260,5 +260,6 @@
       "buttonTitle": "Email notification",
       "buttonDescription": "Receive an email when a quiz is submitted."
     }
-  }
+  },
+  "neetoEditor.menu.fontSize": "Font size"
 }
