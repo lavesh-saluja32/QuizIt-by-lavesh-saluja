@@ -86,3 +86,7 @@
   outline: none;
   border: none;
 }
+
+button > h1{
+  color:black !important;
+}

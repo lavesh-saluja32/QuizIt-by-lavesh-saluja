@@ -4,6 +4,7 @@ export const OPTION_VALUE = { text: "" };
 
 export const QUESTION_INITIAL_VALUES = {
   question: "",
+  description: "",
   options: [OPTION_VALUE, OPTION_VALUE],
 };
 
@@ -13,6 +14,7 @@ export const DEFAULT_CORRECT_OPTION = -1;
 export const getQuestionFormValidationSchema = t =>
   yup.object().shape({
     question: yup.string().required(t("validation.questionRequired")),
+    description: yup.string(),
     options: yup
       .array()
       .of(

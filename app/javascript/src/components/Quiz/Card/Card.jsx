@@ -1,11 +1,13 @@
 import React from "react";
 
+import EditorContent from "@bigbinary/neeto-editor/EditorContent";
+import { isEditorEmpty } from "@bigbinary/neeto-editor/utils";
 import { Typography, Radio } from "@bigbinary/neetoui";
 
 import Dropdown from "./Dropdown";
 
 const Card = ({
-  question: { questionText, id: questionId, options = [] },
+  question: { questionText, description, id: questionId, options = [] },
   handleDelete,
   handleEditNavigation,
   handleClone,
@@ -13,7 +15,14 @@ const Card = ({
 }) => (
   <div className="flex w-[50vw] flex-col space-y-3 bg-white p-3">
     <div className="flex items-center justify-between">
-      <Typography weight="bold">{questionText}</Typography>
+      <div className="w-full">
+        <Typography weight="bold">{questionText}</Typography>
+        {!isEditorEmpty(description) && (
+          <div className="mt-2 w-full rounded-lg border border-slate-200 p-3 shadow-sm">
+            <EditorContent content={description} />
+          </div>
+        )}
+      </div>
       <Dropdown
         {...{
           questionId,
