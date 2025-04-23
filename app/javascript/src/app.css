@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 .active-link {
-  color: white; /* Change icon color */
+  color: white !important;
   background-color: theme('colors.blue.500') !important;
   border-radius: 6px;
 }

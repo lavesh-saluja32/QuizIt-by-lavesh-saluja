@@ -37,7 +37,6 @@ class Admin::CategoriesDeletionService
     end
 
     def reassign_quizzes_to(new_category)
-      puts "KIOP"
       @category.quizzes.update_all(category_id: new_category.id)
     end
 end

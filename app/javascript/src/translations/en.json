@@ -230,7 +230,8 @@
   },
   "labels": {
     "categoryTitle": "Category Title",
-    "categorySelect": "Select a category to move these quizzes into"
+    "categorySelect": "Select a category to move these quizzes into",
+    "description": "Description"
   },
   "configure": {
     "visibility": {

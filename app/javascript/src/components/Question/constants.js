@@ -39,6 +39,6 @@ export const getQuestionFormValidationSchema = t =>
       .test(
         "correct-option-selected",
         t("validation.correctOptionRequired"),
-        (options = []) => options.some(option => option.is_correct)
+        (options = []) => options.some(option => option.isCorrect)
       ),
   });

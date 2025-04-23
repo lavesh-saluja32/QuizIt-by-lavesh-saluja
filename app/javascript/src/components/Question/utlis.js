@@ -1,7 +1,7 @@
 export const formatPayload = (values, correctOption, previousOptions = []) => ({
-  question_text: values.question,
+  questionText: values.question,
   description: values.description,
-  options_attributes: [
+  optionsAttributes: [
     ...previousOptions.map(option => ({
       id: option.id,
       _destroy: true,

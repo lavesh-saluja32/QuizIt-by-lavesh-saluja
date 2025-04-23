@@ -6,7 +6,7 @@ class QuizzesFilterService < BaseFilterService
     @quizzes = quizzes
   end
 
-  def process!
+  def process
     @quizzes = filter_by_category(@quizzes)
     @quizzes = filter_by_search_term(@quizzes, table: "quizzes")
     @quizzes

@@ -22,6 +22,7 @@ export const routes = {
   },
   admin: "/admin",
   settings: {
+    root: "/settings",
     general: "/settings/general",
     redirection: "/settings/redirections",
     categories: "/settings/categories",
