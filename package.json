@@ -122,6 +122,7 @@
     "file-saver": "^2.0.5",
     "formik": "2.4.6",
     "framer-motion": "11.11.11",
+    "graphlib": "^2.1.8",
     "i18next": "22.5.1",
     "ignore-loader": "^0.1.2",
     "js-logger": "1.6.1",

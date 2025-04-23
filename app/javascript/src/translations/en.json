@@ -118,6 +118,7 @@
     }
   },
   "validation": {
+    "cycle": " Cycle detected in your redirections.",
     "required": "This field is required",
     "emailInvalid": "Please enter a valid email address",
     "passwordMin": "Password must be at least 6 characters",
@@ -261,5 +262,11 @@
       "buttonDescription": "Receive an email when a quiz is submitted."
     }
   },
-  "neetoEditor.menu.fontSize": "Font size"
+  "neetoEditor.menu.fontSize": "Font size",
+  "emptyState": {
+    "redirections": {
+      "title": "No redirections added",
+      "subtitle": "Start by creating your first redirection."
+    }
+  }
 }
