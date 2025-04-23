@@ -144,7 +144,7 @@ class Api::V1::SubmissionsControllerTest < ActionDispatch::IntegrationTest
         as: :json
 
       assert_response :forbidden
-      assert_includes response.body, I18n.t("errors.messages.time_limit_exceeded")
+      assert_includes response.body, I18n.t("errors.messages.time_limit")
     end
 end
 end
