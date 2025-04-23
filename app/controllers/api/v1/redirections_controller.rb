@@ -8,7 +8,9 @@ class Api::V1::RedirectionsController < ApplicationController
     from_url = redirection_params[:from]
     redirection = @organization.redirections.find_by(from: from_url)
 
-    render_json({ redirect_url: redirection.to }, :moved_permanently) if redirection.present?
+    if redirection.present?
+      render_json({ redirect_url: redirection.to }, :moved_permanently)
+    end
   end
 
   private

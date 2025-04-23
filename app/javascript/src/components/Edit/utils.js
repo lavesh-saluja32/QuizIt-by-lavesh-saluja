@@ -3,6 +3,6 @@ export const formatQuestionFormInitialValue = question => ({
   description: question.description,
   options: question.options?.map(option => ({
     text: option.optionText,
-    isCorrect: option.isCorrect,
+    is_correct: option.isCorrect,
   })),
 });

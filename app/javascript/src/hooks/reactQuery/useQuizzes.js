@@ -1,16 +1,21 @@
 import { QUERY_KEY } from "constants/query";
 
+import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import { Toastr } from "@bigbinary/neetoui";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import quizzesApi from "apis/quizzes";
 import FileSaver from "file-saver";
 import { t } from "i18next";
+import { useHistory } from "react-router-dom";
+import { routes } from "routes";
 
 export const useCreateQuiz = () => {
+  const history = useHistory();
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: payload => quizzesApi.create(payload),
-    onSuccess: () => {
+    onSuccess: response => {
+      history.push(buildUrl(routes.quiz.create, { quizId: response.data }));
       Toastr.success(t("response.success.quizCreated"));
       queryClient.invalidateQueries(QUERY_KEY.QUIZZES);
     },

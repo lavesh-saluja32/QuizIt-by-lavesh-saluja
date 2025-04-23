@@ -27,4 +27,5 @@ export const routes = {
     redirection: "/settings/redirections",
     categories: "/settings/categories",
   },
+  quizNotFound: "quiz-not-found",
 };

@@ -10,17 +10,16 @@ class Api::V1::Admin::QuizzesController < ApplicationController
     @filtered_quizzes = Admin::QuizzesFilterService.new(@quizzes, params).process
     @quizzes = @filtered_quizzes.quizzes.order(updated_at: :desc)
     @total_size = @filtered_quizzes.filtered_size
-    render "api/v1/quizzes/index"
   end
 
   def update
     authorize [:admin, @quiz]
-    puts update_params
     @quiz.update!(update_params)
   end
 
   def create
-    @current_user.organization.quizzes.create!(quiz_params.merge(user: @current_user))
+    @quiz = @current_user.organization.quizzes.create!(quiz_params.merge(user: @current_user))
+    render_json(@quiz.id)
   end
 
   def show
@@ -42,19 +41,10 @@ class Api::V1::Admin::QuizzesController < ApplicationController
   end
 
   def bulk_update
-    permitted_params = bulk_update_params
-    updates = permitted_params.slice(:status, :category_id).to_h.compact
-
-    quizzes = Quiz.where(id: permitted_params[:ids], user_id: @current_user.id)
-    if updates.key?(:status)
-      Quiz.transaction do
-        quizzes.each do |quiz|
-          quiz.update!(updates.merge(last_saved_at: Time.current))
-        end
-      end
-    elsif updates.key?(:category_id)
-      quizzes.update_all(category_id: updates[:category_id], last_saved_at: Time.current)
-    end
+    Admin::QuizzesBulkUpdateService.new(
+      user: @current_user,
+      params: bulk_update_params
+    ).process
   end
 
   private

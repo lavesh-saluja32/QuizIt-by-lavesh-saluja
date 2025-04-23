@@ -15,7 +15,7 @@ import useQuizSelectionStore from "stores/useQuizSelectionStore";
 const FilterPane = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data: { data: { categories = [] } = {} } = {} } = useCategories();
+  const { data: { data: categories = [] } = {} } = useCategories();
 
   const history = useHistory();
 

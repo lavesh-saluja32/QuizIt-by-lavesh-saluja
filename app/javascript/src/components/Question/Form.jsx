@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { withT } from "@bigbinary/neeto-commons-frontend/react-utils";
+import FormikEditor from "@bigbinary/neeto-editor/FormikEditor";
 import Breadcrumbs from "components/commons/Breadcrumbs";
 import PageLoader from "components/commons/PageLoader";
 import { Formik, Form, FieldArray } from "formik";
@@ -12,7 +13,6 @@ import {
   OPTION_VALUE,
   getQuestionFormValidationSchema,
 } from "./constants";
-import Description from "./Description";
 import QuestionInput from "./Input";
 import Option from "./Option";
 
@@ -65,7 +65,11 @@ const QuestionForm = ({
             <Breadcrumbs {...{ quizId, questionNumber, t }} />
           )}
           <QuestionInput />
-          <Description initialValue={initialQuestion.description} />
+          <FormikEditor
+            initialValue={initialQuestion.description}
+            label={t("labels.description")}
+            name="description"
+          />
           <FieldArray name="options">
             {({ push, remove }) => (
               <>

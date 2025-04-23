@@ -7,6 +7,9 @@ class Api::V1::SubmissionsController < ApplicationController
   before_action :load_submission!, only: %i[update show]
 
   def create
+    if @quiz.status == "draft"
+      render_error(t("errors.messages.quiz_not_found"), :not_found)
+    end
     user = RegisterService.new(submission_params).process!
     @submission = @quiz.submissions.new(user: user)
     authorize @submission
@@ -25,7 +28,6 @@ class Api::V1::SubmissionsController < ApplicationController
     @user_answers = SubmissionService.new(@submission, update_params).process[:answers]
     @questions = @submission.quiz.questions.includes(:options)
     @quiz = @submission.quiz
-    puts @quiz.id
     if @quiz.email_notification
       QuizNotificationJob.perform_async(params[:id])
     end

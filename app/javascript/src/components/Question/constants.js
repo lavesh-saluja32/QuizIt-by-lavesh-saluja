@@ -31,7 +31,9 @@ export const getQuestionFormValidationSchema = t =>
         "unique-options",
         t("validation.optionsMustBeUnique"),
         (options = []) => {
-          const lowerCased = options.map(opt => opt.text?.toLowerCase().trim());
+          const lowerCased = options.map(option =>
+            option.text?.toLowerCase().trim()
+          );
 
           return new Set(lowerCased).size === lowerCased.length;
         }
@@ -39,6 +41,6 @@ export const getQuestionFormValidationSchema = t =>
       .test(
         "correct-option-selected",
         t("validation.correctOptionRequired"),
-        (options = []) => options.some(option => option.isCorrect)
+        (options = []) => options.some(option => option.is_correct)
       ),
   });

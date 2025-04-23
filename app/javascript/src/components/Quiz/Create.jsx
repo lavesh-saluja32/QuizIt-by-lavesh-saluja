@@ -100,7 +100,12 @@ const Create = () => {
         {questions.length > 0 ? (
           <div className="m-auto flex w-[50vw] flex-col items-center space-y-4 p-4">
             <Typography className="self-start" weight="bold">
-              {t("placeholder.totalQuestions", { number: questions.length })}
+              {t(
+                `placeholder.${
+                  questions.length > 1 ? "totalQuestions" : "totalQuestion"
+                }`,
+                { number: questions.length }
+              )}
             </Typography>
             {questions.map((question, index) => (
               <QuestionCard

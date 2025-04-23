@@ -31,7 +31,6 @@ class Api::V1::Admin::CategoriesController < ApplicationController
 
   def reorder
     authorize([:admin, @category])
-    puts @category
     @category.insert_at(reorder_params[:position])
   end
 

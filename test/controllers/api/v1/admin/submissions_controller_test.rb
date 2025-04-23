@@ -21,7 +21,6 @@ class Api::V1::Admin::SubmissionsControllerTest < ActionDispatch::IntegrationTes
 
     assert_response :success
     response_json = response.parsed_body["submissions"]
-    puts response_json
     assert_equal 1, response_json.length
     assert_equal @submission.id, response_json.first["id"]
     assert_equal @submission_user.id, response_json.first["user_id"]

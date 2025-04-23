@@ -24,7 +24,7 @@ const QuizForm = ({ isOpen, setIsOpen }) => {
     );
   };
 
-  const { data: { data: { categories = [] } = {} } = {} } = useCategories();
+  const { data: { data: categories = [] } = {} } = useCategories();
 
   return (
     <Pane isOpen={isOpen} onClose={() => setIsOpen(false)}>

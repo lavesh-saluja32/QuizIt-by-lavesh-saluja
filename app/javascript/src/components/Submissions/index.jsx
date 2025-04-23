@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 
+import { isNotEmpty } from "@bigbinary/neeto-cist";
 import useQueryParams from "@bigbinary/neeto-commons-frontend/react-utils/useQueryParams";
 import createConsumer from "channels/consumer";
 import { subscribeToReportDownloadChannel } from "channels/reportDownloadChannel";
+import PageLoader from "components/commons/PageLoader";
+import { NoData } from "neetoui/index";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import Header from "./Header";
@@ -21,6 +25,8 @@ import PageHeader from "../Quiz/PageHeader";
 const Submissions = () => {
   const [isLoadingReport, setIsLoadingReport] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  const { t } = useTranslation();
 
   const consumer = createConsumer();
   const { quizId } = useParams();
@@ -59,13 +65,28 @@ const Submissions = () => {
     }
   }, [progress]);
 
+  if (isLoading) return <PageLoader />;
+
   return (
     <div className="flex h-full w-screen flex-col overflow-hidden bg-slate-100">
       <PageHeader {...{ quizId, quiz }} />
       <div className="p-10">
         <Header />
-        <Subheader {...{ generatePdf, submissionsCount: submissions.length }} />
-        <Table data={submissions} {...{ isLoading }} />
+        {isNotEmpty(submissions) ? (
+          <>
+            <Subheader
+              {...{ generatePdf, submissionsCount: submissions.length }}
+            />
+            <Table data={submissions} {...{ isLoading }} />
+          </>
+        ) : (
+          <div className="flex h-full w-full flex-1 items-center justify-center">
+            <NoData
+              className="m-auto"
+              title={t("response.error.submissionsNotFound")}
+            />
+          </div>
+        )}
       </div>
       <Progress isLoading={isLoadingReport} {...{ progress }} />
     </div>

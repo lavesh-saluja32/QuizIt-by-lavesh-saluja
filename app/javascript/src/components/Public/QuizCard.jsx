@@ -20,7 +20,14 @@ const QuizCard = ({
     </div>
     <div className="flex flex-col space-y-1">
       <Typography style="h5">
-        {t("quiz.totalQuestions", { count: totalQuestions })}
+        {t(
+          `quiz.${
+            totalQuestions <= 1 ? "totalQuestionOne" : "totalQuestionMany"
+          }`,
+          {
+            count: totalQuestions,
+          }
+        )}
       </Typography>
       <Button
         className="w-full bg-blue-600"
