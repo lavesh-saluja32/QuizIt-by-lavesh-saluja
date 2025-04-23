@@ -33,6 +33,7 @@
 en:
   errors:
     messages:
+      standard_user_cannot_be_admin: "Standard user cannot be an admin."
       time_limit: "Time limit exceeded!"
       record_exists: "Record already exists."
       invalid_query: "Invalid database query."
@@ -78,3 +79,4 @@ en:
   session:
     expiry: "Your session has expired. Please login again."
     incorrect_credentials: "Incorrect email or password!"
+    user_not_found: "User not found!"
