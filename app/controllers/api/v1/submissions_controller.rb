@@ -7,6 +7,9 @@ class Api::V1::SubmissionsController < ApplicationController
   before_action :load_submission!, only: %i[update show]
 
   def create
+    if @quiz.status == "draft"
+      render_error(t("errors.messages.quiz_not_found"), :not_found)
+    end
     user = RegisterService.new(submission_params).process!
     @submission = @quiz.submissions.new(user: user)
     authorize @submission

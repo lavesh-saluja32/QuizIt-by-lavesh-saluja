@@ -1,3 +1,5 @@
+import { showSidebarRoutes } from "constants";
+
 import React, { useEffect } from "react";
 
 import { PrivateRoute } from "@bigbinary/neeto-commons-frontend/react-utils";
@@ -14,21 +16,12 @@ import Sidebar from "./commons/Sidebar";
 const authToken = getFromLocalStorage("authToken");
 const isLoggedIn = !either(isNil, isEmpty)(authToken);
 
-const hideSidebarRoutes = [
-  routes.root,
-  routes.quiz.register,
-  routes.quiz.attempt,
-  routes.authentication.login,
-  routes.authentication.signup,
-  routes.submission,
-];
-
 const Main = () => {
   const { mutate: redirect } = useRedirect();
 
   const location = useLocation();
 
-  const shouldHideSidebar = hideSidebarRoutes.some(path =>
+  const shouldHideSidebar = showSidebarRoutes.some(path =>
     matchPath(location.pathname, { path, exact: true })
   );
 
@@ -38,7 +31,7 @@ const Main = () => {
 
   return (
     <div className="flex h-screen w-screen">
-      {!shouldHideSidebar && isLoggedIn && <Sidebar />}
+      {shouldHideSidebar && isLoggedIn && <Sidebar />}
       <Switch>
         {routeConfig.map(({ path, component, isPrivate }, index) =>
           isPrivate ? (

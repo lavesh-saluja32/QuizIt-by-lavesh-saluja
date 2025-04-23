@@ -33,6 +33,7 @@
 en:
   errors:
     messages:
+      quiz_not_found: "Quiz not found!"
       standard_user_cannot_be_admin: "Standard user cannot be an admin."
       time_limit: "Time limit exceeded!"
       record_exists: "Record already exists."

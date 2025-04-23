@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
 import PageLoader from "components/commons/PageLoader";
@@ -51,6 +51,10 @@ const Signup = () => {
   const { mutate: createSubmission, isPending } = useCreateSubmission();
 
   if (isPending) <PageLoader />;
+
+  useEffect(() => {
+    if (quiz.status === "draft") history.push(routes.quizNotFound);
+  }, [quiz]);
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
