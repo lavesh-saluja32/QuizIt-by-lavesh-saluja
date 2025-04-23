@@ -8,7 +8,7 @@ module ApiResponders
     def render_error(message, status = :unprocessable_entity, context = {})
       is_message_array = message.is_a?(Array)
       error_message = is_message_array ? message.to_sentence : message
-      render status:, json: { error: error_message }.merge(context)
+      render status: status, json: { error: error_message }.merge(context)
     end
 
     def render_notice(message, status = :ok, context = {})

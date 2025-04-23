@@ -5,7 +5,11 @@ class Api::V1::SessionsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    @user = User.find_by!(email: login_params[:email].downcase)
+    @user = User.find_by(email: login_params[:email])
+    if @user.nil?
+      render_error(t("session.user_not_found"), :not_found)
+      return
+    end
     unless @user.authenticate(login_params[:password]) && @user.role != "standard_user"
       render_error(t("session.incorrect_credentials"), :unauthorized)
     end

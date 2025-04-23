@@ -25,6 +25,8 @@ module ApiRescuable
     end
 
     def handle_record_not_found(exception)
+      puts "=="
+      puts exception.message
       log_exception(exception)
       render_error(exception.message, :not_found)
     end
