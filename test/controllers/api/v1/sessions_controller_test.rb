@@ -30,6 +30,6 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     post api_v1_session_path, params: { login: { email: non_existent_email, password: "welcome" } }, as: :json
     assert_response :not_found
     response_json = response.parsed_body
-    assert_match /Couldn't find User/, response_json["error"]
+    assert_match /User not found!/, response_json["error"]
   end
 end

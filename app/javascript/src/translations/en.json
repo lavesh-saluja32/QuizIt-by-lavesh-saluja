@@ -17,7 +17,9 @@
     "published": "published",
     "filters": "Filters",
     "email": "Email",
-    "totalQuestions": "{{count}} Questions",
+    "totalQuestionOne": "{{count}} Question",
+    "totalQuestionMany": "{{count}} Questions",
+
     "questionNumber": "Question {{questionNumber}} of {{totalQuestions}}",
     "result": {
       "title": "Your result",
@@ -95,7 +97,8 @@
     "error": {
       "default": "Something went wrong!",
       "pageNotFound": "Page not found",
-      "quizzesNotFound": "No quizzes found!"
+      "quizzesNotFound": "No quizzes found!",
+      "submissionsNotFound": "No submissions for the quiz!"
     },
     "success": {
       "quizCreated": "Quiz created successfully!",
@@ -148,6 +151,7 @@
     "question": "Type your question here...",
     "option": "Type option {{number}}",
     "totalQuestions": "{{number}} questions",
+    "totalQuestion": "{{number}} question",
     "selectStatus": "Select status",
     "searchCategory": "Search category",
     "searchQuiz": "Search for a quiz",
@@ -161,7 +165,9 @@
   "link": {
     "quiz": {
       "questions": "Questions",
-      "submissions": "Submissions",
+      "submissions": "Submission",
+      "submissionsOne": "{{count}} Submission",
+      "submissionsMany": "{{count}} Submissions",
       "configure": "Configure"
     },
     "question": {
@@ -263,7 +269,26 @@
       "buttonDescription": "Receive an email when a quiz is submitted."
     }
   },
-  "neetoEditor.menu.fontSize": "Font size",
+  "neetoEditor": {
+    "menu": {
+      "normalText": "Normal text",
+      "bold": "Bold",
+      "italic": "Italic",
+      "underline": "Underline",
+      "link": "Link",
+      "strike": "Strike",
+      "bulletedList": "Bulleted list",
+      "orderedList": "Ordered list",
+      "code": "Code",
+      "heading1": "Heading 1",
+      "heading2": "Heading 2",
+      "heading3": "Heading 3",
+      "heading4": "Heading 4",
+      "heading5": "Heading 5",
+      "codeBlock": "Code block",
+      "fontSize": "Font size"
+    }
+  },
   "emptyState": {
     "redirections": {
       "title": "No redirections added",

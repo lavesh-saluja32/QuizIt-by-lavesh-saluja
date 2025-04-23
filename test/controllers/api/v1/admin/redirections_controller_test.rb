@@ -22,7 +22,6 @@ class Api::V1::Admin::RedirectionsControllerTest < ActionDispatch::IntegrationTe
     assert_response :success
 
     redirection = Redirection.last
-    puts redirection.inspect
     assert_equal "/old-path", redirection.from
     assert_equal "/new-path", redirection.to
   end

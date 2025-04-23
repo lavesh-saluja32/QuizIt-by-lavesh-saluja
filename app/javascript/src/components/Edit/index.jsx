@@ -30,7 +30,7 @@ const Edit = () => {
 
   if (!location.state) history.goBack();
   const { quizId = "" } = location.state || {};
-  const { data: { data: { quiz = {} } = {} } = {} } = useShowQuiz(quizId);
+  const { data: quiz = {} } = useShowQuiz(quizId);
 
   const { mutate: updateQuestion } = useUpdateQuestion();
 

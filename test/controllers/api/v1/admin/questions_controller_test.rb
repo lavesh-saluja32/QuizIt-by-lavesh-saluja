@@ -21,7 +21,6 @@ class Api::V1::Admin::QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     response_json = response.parsed_body
-    puts response_json
     assert_equal @quiz.questions.count, response_json["questions"].length
   end
 

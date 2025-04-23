@@ -28,7 +28,6 @@ class Api::V1::SubmissionsController < ApplicationController
     @user_answers = SubmissionService.new(@submission, update_params).process[:answers]
     @questions = @submission.quiz.questions.includes(:options)
     @quiz = @submission.quiz
-    puts @quiz.id
     if @quiz.email_notification
       QuizNotificationJob.perform_async(params[:id])
     end

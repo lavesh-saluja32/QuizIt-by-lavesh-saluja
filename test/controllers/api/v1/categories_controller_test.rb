@@ -16,9 +16,7 @@ class Api::V1::CategoriesControllerTest < ActionDispatch::IntegrationTest
   def test_should_get_all_categories
     get api_v1_categories_path, headers: @standard_user_headers, as: :json
     assert_response :success
-
-    response_json = response.parsed_body["categories"]
-    puts response_json
+    response_json = response.parsed_body
     assert_equal 2, response_json.length
     assert_includes response_json.map { |c| c["name"] }, @category1.name
     assert_includes response_json.map { |c| c["name"] }, @category2.name

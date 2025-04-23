@@ -5,7 +5,12 @@ import { withTranslation } from "react-i18next";
 
 const LeftBlock = ({ submissionsCount, t }) => (
   <Typography style="h3">
-    {submissionsCount} {t("link.quiz.submissions")}
+    {t(
+      `link.quiz.${
+        submissionsCount <= 1 ? "submissionsOne" : "submissionsMany"
+      }`,
+      { count: submissionsCount }
+    )}
   </Typography>
 );
 

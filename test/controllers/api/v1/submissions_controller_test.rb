@@ -8,7 +8,7 @@ class Api::V1::SubmissionsControllerTest < ActionDispatch::IntegrationTest
     @admin = create(:user, role: :admin_user, organization: @organization)
     @standard_user = create(:user, role: :standard_user, organization: @organization)
     @category = create(:category, organization: @organization)
-    @quiz = create(:quiz, user: @admin, category: @category, organization: @organization)
+    @quiz = create(:quiz, user: @admin, category: @category, organization: @organization, status: "published")
     @admin_headers = headers(@admin)
     @standard_user_headers = headers(@standard_user)
   end
@@ -130,8 +130,6 @@ class Api::V1::SubmissionsControllerTest < ActionDispatch::IntegrationTest
 
     submission = Submission.last
 
-    puts submission.inspect
-    puts submission.user.inspect
     travel_to submission.created_at + 2.minutes do
       patch api_v1_submission_path(submission.id),
         params: {

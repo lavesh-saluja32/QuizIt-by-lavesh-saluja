@@ -13,7 +13,6 @@ class Admin::CategoriesDeletionService
       return
     end
     target_category = determine_target_category
-    puts target_category.inspect
     reassign_quizzes_to(target_category)
     @category.destroy!
   end

@@ -13,7 +13,7 @@ const Table = ({ data = [], isLoading }) => {
   const render = text => <Status {...{ text }} />;
 
   return (
-    <div className="custom-table ant-table-thead">
+    <div className="custom-table ant-table-thead h-[70vh] overflow-y-scroll">
       {!isLoading ? (
         <NeetoTable
           enableColumnResize

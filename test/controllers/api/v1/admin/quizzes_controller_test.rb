@@ -103,9 +103,9 @@ class Api::V1::Admin::QuizzesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     response_json = response.parsed_body
-    assert_equal @quiz.id, response_json["quiz"]["id"]
-    assert_equal @quiz.status, response_json["quiz"]["status"]
-    assert_equal @quiz.last_saved_at&.to_s, response_json["quiz"]["last_saved_at"]&.to_s
+    assert_equal @quiz.id, response_json["id"]
+    assert_equal @quiz.status, response_json["status"]
+    assert_equal @quiz.last_saved_at&.to_s, response_json["last_saved_at"]&.to_s
   end
 
   def test_standard_user_cannot_view_quiz
