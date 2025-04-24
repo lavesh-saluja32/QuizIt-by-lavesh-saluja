@@ -9,6 +9,7 @@ class QuizMailer < ApplicationMailer
 
     mail(
       to: quiz.user.email,
+      from: "no@g.com",
       subject: "#{quiz.name} submitted by #{@candidate_name}"
     )
   end
