@@ -18,6 +18,8 @@ import Inputs from "./Inputs";
 import { checkCyclicError, getToUrl } from "../utils";
 
 const Form = ({ t }) => {
+  const [data, setData] = useState([]);
+
   const [isCyclicError, setIsCyclicError] = useState(false);
   const [isAddRedirectionActive, setIsAddRedirectionActive] = useState(true);
 
@@ -26,7 +28,7 @@ const Form = ({ t }) => {
     isLoading: isRedirectionsLoading,
     isFetching,
   } = useFetchRedirections();
-  const [data, setData] = useState(redirections);
+
   const { mutate: createRedirection, isPending } = useCreateRedirection();
 
   const { mutate: updateRedirection } = useUpdateRedirection();
