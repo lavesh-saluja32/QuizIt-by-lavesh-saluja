@@ -21,7 +21,7 @@ class Api::V1::Admin::CategoriesController < ApplicationController
 
   def destroy
     authorize([:admin, @category])
-    Admin::CategoriesDeletionService.new(@category, delete_params[:new_category_id]).process!
+    Admin::CategoriesDeletionService.new(@category, category_params[:new_category_id]).process!
   end
 
   def update
@@ -31,21 +31,13 @@ class Api::V1::Admin::CategoriesController < ApplicationController
 
   def reorder
     authorize([:admin, @category])
-    @category.insert_at(reorder_params[:position])
+    @category.insert_at(category_params[:position])
   end
 
   private
 
-    def delete_params
-      params.require(:category).permit(:new_category_id)
-    end
-
     def category_params
-      params.require(:category).permit(:name)
-    end
-
-    def reorder_params
-      params.require(:category).permit(:position)
+      params.require(:category).permit(:name, :new_category_id, :position)
     end
 
     def load_category!

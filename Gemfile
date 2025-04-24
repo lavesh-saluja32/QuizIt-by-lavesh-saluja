@@ -83,9 +83,6 @@ group :development do
 
   # vulnerability checker for Ruby itself
   gem "ruby_audit", require: false
-
-  # Preview email in browser
-  gem "letter_opener"
 end
 
 group :test do
@@ -122,4 +119,5 @@ gem "wkhtmltopdf-binary"
 gem "redis", ">= 4.0.1"
 
 gem "acts_as_list"
+gem "letter_opener", group: :development
 gem "sidekiq-cron"

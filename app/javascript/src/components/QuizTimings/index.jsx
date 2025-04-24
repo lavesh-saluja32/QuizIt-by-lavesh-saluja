@@ -28,7 +28,7 @@ const QuizTimings = () => {
     updateQuiz({
       quizId,
       payload: {
-        isTimeEnabled: values.enableQuizTiming,
+        isTimerEnabled: values.enableQuizTiming,
         time: values.hours * 60 + values.minutes,
       },
     });
@@ -46,7 +46,7 @@ const QuizTimings = () => {
           <Form
             formikProps={{
               initialValues: {
-                enableQuizTiming: quiz.isTimeEnabled,
+                enableQuizTiming: quiz.isTimerEnabled,
                 hours: initialHours,
                 minutes: initialRemainingMinutes,
               },

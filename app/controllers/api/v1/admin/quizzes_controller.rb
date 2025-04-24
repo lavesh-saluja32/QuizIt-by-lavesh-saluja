@@ -55,14 +55,12 @@ class Api::V1::Admin::QuizzesController < ApplicationController
 
     def update_params
       params.require(:quiz).permit(
-        :name, :status, :is_public, :is_time_enabled, :time, :shuffle_options,
-        :shuffle_questions, :email_notification)
+        :name, :status, :is_public, :is_timer_enabled, :time, :is_shuffle_options_enabled,
+        :is_shuffle_questions_enabled, :is_email_notification_enabled)
     end
 
     def load_quiz!
-      scope = @current_user.organization.quizzes
-      scope = scope.includes(questions: :options) if action_name == "destroy"
-      @quiz = scope.find(params[:id])
+      @quiz = @current_user.organization.quizzes.find(params[:id])
     end
 
     def bulk_delete_params

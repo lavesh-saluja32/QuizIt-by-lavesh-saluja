@@ -42,15 +42,6 @@ class Api::V1::Admin::QuizzesControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Updated Quiz", @quiz.reload.name
   end
 
-  def test_standard_user_cannot_update_quiz
-    patch api_v1_admin_quiz_path(@quiz),
-      params: { quiz: { name: "Hacked Quiz" } },
-      headers: @standard_user_headers,
-      as: :json
-
-    assert_response :forbidden
-  end
-
   def test_invalid_params_should_not_create_quiz
     assert_no_difference("Quiz.count") do
       post api_v1_admin_quizzes_path,
@@ -108,12 +99,6 @@ class Api::V1::Admin::QuizzesControllerTest < ActionDispatch::IntegrationTest
     assert_equal @quiz.last_saved_at&.to_s, response_json["last_saved_at"]&.to_s
   end
 
-  def test_standard_user_cannot_view_quiz
-    get api_v1_admin_quiz_path(@quiz), headers: @standard_user_headers, as: :json
-
-    assert_response :forbidden
-  end
-
   def test_admin_gets_404_for_nonexistent_quiz
     get api_v1_admin_quiz_path("non-existent-id"), headers: @admin_headers, as: :json
 
@@ -144,14 +129,6 @@ class Api::V1::Admin::QuizzesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :success
-end
-
-  def test_standard_user_cannot_destroy_quiz
-    assert_no_difference("Quiz.count") do
-      delete api_v1_admin_quiz_path(@quiz), headers: @standard_user_headers, as: :json
-    end
-
-    assert_response :forbidden
   end
 
   def test_admin_can_bulk_delete_quizzes

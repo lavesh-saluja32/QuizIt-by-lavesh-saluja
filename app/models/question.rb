@@ -32,16 +32,24 @@ class Question < ApplicationRecord
   validate :validate_options_count
   validate :validate_only_one_correct_option
 
+  after_commit :mark_quiz_as_draft!, on: %i[create update]
   accepts_nested_attributes_for :options, allow_destroy: true
 
   def clone_question!
     cloned_question = deep_clone include: :options
     cloned_question.id = nil
+    cloned_question.quiz.update!(status: "draft") unless cloned_question.quiz.draft?
     cloned_question.save!
     cloned_question
   end
 
   private
+
+    def mark_quiz_as_draft!
+      return if quiz.draft?
+
+      quiz.update!(status: "draft")
+    end
 
     def validate_options_count
       if options.length < MIN_OPTIONS_PER_QUESTION
