@@ -27,6 +27,7 @@ const PageHeader = ({
 
   const quizMatch = useRouteMatch(routes.quiz.create);
   const questionMatch = useRouteMatch(routes.question.create);
+  const questionEditMatch = useRouteMatch(routes.question.edit);
 
   const handleUpdateQuizName = name =>
     updateQuiz({ quizId, payload: { name } });
@@ -35,7 +36,10 @@ const PageHeader = ({
     {
       label: t("link.quiz.questions"),
       to: buildUrl(routes.quiz.create, { quizId }),
-      isActive: questionMatch?.isExact || quizMatch?.isExact,
+      isActive:
+        questionMatch?.isExact ||
+        quizMatch?.isExact ||
+        questionEditMatch?.isExact,
     },
     {
       label: t("link.quiz.submissions"),

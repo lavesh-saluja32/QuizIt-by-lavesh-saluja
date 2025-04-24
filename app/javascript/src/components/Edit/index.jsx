@@ -63,7 +63,7 @@ const Edit = () => {
   if (isLoading) return <PageLoader />;
 
   return (
-    <div className="flex h-full w-screen flex-col overflow-hidden bg-slate-100">
+    <div className="flex h-full w-screen flex-col overflow-hidden overflow-y-scroll bg-slate-100">
       <PageHeader {...{ quiz, quizId }} />
       <div className="m-auto w-[50vw]">
         <QuestionForm

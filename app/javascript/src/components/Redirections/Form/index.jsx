@@ -19,12 +19,14 @@ import { checkCyclicError, getToUrl } from "../utils";
 
 const Form = ({ t }) => {
   const [data, setData] = useState([]);
+
   const [isCyclicError, setIsCyclicError] = useState(false);
   const [isAddRedirectionActive, setIsAddRedirectionActive] = useState(true);
 
   const {
     data: { data: redirections = [] } = {},
     isLoading: isRedirectionsLoading,
+    isFetching,
   } = useFetchRedirections();
 
   const { mutate: createRedirection, isPending } = useCreateRedirection();
@@ -53,12 +55,20 @@ const Form = ({ t }) => {
 
   const handleEdit = (redirectionId, values) => {
     const { fullUrl } = getToUrl(values.to);
+    const newEntry = {
+      ...values,
+      to: fullUrl || values.to,
+    };
+
+    if (checkCyclicError(data, newEntry)) {
+      setIsCyclicError(true);
+
+      return;
+    }
+
     updateRedirection({
       redirectionId,
-      payload: {
-        ...values,
-        to: fullUrl || values.to,
-      },
+      payload: newEntry,
     });
   };
 
@@ -74,7 +84,7 @@ const Form = ({ t }) => {
 
   useEffect(() => {
     setData(redirections);
-  }, [redirections]);
+  }, [redirections, isFetching]);
 
   if (isRedirectionsLoading) return <PageLoader />;
 
@@ -106,6 +116,7 @@ const Form = ({ t }) => {
               <NeetoForm
                 key={index}
                 formikProps={{
+                  enableReinitialize: true,
                   initialValues: { from, to },
                   validationSchema: getValidationSchema(t),
                   onSubmit: handleSubmit,
