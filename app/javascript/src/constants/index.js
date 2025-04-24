@@ -14,4 +14,6 @@ export const showSidebarRoutes = [
   routes.quiz.configureNotifications,
   routes.quiz.submissions,
   routes.quiz.create,
+  routes.question.create,
+  routes.question.edit,
 ];

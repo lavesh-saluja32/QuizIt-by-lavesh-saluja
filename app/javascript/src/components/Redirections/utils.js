@@ -36,10 +36,12 @@ export const getToUrl = value => {
   const trimmedValue = value.trim();
   const usePrefix = !hasSubdomain(trimmedValue) && isLikelyPath(trimmedValue);
 
-  const fullUrl = usePrefix
+  let fullUrl = usePrefix
     ? `${DOMAIN}${trimmedValue.startsWith("/") ? "" : "/"}${trimmedValue}`
     : trimmedValue;
 
+  // Add http:// if the URL doesn't start with http:// or https://
+  if (!fullUrl.startsWith("http://")) fullUrl = `http://${fullUrl}`;
   const isValid = extractDomain(fullUrl) === DOMAIN;
 
   return { fullUrl, isValid };

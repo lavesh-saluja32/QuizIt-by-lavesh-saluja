@@ -73,7 +73,7 @@ const Form = ({ t }) => {
   };
 
   useEffect(() => {
-    setData(redirections);
+    setData([...redirections]);
   }, [redirections]);
 
   if (isRedirectionsLoading) return <PageLoader />;
