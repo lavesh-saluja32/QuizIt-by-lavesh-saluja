@@ -33,7 +33,7 @@ const QuizVisibility = () => {
           <Form
             formikProps={{
               initialValues: {
-                enableQuizVisibility: quiz.isPublic,
+                enableQuizVisibility: quiz.isPublic && quiz.status !== "draft",
               },
               enableReinitialize: true,
               onSubmit: handleUpdate,
