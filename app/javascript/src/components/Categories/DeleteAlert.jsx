@@ -6,7 +6,7 @@ import {
   useFetchCategories,
   useDeleteCategory,
 } from "hooks/reactQuery/useCategories";
-import { Modal, Button, Typography } from "neetoui";
+import { Modal, Button, Typography, Callout } from "neetoui";
 import { Form, Select } from "neetoui/formik";
 import { Trans } from "react-i18next";
 
@@ -57,7 +57,8 @@ const DeleteAlert = ({
                 values={{ name }}
               />
             </Typography>
-            {quizzesCount > 0 && (
+            <Callout style="danger">{t("deleteAlert.categoryGeneral")}</Callout>
+            {quizzesCount > 0 && name !== "General" && (
               <div className="mt-4 flex items-center justify-center space-x-5 rounded-lg bg-red-100 p-5">
                 <Info color="red" size={30} />
                 <Typography className="text-red-500">
@@ -81,34 +82,38 @@ const DeleteAlert = ({
                 </Typography>
               </div>
             )}
-            {categories.length > 1 && quizzesCount > 0 && (
-              <Select
-                required
-                className="mt-5"
-                label={t("labels.categorySelect")}
-                name="category"
-                options={categories
-                  .filter(({ id: catId }) => catId !== id)
-                  .map(({ id, name }) => ({
-                    label: name,
-                    value: id,
-                  }))}
-              />
-            )}
+            {categories.length > 1 &&
+              quizzesCount > 0 &&
+              name !== "General" && (
+                <Select
+                  required
+                  className="mt-5"
+                  label={t("labels.categorySelect")}
+                  name="category"
+                  options={categories
+                    .filter(({ id: catId }) => catId !== id)
+                    .map(({ id, name }) => ({
+                      label: name,
+                      value: id,
+                    }))}
+                />
+              )}
           </Modal.Body>
-          <Modal.Footer className="float-left space-x-2">
-            <Button
-              label={t("button.proceed")}
-              loading={isPending}
-              style="danger"
-              type="submit"
-            />
-            <Button
-              label={t("button.cancel")}
-              style="text"
-              onClick={() => setIsDeleteAlertOpen(false)}
-            />
-          </Modal.Footer>
+          {name !== "General" && (
+            <Modal.Footer className="float-left space-x-2">
+              <Button
+                label={t("button.proceed")}
+                loading={isPending}
+                style="danger"
+                type="submit"
+              />
+              <Button
+                label={t("button.cancel")}
+                style="text"
+                onClick={() => setIsDeleteAlertOpen(false)}
+              />
+            </Modal.Footer>
+          )}
         </>
       </Form>
     </Modal>

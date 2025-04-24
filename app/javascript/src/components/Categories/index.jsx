@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import SettingsPageHeader from "components/commons/SettingsPageHeader";
 import {
   useFetchCategories,
   useReorderCategory,
@@ -34,6 +35,7 @@ const Categories = () => {
 
   return (
     <div className="h-full w-full overflow-y-scroll bg-slate-100">
+      <SettingsPageHeader />
       <Header
         {...{
           categoriesCount: categories.length,

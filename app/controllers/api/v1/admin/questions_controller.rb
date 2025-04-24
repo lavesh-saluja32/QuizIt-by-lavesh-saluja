@@ -24,6 +24,7 @@ class Api::V1::Admin::QuestionsController < ApplicationController
     ActiveRecord::Base.transaction do
       @question.options.destroy_all
       @question.update!(question_params)
+      @quiz.update!(status: "draft") unless @quiz.draft?
     end
   end
 
@@ -55,12 +56,6 @@ class Api::V1::Admin::QuestionsController < ApplicationController
       params.require(:question).permit(
         :question_text, :description, :quiz_id,
         options_attributes: [:option_text, :is_correct])
-    end
-
-    def update_params
-      params.require(:question).permit(
-        :question_text, :description,
-        options_attributes: [:id, :option_text, :is_correct, :_destroy])
     end
 
     def load_question!

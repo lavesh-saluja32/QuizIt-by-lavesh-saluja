@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 
 import { buildUrl } from "@bigbinary/neeto-commons-frontend/utils";
+import PageLoader from "components/commons/PageLoader";
 import { useShowQuiz } from "hooks/reactQuery/useQuizzes";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useLocation } from "react-router-dom";
@@ -34,7 +35,7 @@ const Edit = () => {
 
   const { mutate: updateQuestion } = useUpdateQuestion();
 
-  const { data: { data: { question = {} } = {} } = {} } =
+  const { data: { data: { question = {} } = {} } = {}, isLoading } =
     useShowQuestion(questionId);
 
   const initialValues = useMemo(
@@ -58,6 +59,8 @@ const Edit = () => {
   useEffect(() => {
     setCorrectOption(question?.options?.findIndex(option => option.isCorrect));
   }, [question]);
+
+  if (isLoading) return <PageLoader />;
 
   return (
     <div className="flex h-full w-screen flex-col overflow-hidden bg-slate-100">
