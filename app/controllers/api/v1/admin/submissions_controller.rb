@@ -11,6 +11,7 @@ class Api::V1::Admin::SubmissionsController < ApplicationController
   private
 
     def load_quiz!
-      @quiz = Quiz.find(params[:quiz_id])
+      puts
+      @quiz = @current_user.organization.quizzes.find(params[:quiz_id])
     end
 end

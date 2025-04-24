@@ -8,7 +8,7 @@ class Admin::QuizPolicy
   end
 
   def update?
-    user.id == quiz.user.id
+    user.organization_id == quiz.organization_id
   end
 
   def destroy?

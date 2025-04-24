@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_22_112809) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_24_083009) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -90,11 +90,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_22_112809) do
     t.uuid "organization_id"
     t.string "slug"
     t.boolean "is_public", default: true
-    t.boolean "is_time_enabled", default: false, null: false
+    t.boolean "is_timer_enabled", default: false, null: false
     t.integer "time", default: 0, null: false
-    t.boolean "shuffle_questions", default: false
-    t.boolean "shuffle_options", default: false
-    t.boolean "email_notification", default: false
+    t.boolean "is_shuffle_questions_enabled", default: false
+    t.boolean "is_shuffle_options_enabled", default: false
+    t.boolean "is_email_notification_enabled", default: false
     t.index ["category_id"], name: "index_quizzes_on_category_id"
     t.index ["organization_id"], name: "index_quizzes_on_organization_id"
     t.index ["slug"], name: "index_quizzes_on_slug", unique: true

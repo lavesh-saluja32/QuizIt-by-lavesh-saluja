@@ -4,11 +4,21 @@ class SubmissionService
   def initialize(submission, answer_params)
     @submission = submission
     @answers = answer_params[:answers] || []
+    @quiz = submission.quiz
   end
 
   def process
+    if @submission.quiz.is_timer_enabled
+      deadline = @submission.created_at + @submission.quiz.time.minutes + 10.seconds
+      if Time.current > deadline
+        return
+      end
+    end
     result = evaluate_answers
     persist_submission(result)
+    if @quiz.is_email_notification_enabled
+      QuizNotificationJob.perform_async(@submission.id)
+    end
     result.merge(answers: @answers.to_h.transform_keys(&:to_s))
   end
 

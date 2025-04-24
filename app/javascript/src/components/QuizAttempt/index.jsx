@@ -23,7 +23,7 @@ const QuizAttempt = () => {
   const { data: { data: { questions = [] } = {} } = {} } =
     useFetchQuestions(quizSlug);
   const { data: { data: quiz = {} } = {} } = useShowQuiz(quizSlug);
-  const isTimeEnabled = quiz?.isTimeEnabled;
+  const isTimeEnabled = quiz?.isTimerEnabled;
   const totalTime = quiz.time;
 
   const {

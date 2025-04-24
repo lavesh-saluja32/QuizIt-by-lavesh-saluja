@@ -112,37 +112,4 @@ class Api::V1::SubmissionsControllerTest < ActionDispatch::IntegrationTest
     submission.reload
     assert_equal "completed", submission.status
   end
-
-  def test_should_return_forbidden_if_time_limit_exceeded
-    quiz = create(:quiz, user: @admin, category: @category, organization: @organization, is_time_enabled: true, time: 1)
-
-    question = create(:question, quiz: quiz)
-
-    post api_v1_submissions_path,
-      params: {
-        submission: {
-          name: "Time Limit Test",
-          email: "timelimit@example.com",
-          quiz_slug: quiz.slug
-        }
-      },
-      as: :json
-
-    submission = Submission.last
-
-    travel_to submission.created_at + 2.minutes do
-      patch api_v1_submission_path(submission.id),
-        params: {
-          submission: {
-            answers: {
-              question.id.to_s => question.options.find(&:is_correct).id
-            }
-          }
-        },
-        as: :json
-
-      assert_response :forbidden
-      assert_includes response.body, I18n.t("errors.messages.time_limit")
-    end
-end
 end

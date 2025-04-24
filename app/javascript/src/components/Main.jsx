@@ -1,9 +1,8 @@
 import { showSidebarRoutes } from "constants";
 
-import React, { useEffect } from "react";
+import React from "react";
 
 import { PrivateRoute } from "@bigbinary/neeto-commons-frontend/react-utils";
-import { useRedirect } from "hooks/reactQuery/public/useRedirection";
 import { either, isEmpty, isNil } from "ramda";
 import { Route, Switch, useLocation, matchPath } from "react-router-dom";
 import { routes } from "routes";
@@ -17,17 +16,11 @@ const authToken = getFromLocalStorage("authToken");
 const isLoggedIn = !either(isNil, isEmpty)(authToken);
 
 const Main = () => {
-  const { mutate: redirect } = useRedirect();
-
   const location = useLocation();
 
   const shouldHideSidebar = showSidebarRoutes.some(path =>
     matchPath(location.pathname, { path, exact: true })
   );
-
-  useEffect(() => {
-    redirect({ from: window.location.href });
-  }, [location.pathname]);
 
   return (
     <div className="flex h-screen w-screen">

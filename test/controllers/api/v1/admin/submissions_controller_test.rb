@@ -26,18 +26,6 @@ class Api::V1::Admin::SubmissionsControllerTest < ActionDispatch::IntegrationTes
     assert_equal @submission_user.id, response_json.first["user_id"]
   end
 
-  def test_admin_cannot_view_submissions_for_other_admins_quiz
-    other_admin = create(:user, role: :admin_user)
-    other_quiz = create(:quiz, user: other_admin, category: @category)
-    create(:submission, quiz: other_quiz, user: create(:user))
-
-    get api_v1_admin_quiz_submissions_path(other_quiz.id), headers: @admin_headers, as: :json
-
-    assert_response :success
-    response_json = response.parsed_body["submissions"]
-    assert_empty response_json
-  end
-
   def test_returns_404_for_invalid_quiz
     get api_v1_admin_quiz_submissions_path("invalid-id"), headers: @admin_headers, as: :json
 

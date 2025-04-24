@@ -14,17 +14,15 @@ class Api::V1::Admin::QuestionsController < ApplicationController
     authorize([:admin, @question])
     Question.transaction do
      @question.save!
-     @quiz.update!(status: "draft") unless @quiz.draft?
    end
   end
 
   def update
     authorize([:admin, @question])
-
+    @quiz = @question.quiz
     ActiveRecord::Base.transaction do
       @question.options.destroy_all
       @question.update!(question_params)
-      @quiz.update!(status: "draft") unless @quiz.draft?
     end
   end
 
@@ -41,7 +39,6 @@ class Api::V1::Admin::QuestionsController < ApplicationController
     authorize([:admin, @question])
     Question.transaction do
       @question.clone_question!
-      @question.quiz.update!(status: "draft") unless @question.quiz.draft?
     end
     @question
   end
@@ -59,9 +56,6 @@ class Api::V1::Admin::QuestionsController < ApplicationController
     end
 
     def load_question!
-      @question = Question
-        .joins(quiz: :organization)
-        .where(id: params[:id], quizzes: { organization_id: @current_user.organization_id })
-        .first!
+      @question = Question.find(params[:id])
     end
 end

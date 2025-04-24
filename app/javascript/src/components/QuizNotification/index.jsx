@@ -20,7 +20,7 @@ const QuizNotification = () => {
   const handleUpdate = values => {
     updateQuiz({
       quizId,
-      payload: { emailNotification: values.enableNotification },
+      payload: { isEmailNotificationEnabled: values.enableNotification },
     });
   };
 
@@ -33,7 +33,7 @@ const QuizNotification = () => {
           <Form
             formikProps={{
               initialValues: {
-                enableNotification: quiz.emailNotification,
+                enableNotification: quiz.isEmailNotificationEnabled,
               },
               enableReinitialize: true,
               onSubmit: handleUpdate,

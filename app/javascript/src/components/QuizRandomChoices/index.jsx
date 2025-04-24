@@ -21,8 +21,8 @@ const QuizRandomChoices = () => {
     updateQuiz({
       quizId,
       payload: {
-        shuffleOptions: values.enableRandomChoices,
-        shuffleQuestions: values.enableRandomQuestions,
+        isShuffleOptionsEnabled: values.enableRandomChoices,
+        isShuffleQuestionsEnabled: values.enableRandomQuestions,
       },
     });
   };
@@ -36,8 +36,8 @@ const QuizRandomChoices = () => {
           <Form
             formikProps={{
               initialValues: {
-                enableRandomChoices: quiz.shuffleOptions,
-                enableRandomQuestions: quiz.shuffleQuestions,
+                enableRandomChoices: quiz.isShuffleOptionsEnabled,
+                enableRandomQuestions: quiz.isShuffleQuestionsEnabled,
               },
               enableReinitialize: true,
               onSubmit: handleUpdate,

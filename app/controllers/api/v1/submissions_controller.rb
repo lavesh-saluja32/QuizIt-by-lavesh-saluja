@@ -18,19 +18,8 @@ class Api::V1::SubmissionsController < ApplicationController
 
   def update
     authorize @submission
-    if @submission.quiz.is_time_enabled
-      deadline = @submission.created_at + @submission.quiz.time.minutes + 10.seconds
-      if Time.current > deadline
-        render_error(I18n.t("errors.messages.time_limit"), :forbidden)
-        return
-      end
-    end
     @user_answers = SubmissionService.new(@submission, update_params).process[:answers]
     @questions = @submission.quiz.questions.includes(:options)
-    @quiz = @submission.quiz
-    if @quiz.email_notification
-      QuizNotificationJob.perform_async(params[:id])
-    end
   end
 
   def show
