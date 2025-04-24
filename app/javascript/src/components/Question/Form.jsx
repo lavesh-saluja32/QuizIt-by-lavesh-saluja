@@ -66,6 +66,7 @@ const QuestionForm = ({
           )}
           <QuestionInput />
           <FormikEditor
+            addons={["undo", "redo"]}
             initialValue={initialQuestion.description}
             label={t("labels.description")}
             name="description"

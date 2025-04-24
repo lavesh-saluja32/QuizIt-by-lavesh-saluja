@@ -121,6 +121,7 @@
     }
   },
   "validation": {
+    "visibility": "Unpublished quiz cannot be made public!",
     "cycle": " Cycle detected in your redirections.",
     "required": "This field is required",
     "emailInvalid": "Please enter a valid email address",
@@ -192,7 +193,8 @@
     "categoryDeleteSubheader": "You are permanently deleting the <strong>{{name}}</strong> Category. This action cannot be undone. Are your sure you wish to continue?",
     "categoryDeleteAlertOne": "Category <strong>{{name}}</strong> has {{count}} quiz. Before this category can be deleted, these quizzes needs to be moved to another category?",
     "categoryDeleteAlertOther": "Category <strong>{{name}}</strong> has {{count}} quizzes. Before this category can be deleted, these quizzes needs to be moved to another category?",
-    "lastCategoryAlert": "All quizzes under that <strong>{{name}}</strong> will be moved to a new category called General"
+    "lastCategoryAlert": "All quizzes under that <strong>{{name}}</strong> will be moved to a new category called General",
+    "categoryGeneral": "General category cannot be deleted"
   },
   "subheader": {
     "filters": {
@@ -252,7 +254,8 @@
       "buttonTitle": "Add timer for the entire quiz",
       "buttonDescription": "Set a time limit for candidates to complete the quiz",
       "hours": "Hours",
-      "minutes": "Minutes"
+      "minutes": "Minutes",
+      "warning": "Changing the quiz timing will affect users who are currently attempting the quiz!"
     },
     "questions": {
       "title": "Questions & options",

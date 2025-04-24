@@ -69,6 +69,7 @@ const Form = ({ t }) => {
   const handleRemoveEntry = () => {
     setData(previousData => previousData.slice(0, previousData.length - 1));
     setIsCyclicError(false);
+    setIsAddRedirectionActive(true);
   };
 
   useEffect(() => {

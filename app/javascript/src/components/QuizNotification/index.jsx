@@ -14,7 +14,7 @@ const QuizNotification = () => {
   const { quizId } = useParams();
 
   const { t } = useTranslation();
-  const { data: { data: { quiz = {} } = {} } = {} } = useShowQuiz(quizId);
+  const { data: { data: quiz = {} } = {} } = useShowQuiz(quizId);
   const { mutate: updateQuiz, isPending } = useUpdateQuiz();
 
   const handleUpdate = values => {
