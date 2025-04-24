@@ -11,6 +11,6 @@ class QuizNotificationJob
       submission.user.name,
       submission.user.email,
       submission.correct_answers
-        ).deliver_later
+        ).deliver_now
   end
 end
