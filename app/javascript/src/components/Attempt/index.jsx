@@ -56,6 +56,10 @@ const QuizAttempt = () => {
   }, [timeLeft, isTimeEnabled]);
 
   useEffect(() => {
+    setQuestionNumber(0);
+  }, []);
+
+  useEffect(() => {
     setTimeLeft(calculateTimeLeft(startedAt, totalTime));
   }, [startedAt, totalTime]);
 

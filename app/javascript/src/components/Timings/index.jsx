@@ -3,7 +3,7 @@ import React from "react";
 import ToggleFeatureCard from "@bigbinary/neeto-molecules/ToggleFeatureCard";
 import PageHeader from "components/Quiz/PageHeader";
 import { useShowQuiz, useUpdateQuiz } from "hooks/reactQuery/useQuizzes";
-import { Button } from "neetoui";
+import { Button, Callout } from "neetoui";
 import { Form, Input } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -63,23 +63,28 @@ const QuizTimings = () => {
                   title={t("configure.timing.buttonTitle")}
                 />
                 {values.enableQuizTiming && (
-                  <div className="mt-6 flex space-x-6">
-                    <Input
-                      className="w-1/2"
-                      label={t("configure.timing.hours")}
-                      min={MINIMUM_TIME}
-                      name="hours"
-                      type="number"
-                    />
-                    <Input
-                      className="w-1/2"
-                      label={t("configure.timing.minutes")}
-                      max={MAXIMUM_TIME}
-                      min={MINIMUM_TIME}
-                      name="minutes"
-                      type="number"
-                    />
-                  </div>
+                  <>
+                    <Callout style="warning">
+                      {t("configure.timing.warning")}
+                    </Callout>
+                    <div className="mt-6 flex space-x-6">
+                      <Input
+                        className="w-1/2"
+                        label={t("configure.timing.hours")}
+                        min={MINIMUM_TIME}
+                        name="hours"
+                        type="number"
+                      />
+                      <Input
+                        className="w-1/2"
+                        label={t("configure.timing.minutes")}
+                        max={MAXIMUM_TIME}
+                        min={MINIMUM_TIME}
+                        name="minutes"
+                        type="number"
+                      />
+                    </div>
+                  </>
                 )}
                 <div className="mt-8 flex space-x-3">
                   <Button

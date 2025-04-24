@@ -3,7 +3,7 @@ import React from "react";
 import ToggleFeatureCard from "@bigbinary/neeto-molecules/ToggleFeatureCard";
 import PageHeader from "components/Quiz/PageHeader";
 import { useShowQuiz, useUpdateQuiz } from "hooks/reactQuery/useQuizzes";
-import { Button } from "neetoui";
+import { Button, Callout } from "neetoui";
 import { Form, Input } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -57,6 +57,12 @@ const QuizTimings = () => {
           >
             {({ dirty, values }) => (
               <>
+                <div className="p-1">
+                  <Callout style="warning">
+                    {" "}
+                    {t("configure.timing.warning")}
+                  </Callout>
+                </div>
                 <ToggleFeatureCard
                   description={t("configure.timing.buttonDescription")}
                   switchName="enableQuizTiming"
