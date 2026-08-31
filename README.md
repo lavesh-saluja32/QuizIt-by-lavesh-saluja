@@ -9,7 +9,7 @@ First clone this repo.
 Then install the [Node.js](https://nodejs.org) version `v22.13` which we have
 specified inside the `.node-version` file of this repo., using the following
 command:
-
+lks
 ```bash
 nvm install
 ```
