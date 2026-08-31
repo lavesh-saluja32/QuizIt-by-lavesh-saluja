@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby "3.3.5"
+ruby "3.3.10"
 
 gem "rails", "~> 7.1.3.4"
 gem "sprockets"

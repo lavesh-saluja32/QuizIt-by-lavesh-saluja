@@ -136,7 +136,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_24_083009) do
     t.uuid "organization_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"
-    t.check_constraint "role::text = ANY (ARRAY['admin_user'::character varying::text, 'standard_user'::character varying::text])", name: "check_user_role"
+    t.check_constraint "role::text = ANY (ARRAY['admin_user'::character varying, 'standard_user'::character varying]::text[])", name: "check_user_role"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
